@@ -1,0 +1,75 @@
+@layer components {
+  /* Navbar */
+  .navbar-sticky header,
+  .navbar-floating header {
+    @apply sticky top-0 z-20;
+  }
+  .navbar-floating header {
+    @apply bg-[#fafafa]/90 px-6 pt-4 dark:bg-[#060818]/90;
+  }
+  .navbar-floating header > div .horizontal-menu {
+    @apply rounded-b-md shadow;
+  }
+
+  /* Horizontal layouts */
+  .horizontal .horizontal-menu {
+    @apply hidden shadow-md lg:flex;
+  }
+  .horizontal .horizontal-logo {
+    @apply flex;
+  }
+  .horizontal .collapse-icon {
+    @apply flex lg:hidden;
+  }
+
+  .horizontal .nav-item a div:first-child svg,
+  .horizontal .nav-item button div:first-child svg {
+    @apply w-5 h-5 text-black/50 dark:text-white/50;
+  }
+
+  .horizontal .dark .nav-item button div:first-child svg,
+  .dark.horizontal .nav-item button div:first-child svg {
+    @apply text-white/50;
+  }
+
+  .horizontal-menu .nav-link {
+    @apply flex items-center py-2.5 px-2 rounded-lg hover:bg-[#000]/[0.08] hover:text-black dark:hover:bg-[#181f32] dark:hover:text-white-dark xl:px-4;
+  }
+
+  .horizontal-menu .nav-link.active {
+    @apply bg-[#000]/[0.08] text-black dark:bg-[#181f32] dark:text-white-dark;
+  }
+
+  .horizontal-menu ul.sub-menu {
+    @apply absolute top-full z-[10] min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow dark:bg-[#1b2e4b] dark:text-white-dark;
+    display: none !important;
+  }
+
+  .horizontal-menu ul.sub-menu a,
+  .horizontal-menu ul.sub-menu button {
+    @apply flex items-center justify-between px-4 py-2 hover:bg-gray-100 hover:text-primary dark:hover:bg-primary/10 w-full;
+  }
+
+  .horizontal-menu ul.sub-menu a.active,
+  .horizontal-menu ul.sub-menu button.active {
+    @apply bg-gray-100 text-primary dark:bg-primary/10;
+  }
+
+  .horizontal-menu > li.nav-item:hover > ul.sub-menu,
+  .horizontal-menu > li.nav-item > ul.sub-menu > li:hover > ul {
+    display: block !important;
+  }
+
+  /* Hide all nested submenus by default */
+  .horizontal-menu ul.sub-menu li > ul {
+    display: none !important;
+  }
+  .horizontal-menu ul.sub-menu li:hover > ul {
+    display: block !important;
+  }
+
+  .vertical.toggle-sidebar .horizontal-logo,
+  .vertical.toggle-sidebar .collapse-icon {
+    @apply flex;
+  }
+}

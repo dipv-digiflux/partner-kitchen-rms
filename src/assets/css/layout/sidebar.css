@@ -1,0 +1,115 @@
+@layer components {
+  /* Sidebar */
+  .sidebar:hover .nav-item > a {
+    @apply w-auto;
+  }
+
+  .sidebar .nav-item > button,
+  .sidebar .nav-item > a {
+    @apply mb-1 flex items-center justify-between overflow-hidden whitespace-nowrap rounded-md p-2.5 text-[#506690] hover:bg-[#000]/[0.08] hover:text-black dark:hover:bg-[#181f32] dark:hover:text-white-dark w-full;
+  }
+  .sidebar .nav-item > button.active,
+  .sidebar .nav-item > a.active {
+    @apply bg-[#000]/[0.08] text-black dark:bg-[#181f32] dark:text-white-dark;
+  }
+
+  .sidebar .nav-item > button.active > div > span,
+  .sidebar .nav-item > a.active > div > span {
+    @apply dark:!text-white-dark;
+  }
+
+  .sidebar ul.sub-menu li button,
+  .sidebar ul.sub-menu li a {
+    @apply flex items-center px-9 py-2.5 before:h-0.5 before:w-2 before:rounded before:bg-gray-300 hover:bg-gray-100
+      hover:text-primary hover:before:!bg-primary ltr:before:mr-2 rtl:before:ml-2 dark:before:bg-gray-500 dark:hover:bg-gray-900 dark:hover:text-primary;
+  }
+  .sidebar ul.sub-menu li button.active,
+  .sidebar ul.sub-menu li a.active {
+    @apply text-primary before:bg-primary;
+  }
+
+  .sidebar .nav-item a div:first-child svg,
+  .sidebar .nav-item button div:first-child svg {
+    @apply w-5 h-5 text-black/50 dark:text-white/50;
+  }
+
+  /* Vertical layouts */
+  .vertical .sidebar {
+    @apply ltr:-left-[260px] rtl:-right-[260px] lg:ltr:left-0 lg:rtl:right-0;
+  }
+  .vertical.toggle-sidebar .sidebar {
+    @apply ltr:left-0 rtl:right-0 lg:ltr:-left-[260px] lg:rtl:-right-[260px];
+  }
+
+  /* Collapsible vertical layouts */
+  .collapsible-vertical .sidebar {
+    @apply hover:w-[260px] ltr:-left-[260px] rtl:-right-[260px] lg:w-[70px] lg:ltr:left-0 lg:rtl:right-0;
+  }
+  .collapsible-vertical.toggle-sidebar .sidebar {
+    @apply ltr:left-0 rtl:right-0;
+  }
+  .collapsible-vertical.toggle-sidebar .sidebar {
+    @apply lg:w-[260px];
+  }
+  .collapsible-vertical.toggle-sidebar .sidebar .nav-item > a {
+    @apply w-auto;
+  }
+
+  .collapsible-vertical .sidebar .sub-menu {
+    @apply lg:hidden;
+  }
+  .collapsible-vertical .sidebar:hover .sub-menu,
+  .collapsible-vertical .sidebar:hover .sub-menu.recent-submenu,
+  .collapsible-vertical.toggle-sidebar .sidebar .sub-menu {
+    @apply block;
+  }
+
+  .collapsible-vertical .sidebar .collapse-icon,
+  .collapsible-vertical .main-logo > span {
+    @apply transition-opacity duration-300 lg:opacity-0;
+  }
+  .collapsible-vertical .sidebar:hover .collapse-icon,
+  .collapsible-vertical.toggle-sidebar .collapse-icon,
+  .collapsible-vertical .sidebar:hover .main-logo > span,
+  .collapsible-vertical.toggle-sidebar .main-logo > span {
+    @apply duration-500 lg:opacity-100;
+  }
+  .collapsible-vertical.toggle-sidebar .sidebar .collapse-icon {
+    @apply flex rotate-0;
+  }
+  .collapsible-vertical .sidebar:hover .collapse-icon {
+    @apply flex rotate-180;
+  }
+  .collapsible-vertical .sidebar ul > h2 span {
+    @apply hidden whitespace-nowrap;
+  }
+  .collapsible-vertical .sidebar ul > h2 svg {
+    @apply block;
+  }
+  .collapsible-vertical .sidebar:hover ul > h2 span,
+  .collapsible-vertical.toggle-sidebar .sidebar ul > h2 span {
+    @apply inline;
+  }
+  .collapsible-vertical .sidebar:hover ul > h2 svg,
+  .collapsible-vertical.toggle-sidebar .sidebar ul > h2 svg {
+    @apply hidden;
+  }
+
+  /* Horizontal - sidebar hidden on desktop, slide in from left on mobile */
+  .horizontal .sidebar {
+    @apply ltr:-left-[260px] rtl:-right-[260px] lg:hidden;
+  }
+  .horizontal.toggle-sidebar .sidebar {
+    @apply ltr:left-0 rtl:right-0 lg:hidden block;
+    width: 260px !important;
+  }
+
+  .boxed-layout.vertical .sidebar,
+  .boxed-layout.collapsible-vertical .sidebar {
+    @apply overflow-hidden lg:ltr:left-auto lg:rtl:right-auto;
+  }
+
+  .boxed-layout.vertical.toggle-sidebar .sidebar {
+    @apply lg:w-0;
+  }
+}

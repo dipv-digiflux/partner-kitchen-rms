@@ -1,0 +1,37 @@
+.calendly-container {
+  /* Prevent scrolling on the container itself */
+  overflow: hidden !important;
+  position: relative;
+}
+
+/* Ensure iframe doesn't cause container scroll */
+.calendly-container iframe {
+  display: block;
+  border: none;
+}
+
+/* Style the Calendly widget wrapper to prevent scroll */
+.calendly-container :global(.calendly-inline-widget) {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+/* Note: Since Calendly uses an iframe, internal scrolling is handled by Calendly's own CSS.
+   The widget should automatically make time slots scrollable while keeping the calendar fixed.
+   We've reduced the container height to 450px to make it more compact. */
+
+.booking-kit_spot-picker-title_13079760.booking-kit_spot-picker-title-is-tablet-down_7175992d {
+  display: none !important;
+}
+
+.booking-kit_spot-picker-title_13079760 {
+  display: none !important;
+}
+
+#calendly-container::-webkit-scrollbar {
+  display: none !important;
+}
+
+.calendly-inline-widget iframe {
+  overflow: hidden !important;
+}

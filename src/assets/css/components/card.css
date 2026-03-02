@@ -1,0 +1,30 @@
+@layer components {
+  .card {
+    @apply border bg-white rounded-xl shadow-[0_2px_4px_-1px_rgba(0,0,0,0.06),0_4px_6px_-1px_rgba(0,0,0,0.1)] border-[#e0e6ed] overflow-hidden;
+    :is(.dark &) {
+      @apply bg-[#191e3a] border-[#1b2e4b];
+    }
+
+    .card-header,
+    .card-footer {
+      @apply px-5 min-h-14;
+      @apply flex items-center justify-between gap-2.5;
+      @apply border-[#e0e6ed];
+      :is(.dark &) {
+        @apply border-[#1b2e4b];
+      }
+
+      &.card-header {
+        @apply border-b text-base font-semibold;
+      }
+
+      &.card-footer {
+        @apply border-t;
+      }
+    }
+
+    .card-body {
+      @apply p-5;
+    }
+  }
+}

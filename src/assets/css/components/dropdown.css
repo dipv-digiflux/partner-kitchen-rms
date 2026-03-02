@@ -1,0 +1,22 @@
+@layer components {
+  /* dropdown */
+  .dropdown {
+    @apply relative;
+  }
+  .dropdown > button {
+    @apply flex;
+  }
+  .dropdown ul {
+    @apply my-1 min-w-[120px] rounded bg-white p-0 py-2 shadow text-black;
+  }
+  :is(.dark .dropdown ul) {
+    @apply bg-[#1b2e4b] text-white-dark;
+  }
+  .dropdown ul li > a,
+  .dropdown ul li > button {
+    @apply flex items-center px-4 py-2 hover:bg-primary/10 hover:text-primary;
+  }
+  .dropdown ul li > button {
+    @apply w-full;
+  }
+}

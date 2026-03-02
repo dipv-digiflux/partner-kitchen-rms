@@ -1,0 +1,48 @@
+@layer components {
+  /* Badge */
+  .badge {
+    @apply relative my-1 rounded border border-transparent px-2 py-0.5 text-xs font-semibold text-white;
+  }
+  .badge-outline-primary {
+    @apply border-primary text-primary hover:bg-primary-light;
+  }
+  :is(.dark .badge-outline-primary):hover {
+    @apply bg-primary text-white-light;
+  }
+  .badge-outline-secondary {
+    @apply border-secondary text-secondary hover:bg-secondary-light;
+  }
+  :is(.dark .badge-outline-secondary):hover {
+    @apply bg-secondary text-white-light;
+  }
+  .badge-outline-success {
+    @apply border-success text-success hover:bg-success-light;
+  }
+  :is(.dark .badge-outline-success):hover {
+    @apply bg-success text-white-light;
+  }
+  .badge-outline-danger {
+    @apply border-danger text-danger hover:bg-danger-light;
+  }
+  :is(.dark .badge-outline-danger):hover {
+    @apply bg-danger text-white-light;
+  }
+  .badge-outline-warning {
+    @apply border-warning text-warning hover:bg-warning-light;
+  }
+  :is(.dark .badge-outline-warning):hover {
+    @apply bg-warning text-white-light;
+  }
+  .badge-outline-info {
+    @apply border-info text-info hover:bg-info-light;
+  }
+  :is(.dark .badge-outline-info):hover {
+    @apply bg-info text-white-light;
+  }
+  .badge-outline-dark {
+    @apply border-dark text-dark hover:bg-dark-light;
+  }
+  :is(.dark .badge-outline-dark):hover {
+    @apply bg-dark text-white-light;
+  }
+}

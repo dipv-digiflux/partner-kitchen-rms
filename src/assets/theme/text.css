@@ -1,0 +1,123 @@
+@theme inline {
+  /* new */
+  --text-fs-size-50: 50px;
+  --text-fs-line-50: 54px;
+  --text-fs-spacing-50: -0.02em;
+
+  --text-fs-size-44: 44px;
+  --text-fs-line-44: 56px;
+  --text-fs-spacing-44: -0.02em;
+
+  --text-fs-size-38: 38px;
+  --text-fs-line-38: 38px;
+  --text-fs-spacing-38: -0.02em;
+
+  --text-fs-size-34: 34px;
+  --text-fs-line-34: 34px;
+  --text-fs-line-detail-34: 42px;
+  --text-fs-spacing-34: -0.02em;
+
+  --text-fs-size-30: 30px;
+  --text-fs-spacing-30: -0.02em;
+
+  --text-fs-size-28: 28px;
+  --text-fs-spacing-28: -0.01em;
+
+  --text-fs-size-26: 26px;
+  --text-fs-line-26: 26px;
+  --text-fs-spacing-26: -0.01em;
+
+  --text-fs-size-24: 24px;
+  --text-fs-line-24: 24px;
+  --text-fs-spacing-24: -0.01em;
+
+  --text-fs-size-22: 22px;
+  --text-fs-line-detail-22: 38px;
+  --text-fs-spacing-22: -0.01em;
+
+  --text-fs-size-20: 20px;
+  --text-fs-line-detail-20: 30px;
+  --text-fs-spacing-20: 0em;
+
+  --text-fs-size-18: 18px;
+  --text-fs-line-18: 18px;
+  --text-fs-line-detail-18: 30px;
+  --text-fs-spacing-18: -0.01em;
+  --text-fs-spacing-detail-18: 0em;
+
+  --text-fs-size-16: 16px;
+  --text-fs-line-16: 16px;
+  --text-fs-line-detail-16: 25px;
+  --text-fs-spacing-16: 0em;
+
+  --text-fs-size-15: 15px;
+  --text-fs-line-detail-15: 24px;
+  --text-fs-spacing-15: 0em;
+
+  --text-fs-size-14: 14px;
+  --text-fs-line-14: 21px;
+  --text-fs-line-detail-14: 22px;
+  --text-fs-spacing-14: 0em;
+
+  --text-fs-size-13: 13px;
+  --text-fs-line-13: 14px;
+  --text-fs-line-detail-13: 20px;
+  --text-fs-spacing-13: 0em;
+
+  --text-fs-size-12: 12px;
+  --text-fs-line-12: 12px;
+  --text-fs-spacing-12: 0em;
+
+  --text-fs-size-11: 11px;
+  --text-fs-line-11: 12px;
+  --text-fs-spacing-11: 0em;
+
+  --text-fs-size-10: 10px;
+  --text-fs-line-10: 10px;
+  --text-fs-spacing-10: -0.03em;
+
+  --text-fs-size-9: 9px;
+  --text-fs-line-9: 10px;
+  --text-fs-spacing-9: -0.03em;
+}
+
+@utility fs-* {
+  font-size: --value(--text-fs-size-*);
+  line-height: --value(--text-fs-line-*, 1);
+  letter-spacing: --value(--text-fs-spacing-*);
+
+  /* For Details */
+  &.lh-detail {
+    line-height: --value(--text-fs-line-detail-*);
+    letter-spacing: --value(--text-fs-spacing-detail-*);
+  }
+}
+
+@utility text-body {
+  color: var(--color-body);
+}
+
+@utility text-heading {
+  color: var(--color-black);
+  font-weight: 700;
+}
+
+/***************************/
+/******* Text Styles *******/
+/***************************/
+
+@layer base {
+  body {
+    @apply text-body fs-14 font-inter font-normal;
+  }
+
+  /* html element style */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-heading;
+  }
+}

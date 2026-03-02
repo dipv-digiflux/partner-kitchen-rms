@@ -1,0 +1,116 @@
+@theme {
+  /* Primary brand */
+  --color-primary-main: #101610;
+
+  /* Light / Fill */
+  --color-light-fill-text-primary: #000000;
+
+  /* Text primary */
+  --color-text-primary-default: #030712;
+  --color-text-primary-hover: #111827;
+  --color-text-primary-active: #1f2937;
+  --color-text-primary-disabled: #9ca3af;
+
+  /* Text secondary */
+  --color-text-secondary-default: #64748b;
+  --color-text-secondary-hover: #475569;
+  --color-text-secondary-disabled: #94a3b8;
+  --color-text-secondary-active: #0ea5a4;
+
+  /* Icon primary */
+  --color-icon-primary-default: #4b5563;
+  --color-icon-primary-hover: #374151;
+  --color-icon-primary-active: #1f2937;
+  --color-icon-primary-disabled: #9ca3af;
+
+  /* Icon secondary */
+  --color-icon-secondary-default: #64748b;
+  --color-icon-secondary-hover: #475569;
+  --color-icon-secondary-active: #1e293b;
+  --color-icon-secondary-disabled: #94a3b8;
+
+  /* Surfaces */
+  --color-surface-primary: #f8fafc;
+  --color-surface-hover: #e2e8f0;
+  --color-surface-active: #cbd5e1;
+  --color-surface-pressed: #e2e8f0;
+  --color-surface-focus: #eef2f6;
+  --color-surface-disabled: #f1f5f9;
+
+  /* Surface secondary */
+  --color-surface-secondary-default: #f9fafb;
+  --color-surface-secondary-hover: #e5e7eb;
+  --color-surface-secondary-active: #d1d5db;
+  --color-surface-secondary-pressed: #e5e7eb;
+  --color-surface-secondary-focused: #f2f3f6;
+  --color-surface-secondary-disabled: #f3f4f6;
+
+  /* Surface subtle */
+  --color-surface-subtle-default: #fafafa;
+  --color-surface-subtle-hover: #e5e5e5;
+  --color-surface-subtle-active: #d4d4d4;
+  --color-surface-subtle-pressed: #e5e5e5;
+  --color-surface-subtle-focused: #f4f1f1;
+  --color-surface-subtle-disabled: #f5f5f5;
+
+  /* State surfaces */
+  --color-states-outline: #ebebeb;
+  --color-states-fill-1: #f5f6f5;
+  --color-states-fill-2: #fdfdfd;
+  --color-states-divider: #f3f3f3;
+
+  /* Borders primary */
+  --color-border-primary-default: #d1d5db;
+  --color-border-primary-hover: #9ca3af;
+  --color-border-primary-active: #6b7280;
+  --color-border-primary-focused: #9ca3af;
+  --color-border-primary-disabled: #f3f4f6;
+
+  /* Borders secondary */
+  --color-border-secondary-default: #cbd5e1;
+  --color-border-secondary-hover: #94a3b8;
+  --color-border-secondary-active: #64748b;
+  --color-border-secondary-focused: #94a3b8;
+  --color-border-secondary-disabled: #f1f5f9;
+
+  /* Other text & primary second */
+  --color-text-primary-alt-default: #030712;
+  --color-primary-second-text: #585c58;
+
+  /* Semantic - warning */
+  --color-warning-surface: #ffedf1;
+  --color-warning-text: #ea0c10;
+  --color-warning-border: #e23134;
+  --color-warning-icon: #e64043;
+
+  /* Semantic - success */
+  --color-success-surface: #dcfce7;
+  --color-success-text: #15803d;
+  --color-success-border: #16a34a;
+  --color-success-icon: #17a24a;
+
+  /* Accent palette */
+  --color-accent-orange-light: #fff7ed;
+  --color-accent-orange-dark: #ea580c;
+  --color-accent-blue-dark: #2563eb;
+  --color-accent-blue-light: #e5ebfa;
+  --color-accent-golden-light: #faf3e3;
+  --color-accent-golden-dark: #d5c191;
+  --color-accent-pink-light: #fff6fa;
+  --color-accent-pink-dark: #dc2777;
+  --color-accent-teal-dark: #1b5d69;
+  --color-accent-teal-light: #f2fdff;
+  --color-accent-royal-blue: #0f0fa9;
+  --color-accent-medium-dark-blue: #5c6cf2;
+  --color-accent-blue-navy: #0e2e6b;
+  --color-accent-deep-blue: #123c8c;
+  --color-accent-yellow-mustard: #eab308;
+  --color-accent-yellow-mustard: #ffffffb2;
+
+  /* Base */
+  --color-white: #ffffff;
+  --color-zinc-200: #e4e4e7;
+  --color-slate-800: #1e293b;
+  --color-neutral-950: #0f1724;
+  --color-border-gray-00000014: #00000014;
+}
