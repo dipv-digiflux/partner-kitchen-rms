@@ -1,24 +1,69 @@
 import { privateHookStore } from '@/lib/utils/hookStore'
 import { CommonAjaxProps, JsonObject, JsonValue } from '@/types/commonAjax.types'
+import type { CrudRequestAction, CustomCrudUrls, ModuleMode } from '@/types/commonCrud.types'
 import { CommonCrudApi, CommonCrudConfig, CommonCrudStateGeneric, CrudHandler } from '@/types/commonCrud.types'
 import { Store } from '@tanstack/store'
 import { commonAjax } from './commonAjax'
 import { createCommonCrudHandler } from './hooks/CommonHandler.hooks'
 
-export const createCommonCrud = <TRecord = JsonObject>({ apiName, apiUrl, pageTitle, ...otherArg }: CommonCrudConfig<TRecord>): CommonCrudApi<TRecord> => {
+const METHOD_TYPES: Record<string, 'GET' | 'POST' | 'PATCH' | 'DELETE'> = {
+  ADD: 'POST',
+  EDIT: 'PATCH',
+  DELETE: 'DELETE',
+}
+
+function getActionFromRequest(method: string, moduleMode: string | undefined, id: string | number | undefined, isListRequest: boolean): CrudRequestAction {
+  if (method === 'POST') return 'create'
+  if (method === 'PATCH') return 'update'
+  if (method === 'DELETE') return 'delete'
+  if (method === 'GET') {
+    if (isListRequest) return 'list'
+    if (id != null && moduleMode === 'EDIT') return 'fetch'
+  }
+  return 'list'
+}
+
+const ACTION_TO_CUSTOM_KEY: Record<CrudRequestAction, keyof CustomCrudUrls> = {
+  list: 'list',
+  create: 'create',
+  fetch: 'getOne',
+  update: 'update',
+  delete: 'delete',
+}
+
+function applyCustomUrl(urlTemplate: string, id: string | number | undefined): string {
+  if (id == null) return urlTemplate
+  return urlTemplate.replace(/:id/g, String(id))
+}
+
+export const createCommonCrud = <TRecord = JsonObject>({ apiName, apiUrl, pageTitle, customUrls, getRequestUrl, ...otherArg }: CommonCrudConfig<TRecord>): CommonCrudApi<TRecord> => {
   const { initialState = {}, reducers = {}, crudApi = {} } = otherArg ?? {}
 
-  // for common call api axios
   const moduleAjaxApi: CommonCrudApi<TRecord>['AjaxApi'] = <TResponse = unknown>(arg: CommonAjaxProps<JsonObject, TResponse>) => {
     const { moduleMode, selectedRecord } = API.moduleState.state.commonCrud || {}
-    const id = (selectedRecord as JsonObject)?.id
-    const url = moduleMode && ['EDIT', 'DELETE'].includes(moduleMode) ? `${API.apiUrl}/${id}` : API.apiUrl
-    const methodTypes: Record<string, string> = { ADD: 'POST', EDIT: 'PATCH', DELETE: 'DELETE' }
+    const id = (selectedRecord as JsonObject)?.id as string | number | undefined
+    const method = ((arg.type || METHOD_TYPES[moduleMode ?? '']) ?? 'GET') as 'GET' | 'POST' | 'PATCH' | 'DELETE'
+    const isListRequest = Boolean(arg.data && ('page' in arg.data || 'limit' in arg.data))
+    const action = getActionFromRequest(method, moduleMode, id, isListRequest)
 
-    // Use user provided url if available, otherwise use default url
-    const requestUrl = arg.url || url
+    const defaultUrl = !isListRequest && moduleMode && ['EDIT', 'DELETE'].includes(moduleMode) && id != null ? `${API.apiUrl}/${id}` : API.apiUrl
+    const customTemplate = customUrls?.[ACTION_TO_CUSTOM_KEY[action]]
+    const url =
+      arg.url ??
+      (customTemplate ? applyCustomUrl(customTemplate, id) : undefined) ??
+      getRequestUrl?.({
+        action,
+        apiName: API.apiName,
+        apiUrl: API.apiUrl,
+        method,
+        id,
+        data: arg.data as JsonObject | undefined,
+        moduleMode: moduleMode as ModuleMode | undefined,
+        selectedRecord: selectedRecord as JsonObject | undefined,
+      }) ??
+      defaultUrl
 
-    return commonAjax<JsonObject, TResponse>({ ...arg, url: requestUrl, type: (arg.type || methodTypes[moduleMode!]) ?? 'GET' })
+    return commonAjax<JsonObject, TResponse>({ ...arg, url, type: method })
   }
 
   // main api reference store all handler and crud data and state

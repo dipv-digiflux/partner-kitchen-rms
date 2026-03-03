@@ -77,8 +77,6 @@ export default tseslint.config(
       'no-restricted-syntax': [
         'error',
 
-
-
         // Hooks restriction
         {
           selector: 'FunctionDeclaration[id.name=/^use[A-Z]/]',

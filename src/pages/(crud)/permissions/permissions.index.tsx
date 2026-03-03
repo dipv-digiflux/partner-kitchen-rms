@@ -1,11 +1,13 @@
 import { AddRecord, DeleteRecord, EditRecord } from '@/components/crud/commonCrud/CommonElement/CommonAction'
 import { CommonCrudView } from '@/components/crud/commonCrud/CommonElement/CommonCrudView'
 import { CommonFilterSearch } from '@/components/crud/commonCrud/CommonElement/CommonFilter'
+import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/CommonFormElement'
 import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
 import { JsonObject } from '@/types/commonAjax.types'
 import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
+import { PermissionsForm } from './PermissionsFormContent'
 
 const columnHelper = createColumnHelper<JsonObject>()
 
@@ -68,6 +70,8 @@ const PermissionsContent = () => {
           <CommonCrudView columns={columns} />
         </div>
       </div>
+
+      <CommonFormElement form={PermissionsForm} />
     </div>
   )
 }

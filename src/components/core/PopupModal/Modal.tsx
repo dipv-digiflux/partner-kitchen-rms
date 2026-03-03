@@ -7,10 +7,7 @@ export const Modal = ({ open, onClose, children, title, className }: ModalProps)
   <DialogPrimitive.Root open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className="modal-backdrop" />
-      <DialogPrimitive.Content
-        className={cn('modal modal-md', className)}
-        onInteractOutside={(e) => e.preventDefault()}
-      >
+      <DialogPrimitive.Content className={cn('modal modal-md', className)} onInteractOutside={(e) => e.preventDefault()}>
         <div className="card flex flex-col h-full">
           <div className="card-header flex-shrink-0">
             <DialogPrimitive.Title asChild>

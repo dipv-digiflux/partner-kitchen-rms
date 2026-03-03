@@ -4,7 +4,13 @@ export interface Routes {
   signup: string
   dashboard: string
   user: string
-  event: string
   permissions: string
-  addPermission: string
+  recipe: string
+  recipeForm: string
+  weeklyMenu: string
+  weeklyMenuForm: string
+  vendorDashboard: string
+  productionReportSummary: string
+  productionReportList: string
+  recipeRatings: string
 }

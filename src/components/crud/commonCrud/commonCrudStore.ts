@@ -1,21 +1,10 @@
-import urls from '@/router/urls'
+import { getCrudConfigFromModules } from '@/config/crudModules.config'
 import { JsonObject } from '@/types/commonAjax.types'
-import { CommonCrudApi, CrudConfigItem } from '@/types/commonCrud.types'
+import { CommonCrudApi } from '@/types/commonCrud.types'
 import { createCommonCrud } from './createCommonCrud'
 
-/**
- * only create config object for dynamic crud create
- */
-const crudConfig: Record<string, CrudConfigItem> = {
-  user: { apiUrl: '/user', pageTitle: 'User', permissionsName: urls.user.permissionName },
-  permissions: {
-    apiUrl: '/permissions',
-    pageTitle: 'Permission',
-    permissionsName: urls.permissions.permissionName,
-    formMode: 'PAGE',
-    routes: { Form: urls.permissionsForm.url, pageRoute: urls.permissions.url },
-  },
-}
+/** CRUD config from central config – see src/config/crudModules.config.ts */
+const crudConfig = getCrudConfigFromModules()
 
 /**
  * website load time no api create

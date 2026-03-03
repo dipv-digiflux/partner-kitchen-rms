@@ -1,16 +1,17 @@
 /**
- * this file is for permission name and url
+ * URL + permission for each route. CRUD URLs come from config (one source); rest listed here.
  */
+import { getCrudUrls } from '@/config/crudModules.config'
 
-const urls = {
-  // Dashboard
+const NON_CRUD_URLS = {
   dashboard: { url: '/', permissionName: 'dashboard' },
-
-  // User Management
-  user: { url: '/user', permissionName: 'user' },
-  permissions: { url: '/permissions', permissionName: 'permission' },
-  permissionsForm: { url: '/permissions/add', permissionName: 'permission' },
+  vendorDashboard: { url: '/vendor-dashboard', permissionName: 'vendor_dashboard' },
+  productionReportSummary: { url: '/reports/production-summary', permissionName: 'reports' },
+  productionReportList: { url: '/reports/production-list', permissionName: 'reports' },
+  recipeRatings: { url: '/recipe-ratings', permissionName: 'recipe_ratings' },
 } as const
+
+const urls = { ...NON_CRUD_URLS, ...getCrudUrls() } as const
 
 export const urlPermissionObject = Object.entries(urls).reduce(
   (acc, [, value]) => {

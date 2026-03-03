@@ -10,7 +10,24 @@ export interface ValidationError {
 
 export type RegularExpressionType = 'email' | 'int' | 'number' | 'alphabetical' | 'alphanumeric' | 'panCard' | 'percentage' | 'url'
 
-export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' | 'textarea' | 'select' | 'checkbox' | 'radio' | 'date' | 'time' | 'datetime-local' | 'file' | 'month' | 'otp'
+export type InputType =
+  | 'text'
+  | 'email'
+  | 'password'
+  | 'number'
+  | 'tel'
+  | 'url'
+  | 'search'
+  | 'textarea'
+  | 'select'
+  | 'checkbox'
+  | 'radio'
+  | 'date'
+  | 'time'
+  | 'datetime-local'
+  | 'file'
+  | 'month'
+  | 'otp'
 
 export interface OptionalRequiredConditionType {
   name: string

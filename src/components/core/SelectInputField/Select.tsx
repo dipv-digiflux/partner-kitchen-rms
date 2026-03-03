@@ -15,7 +15,7 @@ export const Select = ({ value, onChange, options, onBlur, placeholder, ...atr }
   }, [options])
 
   const handleOnchange = (option: unknown) => {
-    const value = option ? (option as OptionType).value : ''
+    const value = option ? (Array.isArray(option) ? option.map((item) => item.value) : (option as OptionType).value) : ''
     onChange(value)
   }
 
@@ -24,7 +24,7 @@ export const Select = ({ value, onChange, options, onBlur, placeholder, ...atr }
       isClearable
       styles={customStyles}
       placeholder={placeholder}
-      value={optionsObject[value]}
+      value={Array.isArray(value) ? value.map((item) => optionsObject[item]) : optionsObject[value]}
       onChange={handleOnchange}
       options={options}
       onBlur={onBlur}

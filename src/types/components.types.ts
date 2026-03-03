@@ -39,8 +39,9 @@ export interface OptionType {
 }
 
 export interface SelectProps {
-  value: string | number
-  onChange: (value: string | number) => void
+  value: string | number | (string | number)[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: (value: any) => void
   options: OptionType[]
   onBlur?: () => void
   placeholder?: string

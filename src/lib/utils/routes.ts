@@ -6,7 +6,14 @@ export const appRoutes: Routes = {
   signup: '/signup',
   dashboard: '/dashboard',
   user: '/user',
-  event: '/event',
   permissions: '/permissions',
-  addPermission: '/permissions/add',
+  // Vendor Kitchen Platform
+  recipe: '/recipe',
+  recipeForm: '/recipe/add',
+  weeklyMenu: '/weekly-menu',
+  weeklyMenuForm: '/weekly-menu/add',
+  vendorDashboard: '/vendor-dashboard',
+  productionReportSummary: '/reports/production-summary',
+  productionReportList: '/reports/production-list',
+  recipeRatings: '/recipe-ratings',
 }

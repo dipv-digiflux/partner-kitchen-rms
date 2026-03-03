@@ -34,7 +34,7 @@ axiosApi.interceptors.response.use(
 
     // page not found
     if (status && [404].includes(status)) {
-      privateHookStore.navigate?.('/NotFound')
+      // privateHookStore.navigate?.('/NotFound')
     }
 
     // network error show

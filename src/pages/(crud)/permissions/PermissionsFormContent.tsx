@@ -1,11 +1,11 @@
-import { PageFormWrapper } from '@/components/crud/commonCrud/CommonElement/PageFormWrapper'
+import { Modal } from '@/components/core/PopupModal/Modal'
 import { FormField } from '@/components/crud/commonHelper/formValidation/FormField'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
 import { JsonObject } from '@/types/commonAjax.types'
 import { CrudFormProps } from '@/types/modulePages.types'
 import { FieldValues, FormProvider, useForm } from 'react-hook-form'
 
-export const PermissionsForm = ({ isUpdateRecord, fetchRecord, isViewRecord }: CrudFormProps) => {
+export const PermissionsForm = ({ isUpdateRecord, fetchRecord, isViewRecord, toggle }: CrudFormProps) => {
   const API = useModuleApi()
   const { useSubmitHandler } = API.crudApi.crudHandler
 
@@ -36,7 +36,7 @@ export const PermissionsForm = ({ isUpdateRecord, fetchRecord, isViewRecord }: C
   const title = `${API.pageTitle} ${isViewRecord ? 'View' : isUpdateRecord ? 'Update' : 'Add'}`
 
   return (
-    <PageFormWrapper title={title}>
+    <Modal open={true} onClose={toggle} className="modal-md" title={title}>
       <FormProvider {...formApi}>
         <form onSubmit={handleSubmit(submitHandler)} className="space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -91,6 +91,6 @@ export const PermissionsForm = ({ isUpdateRecord, fetchRecord, isViewRecord }: C
           )}
         </form>
       </FormProvider>
-    </PageFormWrapper>
+    </Modal>
   )
 }

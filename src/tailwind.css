@@ -41,7 +41,7 @@
   --color-info-light: #e7f7ff;
   --color-info-dark-light: rgba(33, 150, 243, 0.15);
 
-  --color-dark:#3b3f5c;
+  --color-dark: #3b3f5c;
   --color-dark-light: #eaeaec;
   --color-dark-dark-light: rgba(59, 63, 92, 0.15);
 
@@ -51,7 +51,7 @@
 
   --color-white: #ffffff;
   --color-white-light: #e0e6ed;
-  --color-white-dark:#888ea8;
+  --color-white-dark: #888ea8;
 
   --spacing-4-5: 18px;
 
@@ -126,8 +126,8 @@
 }
 
 /* perfect scrollbar */
-.ps__rail-y>.ps__thumb-y,
-.ps__rail-y>.ps__thumb-y {
+.ps__rail-y > .ps__thumb-y,
+.ps__rail-y > .ps__thumb-y {
   @apply !w-1.5 !bg-[#DDDDDD] !bg-[#2d334c];
 }
 

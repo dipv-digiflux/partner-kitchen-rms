@@ -44,11 +44,11 @@ const SignupBox = () => {
 
             <div className="mt-8 text-center">
               <p className="text-icon-secondary-disabled fs-14 font-normal">
-                {translation.ALREADY_HAVE_A_VERIFIED_ACCOUNT} <span className="text-text-secondary-active cursor-pointer font-semibold fs-14 hover:underline">
+                {translation.ALREADY_HAVE_A_VERIFIED_ACCOUNT}{' '}
+                <span className="text-text-secondary-active cursor-pointer font-semibold fs-14 hover:underline">
                   <Link to={appRoutes.login} className="text-text-secondary-active font-semibold hover:underline">
                     {translation.SIGN_IN}
                   </Link>
-
                 </span>
               </p>
             </div>

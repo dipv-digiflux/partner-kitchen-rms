@@ -5,6 +5,33 @@ import { Control, FieldValues, UseFormReturn } from 'react-hook-form'
 
 export type ModuleMode = 'ADD' | 'EDIT' | 'DELETE'
 
+/** CRUD action for which the request is being made. */
+export type CrudRequestAction = 'list' | 'create' | 'update' | 'fetch' | 'delete'
+
+/**
+ * Simple custom URLs per action. Use :id in the string for getOne/update/delete – it gets replaced with the record id.
+ * Only set the ones that differ from default (list/create = apiUrl, getOne/update/delete = apiUrl/:id).
+ */
+export interface CustomCrudUrls {
+  list?: string
+  create?: string
+  getOne?: string
+  update?: string
+  delete?: string
+}
+
+/** Props passed to getRequestUrl (advanced). moduleMode + selectedRecord so you have full context. */
+export interface GetRequestUrlProps {
+  action: CrudRequestAction
+  apiName: string
+  apiUrl: string
+  method: 'GET' | 'POST' | 'PATCH' | 'DELETE'
+  id?: string | number
+  data?: JsonObject
+  moduleMode?: ModuleMode
+  selectedRecord?: JsonObject
+}
+
 export interface CrudConfigItem {
   apiUrl: string
   pageTitle: string
@@ -14,6 +41,10 @@ export interface CrudConfigItem {
     Form?: string
     pageRoute?: string
   }
+  /** Simple: override URLs per action. Use :id for getOne/update/delete. */
+  customUrls?: CustomCrudUrls
+  /** Advanced: function that returns URL (use when customUrls is not enough). */
+  getRequestUrl?: (props: GetRequestUrlProps) => string
 }
 
 export type CommonCrudBaseState<TRecord> = {
@@ -42,6 +73,10 @@ export interface CommonCrudConfig<TRecord = JsonObject> {
     Form?: string
     pageRoute?: string
   }
+  /** Simple: override URLs per action. Use :id for getOne/update/delete. */
+  customUrls?: CustomCrudUrls
+  /** Advanced: function that returns URL (use when customUrls is not enough). */
+  getRequestUrl?: (props: GetRequestUrlProps) => string
   initialState?: Partial<CommonCrudStateGeneric<TRecord>>
   reducers?: Record<string, CrudActionHandler<TRecord>>
   crudApi?: Partial<CrudApiConfig>
