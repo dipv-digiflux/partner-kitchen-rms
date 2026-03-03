@@ -49,24 +49,11 @@ const FormElement = ({ type, name, newRules, register, control, inputId, require
   if (!type || !name) return null
 
   if (type == 'otp') {
-    return (
-      <Controller
-        name={name}
-        control={control}
-        rules={newRules}
-        render={({ field: { onChange, value } }) => (
-          <OtpInput
-            value={value}
-            onChange={onChange}
-            length={6}
-          />
-        )}
-      />
-    )
+    return <Controller name={name} control={control} rules={newRules} render={({ field: { onChange, value } }) => <OtpInput value={value} onChange={onChange} length={6} />} />
   }
 
   if (type == 'textarea') {
-    return <textarea rows={4} {...register(name, newRules)} placeholder={placeholder} id={inputId} {...atr} className={cn('form-control', required && 'required-border', atr?.className)} />
+    return <textarea rows={4} {...register(name, newRules)} placeholder={placeholder} id={inputId} {...atr} className={cn('form-textarea', required && 'required-border', atr?.className)} />
   }
 
   if (type == 'select') {

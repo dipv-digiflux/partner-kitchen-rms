@@ -44,7 +44,7 @@ export const CommonCrudView = <TRecord extends JsonObject>({ columns }: { column
   return (
     <>
       <div className="rounded-md">
-        <div className="table-wrapper border-0">
+        <div className="table-wrapper border-0 w-full overflow-auto">
           <CommonCrudTable />
         </div>
         <CommonCrudTablePagination />
