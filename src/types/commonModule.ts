@@ -7,8 +7,4 @@ export interface Routes {
   event: string
   permissions: string
   addPermission: string
-  showcase: string
-  verifyUser: string
-  bookingSchedule: string
-  accountVerification: string
 }

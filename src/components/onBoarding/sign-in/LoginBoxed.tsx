@@ -25,10 +25,12 @@ const LoginBoxed = () => {
             </div>
 
             <FormProvider {...methods}>
-              <form onSubmit={methods.handleSubmit((data) => {
-                console.log(data)
-                navigate(appRoutes.accountVerification)
-              })}>
+              <form
+                onSubmit={methods.handleSubmit((data) => {
+                  console.log(data)
+                  navigate(appRoutes.home)
+                })}
+              >
                 <div>
                   <FormField
                     name="emailOrPhone"

@@ -9,8 +9,4 @@ export const appRoutes: Routes = {
   event: '/event',
   permissions: '/permissions',
   addPermission: '/permissions/add',
-  showcase: '/showcase',
-  verifyUser: '/verify-user',
-  bookingSchedule: '/booking-schedule',
-  accountVerification: '/account-verification',
 }

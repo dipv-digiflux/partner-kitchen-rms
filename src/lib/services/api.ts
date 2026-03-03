@@ -29,7 +29,7 @@ axiosApi.interceptors.response.use(
 
     // not authorize
     if (status && [401, 403].includes(status)) {
-      privateHookStore.navigate?.('/login')
+      // privateHookStore.navigate?.('/login')
     }
 
     // page not found
