@@ -1,13 +1,11 @@
 import { AddRecord, DeleteRecord, EditRecord } from '@/components/crud/commonCrud/CommonElement/CommonAction'
-import { CommonCrudTable, CommonCrudTablePagination } from '@/components/crud/commonCrud/CommonElement/CommonCrudTable'
+import { CommonCrudView } from '@/components/crud/commonCrud/CommonElement/CommonCrudView'
 import { CommonFilterSearch } from '@/components/crud/commonCrud/CommonElement/CommonFilter'
 import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/CommonFormElement'
-import { getSearchParams, setSearchPrams } from '@/components/crud/commonHelper/SearchParams'
 import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
-import { useModuleApi } from '@/lib/hooks/useModuleApi'
 import { JsonObject } from '@/types/commonAjax.types'
-import { createColumnHelper, getCoreRowModel, PaginationState, useReactTable } from '@tanstack/react-table'
+import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
 import { UserForm } from './UserForm'
 
@@ -75,37 +73,6 @@ const UserContent = () => {
     [],
   )
 
-  const API = useModuleApi<JsonObject>()
-  const {
-    crudApi: {
-      crudHandler: { useDataHandler },
-    },
-  } = API
-
-  const { data } = useDataHandler()
-  const moduleData = (data?.data || { result: [], totalRecords: 0 }) as { result: JsonObject[]; totalRecords: number }
-
-  const { page = 1, limit = 10 } = getSearchParams<{ page?: number; limit?: number }>()
-
-  // tanstack table
-  API.moduleRef.tableRef = useReactTable({
-    data: (moduleData && moduleData.result) ?? [],
-    pageCount: Math.ceil(((moduleData.totalRecords as number) || 0) / limit),
-    columns: allColumns,
-    state: {
-      pagination: {
-        pageIndex: Number(page) - 1,
-        pageSize: limit,
-      },
-    },
-    manualPagination: true,
-    getCoreRowModel: getCoreRowModel(),
-    onPaginationChange: (updater) => {
-      const { pageIndex, pageSize } = typeof updater === 'function' ? (updater as (props: PaginationState) => PaginationState)({ pageIndex: Number(page) - 1, pageSize: limit }) : updater
-      setSearchPrams({ page: Number(pageIndex) + 1, limit: pageSize })
-    },
-  })
-
   return (
     <div>
       <ModuleBreadCrumb pageTitle={'User'}>
@@ -118,8 +85,7 @@ const UserContent = () => {
         </div>
         <div className="card-body p-4">
           <div className="p-0 overflow-hidden">
-            <CommonCrudTable />
-            <CommonCrudTablePagination />
+            <CommonCrudView columns={allColumns} />
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ export const AddRecord = () => {
   if (!hasPermission) return null
 
   return (
-    <button className="btn btn-primary" onClick={() => addRecordHandler()}>
+    <button className="btn btn-primary cursor-pointer" onClick={() => addRecordHandler()}>
       Add {API.pageTitle}
     </button>
   )
@@ -24,7 +24,7 @@ export const EditRecord = ({ id }: { id: string | number }) => {
   if (!hasPermission) return null
 
   return (
-    <button className="btn btn-sm btn-outline btn-primary p-2" title={`Edit ${API.pageTitle}`} onClick={() => editRecordHandler({ data: { id } })}>
+    <button className="btn btn-sm btn-outline btn-primary p-2 cursor-pointer" title={`Edit ${API.pageTitle}`} onClick={() => editRecordHandler({ data: { id } })}>
       <Pencil size={13} />
     </button>
   )
@@ -38,7 +38,7 @@ export const DeleteRecord = ({ id }: { id: string | number }) => {
   if (!hasPermission) return null
 
   return (
-    <button className="btn btn-sm btn-outline btn-danger p-2" title={`Delete ${API.pageTitle}`} onClick={() => deleteRecordHandler({ data: { id } })}>
+    <button className="btn btn-sm btn-outline btn-danger p-2 cursor-pointer" title={`Delete ${API.pageTitle}`} onClick={() => deleteRecordHandler({ data: { id } })}>
       <Trash size={13} />
     </button>
   )

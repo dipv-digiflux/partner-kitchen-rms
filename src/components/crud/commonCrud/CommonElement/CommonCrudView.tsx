@@ -43,7 +43,7 @@ export const CommonCrudView = <TRecord extends JsonObject>({ columns }: { column
 
   return (
     <>
-      <div className="border rounded-md">
+      <div className="rounded-md">
         <div className="table-wrapper border-0">
           <CommonCrudTable />
         </div>
