@@ -35,7 +35,7 @@ export const FormField = ({ name, type = 'text', label, errorName, rules, valida
   }
 
   return (
-    <div className="w-full">
+    <div className={cn('w-full', type === 'checkbox' && 'form-field--has-checkbox')}>
       <Label label={label} inputId={inputId} />
       <FormElement {...{ ...FormElementProps }} />
       <ErrorMessage errors={errors} name={name} render={({ message }: { message: string }) => <p className="text-danger fs-12 mt-1 ms-1">{message}</p>} />
@@ -83,6 +83,22 @@ const FormElement = ({ type, name, newRules, register, control, inputId, require
     )
   }
 
+  if (type == 'checkbox') {
+    const { className: atrClassName, ...restAtr } = (atr || {}) as React.HTMLAttributes<HTMLInputElement> & Record<string, unknown>
+    return (
+      <label className="w-12 h-6 relative mt-1.5 block">
+        <input
+          {...register(name, newRules)}
+          type="checkbox"
+          id={inputId}
+          className={cn('custom_switch absolute w-full h-full opacity-0 z-10 cursor-pointer peer', atrClassName)}
+          {...restAtr}
+        />
+        <span className="bg-[#ebedf2] dark:bg-dark block h-full rounded-full before:absolute before:left-1 before:bg-white dark:before:bg-white-dark dark:peer-checked:before:bg-white before:bottom-1 before:w-4 before:h-4 before:rounded-full peer-checked:before:left-7 peer-checked:bg-primary before:transition-all before:duration-300" />
+      </label>
+    )
+  }
+
   return (
     <Input
       {...register(name, newRules)}
@@ -90,7 +106,7 @@ const FormElement = ({ type, name, newRules, register, control, inputId, require
       placeholder={placeholder}
       id={inputId}
       {...atr}
-      className={cn('form-control', required && type !== 'checkbox' && 'required-border', type == 'checkbox' && 'form-switch', atr?.className)}
+      className={cn('form-control', required && 'required-border', atr?.className)}
     />
   )
 }
