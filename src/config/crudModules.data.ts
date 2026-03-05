@@ -62,4 +62,14 @@ export const CRUD_MODULES_DATA: Record<string, CrudModuleInput> = {
     menuLabel: 'Weekly Menu',
     menuIcon: 'calendar',
   },
+
+  // new
+  category: {
+    apiUrl: '/category',
+    pageTitle: 'Category',
+    permissionName: 'category',
+    formMode: 'MODAL',
+    menuLabel: 'Category',
+    menuIcon: 'pages',
+  },
 }

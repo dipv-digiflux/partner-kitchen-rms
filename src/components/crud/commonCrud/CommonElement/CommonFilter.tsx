@@ -90,7 +90,7 @@ export const CommonFilterActionButton = () => {
   )
 }
 
-export const CommonFilterSearch = () => {
+export const CommonFilterSearch = ({ name = 'search', placeholder = 'Search..' }: { name?: string; placeholder?: string }) => {
   const API = useModuleApi()
   const {
     crudHandler: { useFilterSubmitHandler },
@@ -102,7 +102,7 @@ export const CommonFilterSearch = () => {
   const formApi = useForm<any>({
     mode: 'all',
     defaultValues: {
-      search: (filterData && (filterData as JsonObject).search) ?? '',
+      [name]: (filterData && (filterData as JsonObject)[name]) ?? '',
     },
   })
 
@@ -116,7 +116,7 @@ export const CommonFilterSearch = () => {
   return (
     <FormProvider {...formApi}>
       <form onSubmit={formApi.handleSubmit(onSubmit)}>
-        <FormField name={'search'} placeholder={'Search..'} disabled={isFetching > 0} />
+        <FormField name={name} placeholder={placeholder} disabled={isFetching > 0} />
       </form>
     </FormProvider>
   )

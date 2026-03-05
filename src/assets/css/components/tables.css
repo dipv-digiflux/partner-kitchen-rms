@@ -39,7 +39,7 @@
   }
 
   table.table-striped tbody tr:nth-child(odd) {
-    @apply !bg-white-light/20;
+    @apply !bg-white-light/10;
   }
   :is(.dark table.table-striped tbody tr:nth-child(odd)) {
     @apply !bg-[#1a2941]/40;

@@ -9,6 +9,7 @@ export interface Routes {
   recipeForm: string
   weeklyMenu: string
   weeklyMenuForm: string
+  category: string
   vendorDashboard: string
   productionReportSummary: string
   productionReportList: string

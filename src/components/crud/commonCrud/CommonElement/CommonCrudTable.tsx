@@ -16,7 +16,7 @@ export const CommonCrudTable = () => {
 
   return (
     <div>
-      <table className="table">
+      <table className="table table-striped table-hover">
         <thead>
           {table.getHeaderGroups().map((headerGroup: HeaderGroup<JsonObject>) => (
             <tr key={headerGroup.id}>

@@ -65,7 +65,8 @@ export interface BreadCrumbItem {
 }
 
 export interface ModuleBreadCrumbProps {
-  pageTitle: string
+  /** If not passed, uses API.pageTitle from ModuleContext (when inside a CRUD module). */
+  pageTitle?: string
   breadCrumbs?: BreadCrumbItem[]
   children?: React.ReactNode
 }
