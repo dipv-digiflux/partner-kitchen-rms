@@ -4,12 +4,12 @@ import { CommonFilterSearch } from '@/components/crud/commonCrud/CommonElement/C
 import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/CommonFormElement'
 import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
-import { JsonObject } from '@/types/commonAjax.types'
+import type { UserPayload } from '@/types/payload/user.payload'
 import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
 import { UserForm } from './UserForm'
 
-const columnHelper = createColumnHelper<JsonObject>()
+const columnHelper = createColumnHelper<UserPayload>()
 
 const UserContent = () => {
   // Define all available columns
@@ -31,7 +31,7 @@ const UserContent = () => {
       }),
       columnHelper.accessor('full_name', {
         header: 'Name',
-        cell: (info) => <span>{info.getValue() as string}</span>,
+        cell: (info) => <span>{info.getValue()}</span>,
       }),
       columnHelper.accessor('email', {
         header: 'Email',
@@ -63,8 +63,8 @@ const UserContent = () => {
         header: 'Action',
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
-            <EditRecord id={row.original._id as string} />
-            <DeleteRecord id={row.original._id as string} />
+            <EditRecord id={row.original._id} />
+            <DeleteRecord id={row.original._id} />
           </div>
         ),
         size: 150,

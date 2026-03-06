@@ -2,19 +2,20 @@ import { Modal } from '@/components/core/PopupModal/Modal'
 import { commonAjax } from '@/components/crud/commonCrud/commonAjax'
 import { FormField } from '@/components/crud/commonHelper/formValidation/FormField'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
-import { JsonObject } from '@/types/commonAjax.types'
-import { OptionType } from '@/types/components.types'
-import { CrudFormProps } from '@/types/modulePages.types'
+import type { JsonObject } from '@/types/commonAjax.types'
+import type { OptionType } from '@/types/components.types'
+import type { CrudFormProps } from '@/types/modulePages.types'
+import type { UserPayload } from '@/types/payload/user.payload'
 import { useQuery } from '@tanstack/react-query'
-import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 
-export const UserForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle }: CrudFormProps) => {
+export const UserForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle }: CrudFormProps<UserPayload>) => {
   const API = useModuleApi()
   const { useSubmitHandler } = API.crudApi.crudHandler
 
-  const formApi = useForm({
+  const formApi = useForm<UserPayload>({
     mode: 'all',
-    defaultValues: (fetchRecord as FieldValues) || {},
+    defaultValues: fetchRecord ?? {},
   })
 
   const { handleSubmit, watch } = formApi
@@ -30,10 +31,10 @@ export const UserForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle }: 
     },
   })
 
-  const { isPending, mutate } = useSubmitHandler()
+  const { isPending, mutate } = useSubmitHandler<UserPayload>()
 
-  const submitHandler = (data: FieldValues) => {
-    mutate({ data: data as JsonObject, control: formApi.control })
+  const submitHandler = (data: UserPayload) => {
+    mutate({ data, control: formApi.control })
   }
 
   return (

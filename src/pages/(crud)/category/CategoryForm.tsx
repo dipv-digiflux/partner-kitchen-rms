@@ -1,24 +1,24 @@
 import { Modal } from '@/components/core/PopupModal/Modal'
 import { FormField } from '@/components/crud/commonHelper/formValidation/FormField'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
-import { JsonObject } from '@/types/commonAjax.types'
 import { CrudFormProps } from '@/types/modulePages.types'
-import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import type { CategoryPayload } from '@/types/payload/category.payload'
+import { FormProvider, useForm } from 'react-hook-form'
 
-export const CategoryForm = ({ isUpdateRecord, fetchRecord, toggle }: CrudFormProps) => {
+export const CategoryForm = ({ isUpdateRecord, fetchRecord, toggle }: CrudFormProps<CategoryPayload>) => {
   const API = useModuleApi()
   const { useSubmitHandler } = API.crudApi.crudHandler
 
-  const formApi = useForm<FieldValues>({
+  const formApi = useForm<CategoryPayload>({
     mode: 'all',
-    defaultValues: (fetchRecord as FieldValues) || {},
+    defaultValues: fetchRecord ?? {},
   })
 
   const { handleSubmit } = formApi
-  const { isPending, mutate } = useSubmitHandler()
+  const { isPending, mutate } = useSubmitHandler<CategoryPayload>()
 
-  const submitHandler = (data: FieldValues) => {
-    mutate({ data: data as JsonObject, control: formApi.control })
+  const submitHandler = (data: CategoryPayload) => {
+    mutate({ data, control: formApi.control })
   }
 
   const title = `${API.pageTitle} ${isUpdateRecord ? 'Edit' : 'Add'}`

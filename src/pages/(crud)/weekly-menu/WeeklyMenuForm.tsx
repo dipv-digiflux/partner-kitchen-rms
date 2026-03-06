@@ -1,24 +1,24 @@
 import { Modal } from '@/components/core/PopupModal/Modal'
 import { FormField } from '@/components/crud/commonHelper/formValidation/FormField'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
-import { JsonObject } from '@/types/commonAjax.types'
 import { CrudFormProps } from '@/types/modulePages.types'
-import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import type { WeeklyMenuPayload } from '@/types/payload/weekly-menu.payload'
+import { FormProvider, useForm } from 'react-hook-form'
 
-export const WeeklyMenuForm = ({ isUpdateRecord, fetchRecord, toggle }: CrudFormProps) => {
+export const WeeklyMenuForm = ({ isUpdateRecord, fetchRecord, toggle }: CrudFormProps<WeeklyMenuPayload>) => {
   const API = useModuleApi()
   const { useSubmitHandler } = API.crudApi.crudHandler
 
-  const formApi = useForm<FieldValues>({
+  const formApi = useForm<WeeklyMenuPayload>({
     mode: 'all',
-    defaultValues: (fetchRecord as FieldValues) || {},
+    defaultValues: fetchRecord ?? {},
   })
 
   const { handleSubmit } = formApi
-  const { isPending, mutate } = useSubmitHandler()
+  const { isPending, mutate } = useSubmitHandler<WeeklyMenuPayload>()
 
-  const submitHandler = (data: FieldValues, finalize = false) => {
-    mutate({ data: { ...data, finalize } as JsonObject, control: formApi.control })
+  const submitHandler = (data: WeeklyMenuPayload, finalize = false) => {
+    mutate({ data: { ...data, finalize }, control: formApi.control })
   }
 
   const title = `${API.pageTitle} ${isUpdateRecord ? 'Edit' : 'Add'}`

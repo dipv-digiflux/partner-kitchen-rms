@@ -12,13 +12,13 @@ import { Control, FieldValues } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
 
 // <* ===========  Submit form  ========= *>
-const useSubmitHandler = ({
+const useSubmitHandler = <TFieldValues extends FieldValues = FieldValues>({
   apiName,
   mutationKey = [],
 }: {
   apiName: string
   mutationKey?: string[]
-}): UseMutationResult<unknown, unknown, { data: JsonObject; control: Control<FieldValues> }, unknown> => {
+}): UseMutationResult<unknown, unknown, { data: JsonObject; control: Control<TFieldValues> }, unknown> => {
   const Api = getCommonCrudApi(apiName)
   const state = Api.moduleState.state.commonCrud
   const moduleMode = state?.moduleMode
@@ -29,7 +29,7 @@ const useSubmitHandler = ({
   Api.crudApi.queryKeys['submitHandlerKey'] = queryKey
 
   // Submit form data
-  const submitHandle = ({ data: formData, control }: { data: JsonObject; control: Control<FieldValues> }) => {
+  const submitHandle = ({ data: formData, control }: { data: JsonObject; control: Control<TFieldValues> }) => {
     const data = { action, ...selectedRecord, ...formData }
 
     // form error handler
@@ -179,7 +179,7 @@ const useDeleteRecordHandler = ({ apiName, mutationKey = [] }: { apiName: string
 
 export const createCommonCrudHandler = ({ apiName }: { apiName: string }) => {
   return {
-    useSubmitHandler: (arg = {}) => useSubmitHandler({ apiName, ...arg }),
+    useSubmitHandler: <TFieldValues extends FieldValues = FieldValues>(arg = {}) => useSubmitHandler<TFieldValues>({ apiName, ...arg }),
     useFilterSubmitHandler: (arg = {}) => useFilterSubmitHandler({ apiName, ...arg }),
     useDataHandler: (arg = {}) => useDataHandler({ apiName, ...arg }),
     addRecordHandler: (arg = {}) => addRecordHandler({ apiName, ...arg }),

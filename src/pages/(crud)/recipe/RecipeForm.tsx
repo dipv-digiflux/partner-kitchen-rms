@@ -1,24 +1,24 @@
 import { PageFormWrapper } from '@/components/crud/commonCrud/CommonElement/PageFormWrapper'
 import { FormField } from '@/components/crud/commonHelper/formValidation/FormField'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
-import { JsonObject } from '@/types/commonAjax.types'
 import { CrudFormProps } from '@/types/modulePages.types'
-import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import type { RecipePayload } from '@/types/payload/recipe.payload'
+import { FormProvider, useForm } from 'react-hook-form'
 
-export const RecipeForm = ({ isUpdateRecord, fetchRecord }: CrudFormProps) => {
+export const RecipeForm = ({ isUpdateRecord, fetchRecord }: CrudFormProps<RecipePayload>) => {
   const API = useModuleApi()
   const { useSubmitHandler } = API.crudApi.crudHandler
 
-  const formApi = useForm<FieldValues>({
+  const formApi = useForm<RecipePayload>({
     mode: 'all',
-    defaultValues: (fetchRecord as FieldValues) || {},
+    defaultValues: fetchRecord ?? {},
   })
 
   const { handleSubmit, watch } = formApi
-  const { isPending, mutate } = useSubmitHandler()
+  const { isPending, mutate } = useSubmitHandler<RecipePayload>()
 
-  const submitHandler = (data: FieldValues, finalize = false) => {
-    mutate({ data: { ...data, finalize } as JsonObject, control: formApi.control })
+  const submitHandler = (data: RecipePayload, finalize = false) => {
+    mutate({ data: { ...data, finalize }, control: formApi.control })
   }
 
   const mealPrice = watch('meal_price')

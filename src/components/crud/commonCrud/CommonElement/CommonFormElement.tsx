@@ -6,10 +6,11 @@ import { useLocation } from 'react-router-dom'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
 import { JsonObject } from '@/types/commonAjax.types'
 import { CommonCrudStateGeneric } from '@/types/commonCrud.types'
+import { CrudFormProps } from '@/types/modulePages.types'
 import { useLayoutEffect } from 'react'
 import { getSearchParams } from '../../commonHelper/SearchParams'
 
-export const CommonFormElement = ({ form: FormElement }: { form: React.ComponentType<{ toggle: () => void; moduleMode: string | undefined; fetchRecord: JsonObject; isUpdateRecord: boolean }> }) => {
+export const CommonFormElement = <TRecord extends JsonObject = JsonObject>({ form: FormElement }: { form: React.ComponentType<CrudFormProps<TRecord>> }) => {
   const API = useModuleApi()
   const moduleMode = useStore(API.moduleState, (state: CommonCrudStateGeneric) => state.commonCrud?.moduleMode)
   const { useSelectedRecordHandler } = API.crudApi.crudHandler
@@ -37,7 +38,7 @@ export const CommonFormElement = ({ form: FormElement }: { form: React.Component
     <>
       <CommonLoader loading={isFetching} />
       {moduleMode == 'ADD' || (moduleMode == 'EDIT' && !isFetching && data) ? (
-        <FormElement toggle={hideForm} moduleMode={moduleMode} fetchRecord={isUpdateRecord ? (data as unknown as { data: JsonObject })?.data : {}} isUpdateRecord={isUpdateRecord} />
+        <FormElement toggle={hideForm} moduleMode={moduleMode} fetchRecord={isUpdateRecord ? (data as unknown as { data: TRecord })?.data : undefined} isUpdateRecord={isUpdateRecord} />
       ) : null}
     </>
   )

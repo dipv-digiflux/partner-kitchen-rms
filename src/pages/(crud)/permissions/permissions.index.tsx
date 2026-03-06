@@ -4,12 +4,12 @@ import { CommonFilterSearch } from '@/components/crud/commonCrud/CommonElement/C
 import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/CommonFormElement'
 import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
-import { JsonObject } from '@/types/commonAjax.types'
+import type { PermissionsPayload } from '@/types/payload/permissions.payload'
 import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
 import { PermissionsForm } from './PermissionsFormContent'
 
-const columnHelper = createColumnHelper<JsonObject>()
+const columnHelper = createColumnHelper<PermissionsPayload>()
 
 const PermissionsContent = () => {
   const columns = useMemo(

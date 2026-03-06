@@ -4,12 +4,12 @@ import { CommonFilterSearch } from '@/components/crud/commonCrud/CommonElement/C
 import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/CommonFormElement'
 import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
-import { JsonObject } from '@/types/commonAjax.types'
+import type { RecipePayload } from '@/types/payload/recipe.payload'
 import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
 import { RecipeForm } from './RecipeForm'
 
-const columnHelper = createColumnHelper<JsonObject>()
+const columnHelper = createColumnHelper<RecipePayload>()
 
 const RecipeContent = () => {
   const columns = useMemo(
@@ -64,8 +64,8 @@ const RecipeContent = () => {
         header: 'Action',
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
-            <EditRecord id={(row.original._id ?? row.original.id) as string} />
-            <DeleteRecord id={(row.original._id ?? row.original.id) as string} />
+            <EditRecord id={row.original._id} />
+            <DeleteRecord id={row.original._id} />
           </div>
         ),
         size: 150,

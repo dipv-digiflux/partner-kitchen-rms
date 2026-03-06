@@ -103,7 +103,7 @@ export interface CrudApiConfig {
 import { UseMutationResult, UseQueryResult } from '@tanstack/react-query'
 
 export interface CrudHandler<TRecord = JsonObject> {
-  useSubmitHandler: (arg?: JsonObject) => UseMutationResult<unknown, unknown, { data: JsonObject; control: Control<FieldValues> }, unknown>
+  useSubmitHandler: <TFieldValues extends FieldValues = FieldValues>(arg?: JsonObject) => UseMutationResult<unknown, unknown, { data: JsonObject; control: Control<TFieldValues> }, unknown>
   useFilterSubmitHandler: (arg?: JsonObject) => UseMutationResult<void, unknown, JsonObject, unknown>
   useDataHandler: (arg?: JsonObject) => UseQueryResult<{ data: { result: TRecord[]; totalRecords: number } }, unknown>
   addRecordHandler: (arg?: JsonObject) => void

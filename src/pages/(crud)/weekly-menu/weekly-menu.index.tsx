@@ -9,13 +9,14 @@ import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
 import { showToast } from '@/lib/utils/toast'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
 import { JsonObject } from '@/types/commonAjax.types'
+import type { WeeklyMenuPayload } from '@/types/payload/weekly-menu.payload'
 import { createColumnHelper } from '@tanstack/react-table'
 import { Copy } from 'lucide-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { WeeklyMenuForm } from './WeeklyMenuForm'
 
-const columnHelper = createColumnHelper<JsonObject>()
+const columnHelper = createColumnHelper<WeeklyMenuPayload>()
 
 const DuplicateRecord = ({ id }: { id: string }) => {
   const API = useModuleApi()
@@ -92,7 +93,7 @@ const WeeklyMenuContent = () => {
         id: 'actions',
         header: 'Action',
         cell: ({ row }) => {
-          const id = (row.original._id ?? row.original.id) as string
+          const id = row.original._id
           return (
             <div className="flex items-center gap-2">
               <EditRecord id={id} />

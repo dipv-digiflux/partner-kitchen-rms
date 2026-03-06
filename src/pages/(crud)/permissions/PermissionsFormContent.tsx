@@ -1,25 +1,25 @@
 import { Modal } from '@/components/core/PopupModal/Modal'
 import { FormField } from '@/components/crud/commonHelper/formValidation/FormField'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
-import { JsonObject } from '@/types/commonAjax.types'
 import { CrudFormProps } from '@/types/modulePages.types'
-import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import type { PermissionsPayload } from '@/types/payload/permissions.payload'
+import { FormProvider, useForm } from 'react-hook-form'
 
-export const PermissionsForm = ({ isUpdateRecord, fetchRecord, isViewRecord, toggle }: CrudFormProps) => {
+export const PermissionsForm = ({ isUpdateRecord, fetchRecord, isViewRecord, toggle }: CrudFormProps<PermissionsPayload>) => {
   const API = useModuleApi()
   const { useSubmitHandler } = API.crudApi.crudHandler
 
-  const formApi = useForm<FieldValues>({
+  const formApi = useForm<PermissionsPayload>({
     mode: 'all',
-    defaultValues: (fetchRecord as FieldValues) || {},
+    defaultValues: fetchRecord ?? {},
   })
 
   const { handleSubmit, watch } = formApi
 
-  const { isPending, mutate } = useSubmitHandler()
+  const { isPending, mutate } = useSubmitHandler<PermissionsPayload>()
 
-  const submitHandler = (data: FieldValues) => {
-    mutate({ data: data as JsonObject, control: formApi.control })
+  const submitHandler = (data: PermissionsPayload) => {
+    mutate({ data, control: formApi.control })
   }
 
   // Generate permission name suggestion based on type and action

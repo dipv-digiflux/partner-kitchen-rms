@@ -4,12 +4,13 @@ import { CommonFilterSearch } from '@/components/crud/commonCrud/CommonElement/C
 import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/CommonFormElement'
 import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
-import { JsonObject } from '@/types/commonAjax.types'
+
 import { createColumnHelper } from '@/types/crudTable.types'
+import type { CategoryPayload } from '@/types/payload/category.payload'
 import { useMemo } from 'react'
 import { CategoryForm } from './CategoryForm'
 
-const columnHelper = createColumnHelper<JsonObject>()
+const columnHelper = createColumnHelper<CategoryPayload>()
 
 const VEGETARIAN_OPTIONS = [
   { value: '', label: 'All' },
@@ -58,7 +59,7 @@ const CategoryContent = () => {
         id: 'actions',
         header: 'Action',
         cell: ({ row }) => {
-          const id = (row.original._id ?? row.original.id) as string
+          const id = row.original._id
           return (
             <div className="flex items-center gap-2">
               <EditRecord id={id} />
