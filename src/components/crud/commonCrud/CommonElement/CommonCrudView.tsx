@@ -35,6 +35,14 @@ export const CommonCrudView = <TRecord extends JsonObject>({ columns }: { column
     },
   })
 
+  // TODO: IDB data handling
+  useEffect(() => {
+    API.moduleState.setState((prev) => ({
+      ...prev,
+      data: { ...(prev as { data?: JsonObject }).data, totalRecords: moduleData.totalRecords },
+    }))
+  }, [API.moduleState, moduleData.totalRecords])
+
   useEffect(() => {
     return () => {
       // API.moduleRef.tableRef = undefined

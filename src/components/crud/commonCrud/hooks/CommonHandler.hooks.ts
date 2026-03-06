@@ -66,13 +66,14 @@ const useFilterSubmitHandler = ({ apiName, mutationKey = [] }: { apiName: string
   return useMutation({
     mutationKey: queryKey,
     mutationFn: async (filterData: unknown) => {
-      const SearchParamsObject = getSearchParams() as JsonObject
+  const SearchParamsObject = getSearchParams() as JsonObject
 
-      // overwrite filter and page = 1
-      SearchParamsObject.page = 1
-      SearchParamsObject.filters = filterData as JsonObject
+  // overwrite filter and page = 1
+  SearchParamsObject.page = 1
+  // TODO: IDB data handling
+  SearchParamsObject.filters = { ...(SearchParamsObject.filters as JsonObject), ...(filterData as JsonObject) }
 
-      setSearchPrams(SearchParamsObject)
+  setSearchPrams(SearchParamsObject)
 
       // invalid query for new data fetch
       queryClient.invalidateQueries({ queryKey: Api.crudApi.queryKeys['dataHandlerKey'] })
