@@ -13,6 +13,8 @@ export const appRoutes: Routes = {
   weeklyMenu: '/weekly-menu',
   weeklyMenuForm: '/weekly-menu/add',
   category: '/category',
+  ingredient: '/ingredient',
+  dishtype: '/dishtype',
   vendorDashboard: '/vendor-dashboard',
   productionReportSummary: '/reports/production-summary',
   productionReportList: '/reports/production-list',

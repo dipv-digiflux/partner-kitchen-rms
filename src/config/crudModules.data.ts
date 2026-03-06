@@ -72,4 +72,20 @@ export const CRUD_MODULES_DATA: Record<string, CrudModuleInput> = {
     menuLabel: 'Category',
     menuIcon: 'pages',
   },
+  ingredient: {
+    apiUrl: '/ingredient',
+    pageTitle: 'Ingredient',
+    permissionName: 'ingredient',
+    formMode: 'MODAL',
+    menuLabel: 'Ingredient',
+    menuIcon: 'pages',
+  },
+  dishtype: {
+    apiUrl: '/dishtype',
+    pageTitle: 'Dish Type',
+    permissionName: 'dishtype',
+    formMode: 'MODAL',
+    menuLabel: 'Dish Type',
+    menuIcon: 'pages',
+  },
 }

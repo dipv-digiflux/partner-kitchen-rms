@@ -10,6 +10,8 @@ export interface Routes {
   weeklyMenu: string
   weeklyMenuForm: string
   category: string
+  ingredient: string
+  dishtype: string
   vendorDashboard: string
   productionReportSummary: string
   productionReportList: string

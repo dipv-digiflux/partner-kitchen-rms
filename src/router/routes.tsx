@@ -10,6 +10,8 @@ const Recipe = lazy(() => import('../pages/(crud)/recipe/recipe.index'))
 const RecipeFormPage = lazy(() => import('../pages/(crud)/recipe/RecipeFormPage'))
 const WeeklyMenu = lazy(() => import('../pages/(crud)/weekly-menu/weekly-menu.index'))
 const Category = lazy(() => import('../pages/(crud)/category/category.index'))
+const Ingredient = lazy(() => import('../pages/(crud)/ingredient/ingredient.index'))
+const DishType = lazy(() => import('../pages/(crud)/dishtype/dishtype.index'))
 const VendorDashboard = lazy(() => import('../pages/vendor-dashboard/VendorDashboard'))
 const ProductionReportSummary = lazy(() => import('../pages/reports/ProductionReportSummary'))
 const ProductionReportList = lazy(() => import('../pages/reports/ProductionReportList'))
@@ -59,6 +61,16 @@ const routes = [
   {
     path: appRoutes.category,
     element: <Category />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.ingredient,
+    element: <Ingredient />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.dishtype,
+    element: <DishType />,
     layout: 'default',
   },
   {
