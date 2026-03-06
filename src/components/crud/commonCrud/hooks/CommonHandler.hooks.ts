@@ -39,7 +39,7 @@ const useSubmitHandler = ({
 
     const callback = () => {
       Api.actions.hideForm()
-      queryClient.invalidateQueries({ queryKey: [apiName] })
+      queryClient.invalidateQueries({ queryKey: Api.crudApi.queryKeys['dataHandlerKey'] })
     }
 
     return Api.AjaxApi({ data, callback, rejectCallback })
