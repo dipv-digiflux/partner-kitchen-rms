@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# File containing the commit message is passed as the first argument
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# The regex pattern for conventional commits
+# Example: "feat: add user login" or "fix(auth): redirect issue"
+REGEX="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-zA-Z0-9_.-]+\))?: .+"
+
+# Exclude merge commits and other auto-generated commits if needed
+# (Optional, but good practice). We'll just check if it matches the format.
+if echo "$COMMIT_MSG" | grep -Eq "$REGEX"; then
+  echo "✅ Commit message format is valid."
+  exit 0
+else
+  echo ""
+  echo "❌ Error: Invalid commit message format!"
+  echo ""
+  echo "Your commit message must follow the Conventional Commits format:"
+  echo "  <type>[optional scope]: <description>"
+  echo ""
+  echo "Valid types are: build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test"
+  echo ""
+  echo "Examples of valid commits:"
+  echo "  - fix: resolve sidebar bug in desktop view"
+  echo "  - feat(auth): implement user registration"
+  echo "  - docs: update readme with setup instructions"
+  echo ""
+  echo "Your commit message was: "
+  echo "----------------------------------------"
+  echo "$COMMIT_MSG"
+  echo "----------------------------------------"
+  echo ""
+  echo "Commit aborted."
+  exit 1
+fi
