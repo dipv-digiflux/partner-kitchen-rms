@@ -80,7 +80,7 @@ const CategoryContent = () => {
 
       <div className="card">
         <div className="p-4">
-          <CommonFilterSearch name="CategoryName" placeholder="Search category..." />
+          <CommonFilterSearch name="CategoryName" placeholder="Search Category..." />
         </div>
         <div className="card-body p-4">
           <div className="p-0 overflow-hidden">
