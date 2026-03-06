@@ -35,6 +35,12 @@ export const CommonCrudView = <TRecord extends JsonObject>({ columns }: { column
     },
   })
 
+  if (API.moduleRef.tableRef) {
+    API.moduleRef.tableRef['commonCrudState'] = {
+      data: moduleData,
+    }
+  }
+
   useEffect(() => {
     return () => {
       // API.moduleRef.tableRef = undefined

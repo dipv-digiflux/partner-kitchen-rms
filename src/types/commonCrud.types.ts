@@ -142,7 +142,7 @@ export interface CommonCrudApi<TRecord = JsonObject> {
     }
   }
   moduleRef: {
-    tableRef: Table<TRecord> | null
+    tableRef: (Table<TRecord> & { commonCrudState?: { data: { result: TRecord[]; totalRecords: number } } }) | null
     filterFormRef: UseFormReturn<FieldValues> | null
   }
   moduleState: Store<CommonCrudStateGeneric<TRecord>>

@@ -2,9 +2,7 @@ import { Loader } from '@/components/Loader'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
 import { TableHeaderFilter } from '@/components/crud/commonCrud/CommonElement/TableHeaderFilter'
 import { JsonObject } from '@/types/commonAjax.types'
-import { CommonCrudStateGeneric } from '@/types/commonCrud.types'
 import { useIsFetching } from '@tanstack/react-query'
-import { useStore } from '@tanstack/react-store'
 import { Cell, flexRender, Header, HeaderGroup, Row } from '@tanstack/react-table'
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import { getSearchParams, setSearchPrams } from '../../commonHelper/SearchParams'
@@ -106,10 +104,10 @@ export const CommonCrudTable = () => {
 export const CommonCrudTablePagination = () => {
   const API = useModuleApi()
   const isFetching = useIsFetching({ queryKey: API.crudApi.queryKeys.dataHandlerKey })
-  const totalRecords = useStore(API.moduleState, (state: CommonCrudStateGeneric) => (state.data as { totalRecords?: number })?.totalRecords ?? 0)
-
   const table = API.moduleRef.tableRef
   if (!table) return null
+
+  const totalRecords = table?.commonCrudState?.data?.totalRecords ?? 0
 
   const pageIndex = table.getState().pagination.pageIndex
   const pageSize = Number(table.getState().pagination.pageSize)
