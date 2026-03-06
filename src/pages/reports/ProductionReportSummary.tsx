@@ -72,8 +72,8 @@ const ProductionReportSummary = () => {
           <span className="text-xs text-gray-500">(Final / draft indicated by API)</span>
         </div>
         <div className="card-body">
-          {isFetching && <p className="text-gray-500">Loading report…</p>}
-          {!isFetching && data && <pre className="overflow-auto rounded bg-gray-50 dark:bg-gray-800 p-4 text-sm">{JSON.stringify(data, null, 2)}</pre>}
+          {isFetching ? <p className="text-gray-500">Loading report…</p> : null}
+          {!isFetching && data ? <pre className="overflow-auto rounded bg-gray-50 dark:bg-gray-800 p-4 text-sm">{JSON.stringify(data, null, 2)}</pre> : null}
           {!isFetching && !data && !params.startDate && !params.endDate && <p className="text-gray-500">Select date range and click Generate Report.</p>}
         </div>
       </div>

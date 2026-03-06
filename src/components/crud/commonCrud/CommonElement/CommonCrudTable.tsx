@@ -1,5 +1,6 @@
 import { Loader } from '@/components/Loader'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
+import { TableHeaderFilter } from '@/components/crud/commonCrud/CommonElement/TableHeaderFilter'
 import { JsonObject } from '@/types/commonAjax.types'
 import { CommonCrudStateGeneric } from '@/types/commonCrud.types'
 import { useIsFetching } from '@tanstack/react-query'
@@ -11,13 +12,18 @@ import { getSearchParams, setSearchPrams } from '../../commonHelper/SearchParams
 export const CommonCrudTable = () => {
   const API = useModuleApi()
   const isFetching = useIsFetching({ queryKey: API.crudApi.queryKeys.dataHandlerKey })
-  const params = getSearchParams() as { sortBy?: string; sortOrder?: string }
+  const params = getSearchParams() as { sortBy?: string; sortOrder?: string; filters?: JsonObject }
+  const { mutate: submitFilter } = API.crudApi.crudHandler.useFilterSubmitHandler()
 
   const handleSort = (columnId: string) => {
     const currentSortBy = params.sortBy
     const currentOrder = params.sortOrder
     const nextOrder = currentSortBy === columnId && currentOrder === 'asc' ? 'desc' : 'asc'
     setSearchPrams({ sortBy: columnId, sortOrder: nextOrder, page: 1 })
+  }
+
+  const handleHeaderFilter = (name: string, value: string | number) => {
+    submitFilter({ [name]: value })
   }
 
   const table = API.moduleRef.tableRef
@@ -34,6 +40,9 @@ export const CommonCrudTable = () => {
                 const isSortable = header.column.getCanSort?.() ?? false
                 const isActiveSort = params.sortBy === colId
                 const sortOrder = params.sortOrder
+                const headerFilter = header.column.columnDef.meta?.headerFilter
+                const filterName = colId
+                const filterValue = (params.filters && (params.filters[filterName] as string | number)) ?? ''
 
                 return (
                   <th key={header.id} colSpan={header.colSpan} style={{ width: `${header.getSize()}px` }}>
@@ -55,6 +64,9 @@ export const CommonCrudTable = () => {
                             <ArrowDown className="h-3.5 w-3.5 text-primary" />
                           )}
                         </button>
+                      ) : null}
+                      {headerFilter ? (
+                        <TableHeaderFilter filterName={filterName} filterValue={filterValue} onFilterChange={handleHeaderFilter} config={headerFilter} disabled={isFetching > 0} />
                       ) : null}
                     </div>
                   </th>

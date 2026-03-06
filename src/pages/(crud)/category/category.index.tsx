@@ -5,11 +5,17 @@ import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/Co
 import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
 import { JsonObject } from '@/types/commonAjax.types'
-import { createColumnHelper } from '@tanstack/react-table'
+import { createColumnHelper } from '@/types/crudTable.types'
 import { useMemo } from 'react'
 import { CategoryForm } from './CategoryForm'
 
 const columnHelper = createColumnHelper<JsonObject>()
+
+const VEGETARIAN_OPTIONS = [
+  { value: '', label: 'All' },
+  { value: 'true', label: 'Only Vegetarian' },
+  { value: 'false', label: 'Only Non Vegetarian' },
+]
 
 const CategoryContent = () => {
   const columns = useMemo(
@@ -39,6 +45,7 @@ const CategoryContent = () => {
       }),
       columnHelper.accessor('IsVegetarian', {
         header: 'Vegetarian',
+        meta: { headerFilter: { type: 'select', options: VEGETARIAN_OPTIONS } },
         cell: (info) => <span>{info.getValue() ? 'Yes' : 'No'}</span>,
         size: 100,
       }),
@@ -73,7 +80,7 @@ const CategoryContent = () => {
 
       <div className="card">
         <div className="p-4">
-          <CommonFilterSearch />
+          <CommonFilterSearch name="CategoryName" placeholder="Search category..." />
         </div>
         <div className="card-body p-4">
           <div className="p-0 overflow-hidden">

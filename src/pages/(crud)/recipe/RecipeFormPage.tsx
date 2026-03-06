@@ -2,6 +2,7 @@ import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/Co
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
 import { RecipeForm } from './RecipeForm'
 
+// eslint-disable-next-line react-refresh/only-export-components
 function RecipeFormPage() {
   return <CommonFormElement form={RecipeForm} />
 }

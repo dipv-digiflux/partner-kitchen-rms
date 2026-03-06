@@ -116,7 +116,7 @@ export const CommonFilterSearch = ({ name = 'search', placeholder = 'Search..' }
   return (
     <FormProvider {...formApi}>
       <form onSubmit={formApi.handleSubmit(onSubmit)}>
-        <FormField name={name} placeholder={placeholder} disabled={isFetching > 0} />
+        <FormField name={name} placeholder={placeholder} disabled={isFetching > 0} className="max-w-[250px]" />
       </form>
     </FormProvider>
   )
