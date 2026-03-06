@@ -87,28 +87,13 @@ const FormElement = ({ type, name, newRules, register, control, inputId, require
     const { className: atrClassName, ...restAtr } = (atr || {}) as React.HTMLAttributes<HTMLInputElement> & Record<string, unknown>
     return (
       <label className="w-12 h-6 relative mt-1.5 block">
-        <input
-          {...register(name, newRules)}
-          type="checkbox"
-          id={inputId}
-          className={cn('custom_switch absolute w-full h-full opacity-0 z-10 cursor-pointer peer', atrClassName)}
-          {...restAtr}
-        />
+        <input {...register(name, newRules)} type="checkbox" id={inputId} className={cn('custom_switch absolute w-full h-full opacity-0 z-10 cursor-pointer peer', atrClassName)} {...restAtr} />
         <span className="bg-[#ebedf2] dark:bg-dark block h-full rounded-full before:absolute before:left-1 before:bg-white dark:before:bg-white-dark dark:peer-checked:before:bg-white before:bottom-1 before:w-4 before:h-4 before:rounded-full peer-checked:before:left-7 peer-checked:bg-primary before:transition-all before:duration-300" />
       </label>
     )
   }
 
-  return (
-    <Input
-      {...register(name, newRules)}
-      type={type}
-      placeholder={placeholder}
-      id={inputId}
-      {...atr}
-      className={cn('form-control', required && 'required-border', atr?.className)}
-    />
-  )
+  return <Input {...register(name, newRules)} type={type} placeholder={placeholder} id={inputId} {...atr} className={cn('form-control', required && 'required-border', atr?.className)} />
 }
 
 /********  Label Component ********/

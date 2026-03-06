@@ -5,11 +5,20 @@ import { CommonCrudStateGeneric } from '@/types/commonCrud.types'
 import { useIsFetching } from '@tanstack/react-query'
 import { useStore } from '@tanstack/react-store'
 import { Cell, flexRender, Header, HeaderGroup, Row } from '@tanstack/react-table'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react'
+import { getSearchParams, setSearchPrams } from '../../commonHelper/SearchParams'
 
 export const CommonCrudTable = () => {
   const API = useModuleApi()
-  const isFetching = useIsFetching({ queryKey: API.crudApi.queryKeys.dataHandlerKey }) // Updated mutationKey to queryKey for useIsFetching if strictly query
+  const isFetching = useIsFetching({ queryKey: API.crudApi.queryKeys.dataHandlerKey })
+  const params = getSearchParams() as { sortBy?: string; sortOrder?: string }
+
+  const handleSort = (columnId: string) => {
+    const currentSortBy = params.sortBy
+    const currentOrder = params.sortOrder
+    const nextOrder = currentSortBy === columnId && currentOrder === 'asc' ? 'desc' : 'asc'
+    setSearchPrams({ sortBy: columnId, sortOrder: nextOrder, page: 1 })
+  }
 
   const table = API.moduleRef.tableRef
   if (!table) return null
@@ -20,11 +29,37 @@ export const CommonCrudTable = () => {
         <thead>
           {table.getHeaderGroups().map((headerGroup: HeaderGroup<JsonObject>) => (
             <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header: Header<JsonObject, unknown>) => (
-                <th key={header.id} colSpan={header.colSpan} style={{ width: `${header.getSize()}px` }}>
-                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                </th>
-              ))}
+              {headerGroup.headers.map((header: Header<JsonObject, unknown>) => {
+                const colId = header.column.id
+                const isSortable = header.column.getCanSort?.() ?? false
+                const isActiveSort = params.sortBy === colId
+                const sortOrder = params.sortOrder
+
+                return (
+                  <th key={header.id} colSpan={header.colSpan} style={{ width: `${header.getSize()}px` }}>
+                    <div className="flex items-center gap-1">
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      {isSortable ? (
+                        <button
+                          type="button"
+                          onClick={() => handleSort(colId)}
+                          disabled={isFetching > 0}
+                          className="p-0.5 rounded hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer"
+                          title={isActiveSort ? `Sort ${sortOrder}` : 'Sort'}
+                        >
+                          {!isActiveSort ? (
+                            <ArrowUpDown className="h-3.5 w-3.5 opacity-60" />
+                          ) : sortOrder === 'asc' ? (
+                            <ArrowUp className="h-3.5 w-3.5 text-primary" />
+                          ) : (
+                            <ArrowDown className="h-3.5 w-3.5 text-primary" />
+                          )}
+                        </button>
+                      ) : null}
+                    </div>
+                  </th>
+                )
+              })}
             </tr>
           ))}
         </thead>

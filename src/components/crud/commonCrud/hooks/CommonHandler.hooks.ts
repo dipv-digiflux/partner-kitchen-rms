@@ -92,13 +92,16 @@ const useDataHandler = ({ apiName, queryKey: userQueryKey = [], data = {} }: { a
   const page = (searchParams.page as number) || 1
   const limit = (searchParams.limit as number) || 10
   const filters = (searchParams.filters as JsonObject) || {}
-  const queryKey = [apiName, action, page, limit, filters, ...userQueryKey, data] as (string | JsonObject)[]
+  const sortBy = searchParams.sortBy as string | undefined
+  const sortOrder = searchParams.sortOrder as string | undefined
+  const queryKey = [apiName, action, page, limit, filters, sortBy, sortOrder, ...userQueryKey, data] as (string | JsonObject)[]
   Api.crudApi.queryKeys['dataHandlerKey'] = queryKey
 
   return useQuery({
     queryKey,
     queryFn: () => {
       const finalData = { action, page, limit, ...filters, ...data }
+      if (sortBy) Object.assign(finalData, { sortBy, sortOrder: sortOrder || 'asc' })
       return Api.AjaxApi({ data: finalData })
     },
     placeholderData: keepPreviousData,
