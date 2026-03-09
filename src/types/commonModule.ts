@@ -12,6 +12,12 @@ export interface Routes {
   category: string
   ingredient: string
   dishtype: string
+  cuisine: string
+  packagingMaterial: string
+  variant: string
+  variantForm: string
+  allergens: string
+  barcodePlace: string
   vendorDashboard: string
   productionReportSummary: string
   productionReportList: string

@@ -12,6 +12,12 @@ const WeeklyMenu = lazy(() => import('../pages/(crud)/weekly-menu/weekly-menu.in
 const Category = lazy(() => import('../pages/(crud)/category/category.index'))
 const Ingredient = lazy(() => import('../pages/(crud)/ingredient/ingredient.index'))
 const DishType = lazy(() => import('../pages/(crud)/dishtype/dishtype.index'))
+const Cuisine = lazy(() => import('../pages/(crud)/cuisine/cuisine.index'))
+const PackagingMaterial = lazy(() => import('../pages/(crud)/packaging-material/packagingMaterial.index'))
+const Variant = lazy(() => import('../pages/(crud)/variant/variant.index'))
+const VariantFormPage = lazy(() => import('../pages/(crud)/variant/VariantFormPage'))
+const Allergens = lazy(() => import('../pages/(crud)/allergens/allergens.index'))
+const BarcodePlace = lazy(() => import('../pages/(crud)/barcode-place/barcodePlace.index'))
 const VendorDashboard = lazy(() => import('../pages/vendor-dashboard/VendorDashboard'))
 const ProductionReportSummary = lazy(() => import('../pages/reports/ProductionReportSummary'))
 const ProductionReportList = lazy(() => import('../pages/reports/ProductionReportList'))
@@ -71,6 +77,36 @@ const routes = [
   {
     path: appRoutes.dishtype,
     element: <DishType />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.cuisine,
+    element: <Cuisine />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.packagingMaterial,
+    element: <PackagingMaterial />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.variant,
+    element: <Variant />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.variantForm,
+    element: <VariantFormPage />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.allergens,
+    element: <Allergens />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.barcodePlace,
+    element: <BarcodePlace />,
     layout: 'default',
   },
   {
