@@ -82,8 +82,11 @@ export interface FormFieldProps extends React.HTMLAttributes<HTMLElement> {
   rows?: number
   isMulti?: boolean
   menuPlacement?: 'auto' | 'bottom' | 'top'
+  menuPosition?: 'absolute' | 'fixed'
+  menuPortalTarget?: HTMLElement | null
   startIcon?: React.ReactNode
   endIcon?: React.ReactNode
+  step?: number | string
 }
 
 export interface OtpInputProps {

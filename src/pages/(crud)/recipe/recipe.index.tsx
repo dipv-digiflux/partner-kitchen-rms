@@ -28,28 +28,24 @@ const RecipeContent = () => {
         },
         size: 80,
       }),
-      columnHelper.accessor('recipe_name', {
-        header: 'Recipe Name',
+      columnHelper.accessor('dishName', {
+        header: 'Dish Name',
         cell: (info) => <span className="font-medium">{(info.getValue() as string) || '-'}</span>,
         size: 200,
       }),
-      columnHelper.accessor('cuisine_type', {
+      columnHelper.accessor('cuisineId', {
         header: 'Cuisine',
-        cell: (info) => <span>{info.getValue() as string}</span>,
+        cell: (info) => <span>{(info.getValue() as string) || '-'}</span>,
         size: 120,
       }),
-      columnHelper.accessor('calories_range', {
-        header: 'Calories (Kcal)',
-        cell: (info) => <span>{info.getValue() as string}</span>,
-        size: 120,
-      }),
-      columnHelper.accessor('meal_price', {
-        header: 'Meal Price',
-        cell: (info) => {
-          const val = info.getValue()
-          return <span>{val != null ? `$${Number(val).toFixed(2)}` : '-'}</span>
+      columnHelper.display({
+        id: 'variantsCount',
+        header: 'Variants',
+        cell: ({ row }) => {
+          const variants = row.original.variants || []
+          return <span>{variants.length} variant(s)</span>
         },
-        size: 100,
+        size: 120,
       }),
       columnHelper.accessor('status', {
         header: 'Status',
