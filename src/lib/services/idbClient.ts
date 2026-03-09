@@ -12,6 +12,15 @@ export class AppIdb extends Dexie {
   recipes!: Table<RecipeRecord, string>
   weeklyMenus!: Table<WeeklyMenuRecord, string>
   categories!: Table<CategoryRecord, string>
+  allergens!: Table<Record<string, unknown>, string>
+  barcodePlaces!: Table<Record<string, unknown>, string>
+  cuisines!: Table<Record<string, unknown>, string>
+  dishTypes!: Table<Record<string, unknown>, string>
+  ingredients!: Table<Record<string, unknown>, string>
+  packagingMaterials!: Table<Record<string, unknown>, string>
+  permissions!: Table<Record<string, unknown>, string>
+  users!: Table<Record<string, unknown>, string>
+  variants!: Table<Record<string, unknown>, string>
 
   constructor() {
     super('partner-kitchen-temp-idb')
@@ -21,6 +30,15 @@ export class AppIdb extends Dexie {
       recipes: '&_id',
       weeklyMenus: '&_id',
       categories: '&_id',
+      allergens: '&_id',
+      barcodePlaces: '&_id',
+      cuisines: '&_id',
+      dishTypes: '&_id',
+      ingredients: '&_id',
+      packagingMaterials: '&_id',
+      permissions: '&_id',
+      users: '&_id',
+      variants: '&_id',
     })
   }
 }

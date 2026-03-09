@@ -1,16 +1,37 @@
 // TODO: IDB data handling
 import type { JsonObject } from '@/types/commonAjax.types'
-import { appIdb } from './idbClient'
+import { appIdb, type AppIdb } from './idbClient'
 import type { Table } from 'dexie'
 
 type HttpMethod = 'get' | 'post' | 'patch' | 'put' | 'delete'
 
-type SupportedCollections = 'recipes' | 'weeklyMenus' | 'categories'
+type SupportedCollections =
+  | 'recipes'
+  | 'weeklyMenus'
+  | 'categories'
+  | 'allergens'
+  | 'barcodePlaces'
+  | 'cuisines'
+  | 'dishTypes'
+  | 'ingredients'
+  | 'packagingMaterials'
+  | 'permissions'
+  | 'users'
+  | 'variants'
 
 const URL_TO_COLLECTION: Record<string, SupportedCollections> = {
   '/recipe': 'recipes',
   '/weekly-menu': 'weeklyMenus',
   '/category': 'categories',
+  '/allergens': 'allergens',
+  '/barcode-place': 'barcodePlaces',
+  '/cuisine': 'cuisines',
+  '/dishtype': 'dishTypes',
+  '/ingredient': 'ingredients',
+  '/packaging-material': 'packagingMaterials',
+  '/permissions': 'permissions',
+  '/user': 'users',
+  '/variant': 'variants',
 }
 
 const IDB_URL_KEYS = Object.keys(URL_TO_COLLECTION)
@@ -109,7 +130,7 @@ export const handleIdbRequest = async <TResponse = unknown, TData extends JsonOb
   }
 
   const db = appIdb
-  const table = db[collectionName] as Table<JsonObject, string>
+  const table = db[collectionName as keyof AppIdb] as Table<JsonObject, string>
 
   // List
   if (method === 'get' && !getIdFromUrlOrData(url, data)) {
