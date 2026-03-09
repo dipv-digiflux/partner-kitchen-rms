@@ -3,7 +3,7 @@ import type { ModalProps } from '@/types/components.types'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 
-export const SideDrawer = ({ open, onClose, children, title, className }: ModalProps) => (
+export const SideDrawer = ({ open, onClose, children, title, className, footer }: ModalProps) => (
   <DialogPrimitive.Root open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className="modal-backdrop" />
@@ -21,6 +21,7 @@ export const SideDrawer = ({ open, onClose, children, title, className }: ModalP
             </DialogPrimitive.Close>
           </div>
           <div className="card-body overflow-auto flex-1">{children}</div>
+          {footer ? <div className="card-footer shrink-0 border-t bg-white dark:bg-[#191e3a] border-[#e0e6ed] dark:border-[#1b2e4b] px-5 py-4 mt-auto">{footer}</div> : null}
         </div>
       </DialogPrimitive.Content>
     </DialogPrimitive.Portal>

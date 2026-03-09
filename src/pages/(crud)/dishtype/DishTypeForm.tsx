@@ -22,18 +22,23 @@ export const DishTypeForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle
   }
 
   return (
-    <SideDrawer open={true} onClose={toggle} title={`${isViewRecord ? 'View' : isUpdateRecord ? 'Update' : 'Add'} ${API.pageTitle}`}>
+    <SideDrawer
+      open={true}
+      onClose={toggle}
+      title={`${isViewRecord ? 'View' : isUpdateRecord ? 'Update' : 'Add'} ${API.pageTitle}`}
+      footer={
+        !isViewRecord && (
+          <div className="flex justify-end gap-2">
+            <button type="submit" disabled={isPending} onClick={handleSubmit(submitHandler)} className="btn btn-primary w-full md:w-auto">
+              {isUpdateRecord ? 'Update' : 'Create'} {API.pageTitle}
+            </button>
+          </div>
+        )
+      }
+    >
       <FormProvider {...formApi}>
         <form onSubmit={handleSubmit(submitHandler)} className="space-y-4">
           <FormField name="name" label="Name" validateRule={{ required: true, name: 'Name' }} placeholder="e.g. Bulgur" />
-
-          {!isViewRecord && (
-            <div className="mt-6 flex justify-end gap-2 pt-4">
-              <button type="submit" disabled={isPending} className="btn btn-primary">
-                {isUpdateRecord ? 'Update' : 'Create'} {API.pageTitle}
-              </button>
-            </div>
-          )}
         </form>
       </FormProvider>
     </SideDrawer>

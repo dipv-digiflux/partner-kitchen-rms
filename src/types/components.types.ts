@@ -31,6 +31,7 @@ export interface ModalProps {
   children: React.ReactNode
   title: string
   className?: string
+  footer?: React.ReactNode
 }
 
 export interface OptionType {

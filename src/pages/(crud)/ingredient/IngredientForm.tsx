@@ -1,4 +1,5 @@
-import { Modal } from '@/components/core/PopupModal/Modal'
+import { SideDrawer } from '@/components/core/PopupModal/SideDrawer'
+import { Trash2 } from 'lucide-react'
 import { commonAjax } from '@/components/crud/commonCrud/commonAjax'
 import { FormField } from '@/components/crud/commonHelper/formValidation/FormField'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
@@ -45,9 +46,22 @@ export const IngredientForm = ({ isUpdateRecord, isViewRecord, fetchRecord, togg
   }
 
   return (
-    <Modal open={true} onClose={toggle} className="modal-md" title={`${isViewRecord ? 'View' : isUpdateRecord ? 'Update' : 'Add'} ${API.pageTitle}`}>
+    <SideDrawer
+      open={true}
+      onClose={toggle}
+      title={`${isViewRecord ? 'View' : isUpdateRecord ? 'Update' : 'Add'} ${API.pageTitle}`}
+      footer={
+        !isViewRecord && (
+          <div className="flex justify-end gap-2">
+            <button type="submit" disabled={isPending} onClick={handleSubmit(submitHandler)} className="btn btn-primary w-full md:w-auto">
+              {isUpdateRecord ? 'Update' : 'Create'} {API.pageTitle}
+            </button>
+          </div>
+        )
+      }
+    >
       <FormProvider {...formApi}>
-        <form onSubmit={handleSubmit(submitHandler)} className="space-y-4">
+        <form onSubmit={handleSubmit(submitHandler)} className="space-y-4 pb-2">
           <FormField name="ingredientName" label="Ingredient" validateRule={{ required: true, name: 'Ingredient Name' }} placeholder="e.g. Tomato" />
 
           <div className="mt-6 border-t pt-4">
@@ -71,13 +85,7 @@ export const IngredientForm = ({ isUpdateRecord, isViewRecord, fetchRecord, togg
                     className="btn btn-danger rounded-full p-2 h-10 w-10 flex items-center justify-center mt-1 shadow-sm hover:shadow"
                     disabled={fields.length === 1}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M3 6h18"></path>
-                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg>
+                    <Trash2 size={18} strokeWidth={2} />
                   </button>
                 </div>
               ))}
@@ -89,16 +97,8 @@ export const IngredientForm = ({ isUpdateRecord, isViewRecord, fetchRecord, togg
               </div>
             </div>
           </div>
-
-          {!isViewRecord && (
-            <div className="mt-6 flex justify-end gap-2 pt-4">
-              <button type="submit" disabled={isPending} className="btn btn-primary">
-                {isUpdateRecord ? 'Update' : 'Create'} {API.pageTitle}
-              </button>
-            </div>
-          )}
         </form>
       </FormProvider>
-    </Modal>
+    </SideDrawer>
   )
 }
