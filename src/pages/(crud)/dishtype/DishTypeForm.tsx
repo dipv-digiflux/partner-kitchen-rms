@@ -1,4 +1,4 @@
-import { Modal } from '@/components/core/PopupModal/Modal'
+import { SideDrawer } from '@/components/core/PopupModal/SideDrawer'
 import { FormField } from '@/components/crud/commonHelper/formValidation/FormField'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
 import type { CrudFormProps } from '@/types/modulePages.types'
@@ -22,7 +22,7 @@ export const DishTypeForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle
   }
 
   return (
-    <Modal open={true} onClose={toggle} className="modal-md" title={`${isViewRecord ? 'View' : isUpdateRecord ? 'Update' : 'Add'} ${API.pageTitle}`}>
+    <SideDrawer open={true} onClose={toggle} title={`${isViewRecord ? 'View' : isUpdateRecord ? 'Update' : 'Add'} ${API.pageTitle}`}>
       <FormProvider {...formApi}>
         <form onSubmit={handleSubmit(submitHandler)} className="space-y-4">
           <FormField name="name" label="Name" validateRule={{ required: true, name: 'Name' }} placeholder="e.g. Bulgur" />
@@ -36,6 +36,6 @@ export const DishTypeForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle
           )}
         </form>
       </FormProvider>
-    </Modal>
+    </SideDrawer>
   )
 }

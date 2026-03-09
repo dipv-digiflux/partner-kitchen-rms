@@ -1,0 +1,98 @@
+@layer components {
+  .drawer {
+    @apply fixed inset-x-0 bottom-0 z-[101] flex h-auto max-h-[90dvh] w-full flex-col overflow-hidden rounded-t-xl bg-white shadow-2xl outline-none dark:bg-[#0e1726];
+  }
+
+  .drawer[data-state='open'] {
+    animation: drawer-slide-up-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .drawer[data-state='closed'] {
+    animation: drawer-slide-down-out 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @media (min-width: 768px) {
+    .drawer {
+      @apply inset-y-0 right-0 left-auto top-0 h-screen max-h-screen w-full max-w-md rounded-r-none rounded-l-xl;
+    }
+
+    .drawer[data-state='open'] {
+      animation: drawer-slide-left-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .drawer[data-state='closed'] {
+      animation: drawer-slide-right-out 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  }
+
+  .drawer .card {
+    @apply flex min-h-0 flex-auto flex-col w-full;
+  }
+
+  .drawer .card-header {
+    @apply shrink-0 border-b px-5 py-4;
+    background-color: #ffffff;
+    border-color: #e0e6ed;
+  }
+
+  :is(.dark .drawer) .card-header {
+    background-color: #191e3a;
+    border-color: #1b2e4b;
+  }
+
+  .drawer .card-header h2 {
+    @apply m-0 text-base font-semibold tracking-tight text-[#0e1726];
+  }
+
+  :is(.dark .drawer) .card-header h2 {
+    @apply text-[#e2e8f0];
+  }
+
+  .drawer .card-body {
+    @apply flex-1 overflow-y-auto p-5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @layer components {
+    .drawer {
+      animation: none !important;
+    }
+  }
+}
+
+@keyframes drawer-slide-up-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawer-slide-down-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes drawer-slide-left-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-slide-right-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
