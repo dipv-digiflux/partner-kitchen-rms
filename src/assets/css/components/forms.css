@@ -4,7 +4,7 @@
   .form-textarea,
   .form-select,
   .form-multiselect {
-    @apply w-full rounded-md border border-[var(--color-border-gray-00000014)] bg-[var(--color-surface-secondary-disabled)] px-4 py-2 text-sm font-semibold text-black !outline-none focus:border-primary focus:ring-transparent;
+    @apply w-full rounded-md border border-[var(--color-border-gray-00000014)]  px-4 py-2 text-sm font-semibold text-black !outline-none focus:border-primary focus:ring-transparent;
   }
   :is(.dark .form-input),
   :is(.dark .form-textarea),
@@ -140,5 +140,17 @@
   }
   .form-radio.outline-dark:checked {
     @apply border-dark bg-transparent bg-none;
+  }
+
+  /* Hide number input arrows */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 }

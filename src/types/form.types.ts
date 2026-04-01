@@ -87,6 +87,8 @@ export interface FormFieldProps extends React.HTMLAttributes<HTMLElement> {
   startIcon?: React.ReactNode
   endIcon?: React.ReactNode
   step?: number | string
+  multiple?: boolean
+  accept?: string
 }
 
 export interface OtpInputProps {
@@ -106,4 +108,5 @@ export interface FormElementProps {
   placeholder?: string
   atr?: React.HTMLAttributes<HTMLElement> & Record<string, unknown>
   options?: unknown[]
+  validateRule?: Omit<CommonValidationProps, 'name'> & { name?: string }
 }

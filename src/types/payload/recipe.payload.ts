@@ -13,6 +13,7 @@ export type VariantItem = {
   protein?: number
   carb?: number
   fat?: number
+  dietType?: string
   component1?: string
   gram1?: number
   component2?: string

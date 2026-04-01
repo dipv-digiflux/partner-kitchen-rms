@@ -1,6 +1,7 @@
 import { Select } from '@/components/core/SelectInputField/Select'
 import { Input } from '@/components/core/TextInputField/Input'
 import OtpInput from '@/components/core/TextInputField/OtpInput'
+import { FileInput } from '@/components/core/FileInputField/FileInput'
 import { cn } from '@/lib/utils/utills'
 import { FormElementProps, FormFieldProps, InputType } from '@/types/form.types'
 import { ErrorMessage } from '@hookform/error-message'
@@ -32,6 +33,7 @@ export const FormField = ({ name, type = 'text', label, errorName, rules, valida
     options,
     required: validateRule?.required,
     placeholder: typeof label == 'string' || errorName ? `${type == 'select' ? 'Select' : 'Enter'} ${label || errorName}` : undefined,
+    validateRule,
   }
 
   return (
@@ -45,7 +47,7 @@ export const FormField = ({ name, type = 'text', label, errorName, rules, valida
 
 /************* form element ***************/
 
-const FormElement = ({ type, name, newRules, register, control, inputId, required, placeholder, atr, options }: FormElementProps) => {
+const FormElement = ({ type, name, newRules, register, control, inputId, required, placeholder, atr, options, validateRule }: FormElementProps) => {
   if (!type || !name) return null
 
   if (type == 'otp') {
@@ -54,6 +56,26 @@ const FormElement = ({ type, name, newRules, register, control, inputId, require
 
   if (type == 'textarea') {
     return <textarea rows={4} {...register(name, newRules)} placeholder={placeholder} id={inputId} {...atr} className={cn('form-textarea', required && 'required-border', atr?.className)} />
+  }
+
+  if (type == 'file') {
+    return (
+      <Controller
+        name={name}
+        control={control}
+        rules={newRules}
+        render={({ field: { onChange, value } }) => (
+          <FileInput
+            value={value}
+            onChange={onChange}
+            multiple={atr?.multiple as boolean}
+            accept={(atr?.accept as string) || (validateRule?.fileType ? validateRule.fileType.join(',') : undefined)}
+            className={atr?.className as string}
+            placeholder={(atr?.placeholder as string) ?? placeholder}
+          />
+        )}
+      />
+    )
   }
 
   if (type == 'select') {

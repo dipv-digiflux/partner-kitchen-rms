@@ -13,9 +13,11 @@ export const CommonValidationFunction = (props: CommonValidationProps) => {
   return {
     CommonValidationFunction: async (inputValue: unknown) => {
       try {
-        let val: string | FileList | unknown[] | null = ''
+        let val: string | unknown[] | FileList | File | null = ''
         if (Array.isArray(inputValue) || (typeof FileList !== 'undefined' && inputValue instanceof FileList)) {
-          val = (inputValue as unknown[] | FileList).length ? (inputValue as unknown[] | FileList) : ''
+          val = (inputValue as string[] | FileList).length ? inputValue : ''
+        } else if (typeof File !== 'undefined' && inputValue instanceof File) {
+          val = inputValue
         } else {
           val = inputValue != undefined ? String(inputValue)?.trim() : null
         }
@@ -75,7 +77,7 @@ export const CommonValidationFunction = (props: CommonValidationProps) => {
         // val can be `unknown[]`.
         // We cast safely.
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const fileAnswer = FileValidation({ value: val as any, fileSize: props.fileSize, fileType: props.fileType })
+        const fileAnswer = FileValidation({ value: val as FileList | File | null | undefined, fileSize: props.fileSize, fileType: props.fileType })
         if (fileAnswer !== true) return fileAnswer
 
         return true

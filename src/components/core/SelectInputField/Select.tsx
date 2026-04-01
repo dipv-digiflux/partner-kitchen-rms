@@ -1,8 +1,11 @@
 import { useMemo } from 'react'
 import ReactSelect, { StylesConfig, GroupBase } from 'react-select'
+import CreatableSelect from 'react-select/creatable'
 import { OptionType, SelectProps } from '@/types/components.types'
 
-export const Select = ({ value, onChange, options, onBlur, placeholder, ...atr }: SelectProps) => {
+export const Select = ({ value, onChange, options, onBlur, placeholder, isCreatable, ...atr }: SelectProps & { isCreatable?: boolean }) => {
+  const SelectComponent = isCreatable ? CreatableSelect : ReactSelect
+  
   const optionsObject = useMemo(() => {
     if (options && Array.isArray(options)) {
       return options.reduce((acc: Record<string | number, OptionType>, { label, value }: OptionType) => {
@@ -15,16 +18,17 @@ export const Select = ({ value, onChange, options, onBlur, placeholder, ...atr }
   }, [options])
 
   const handleOnchange = (option: unknown) => {
-    const value = option ? (Array.isArray(option) ? option.map((item) => item.value) : (option as OptionType).value) : ''
+    const value = option ? (Array.isArray(option) ? option.map((item: OptionType) => item.value) : (option as OptionType).value) : ''
     onChange(value)
   }
 
   return (
-    <ReactSelect
+    <SelectComponent
       isClearable
+      menuPortalTarget={typeof document !== 'undefined' ? document.body : undefined}
       styles={customStyles}
       placeholder={placeholder}
-      value={Array.isArray(value) ? value.map((item) => optionsObject[item]) : optionsObject[value]}
+      value={Array.isArray(value) ? value.map((item) => optionsObject[item] || { label: item, value: item }) : (optionsObject[value] || (value ? { label: value, value } : null))}
       onChange={handleOnchange}
       options={options}
       onBlur={onBlur}
@@ -34,41 +38,69 @@ export const Select = ({ value, onChange, options, onBlur, placeholder, ...atr }
 }
 
 const customStyles: StylesConfig<OptionType, boolean, GroupBase<OptionType>> = {
-  control: (provided, state) => ({
+  control: (provided, state) => {
+    // Extract base tailwind-like logic from props if provided via className
+    const atr = (state.selectProps as unknown as SelectProps & { isCreatable?: boolean, className?: string })
+    const isMinimal = typeof atr.className === 'string' && (atr.className.includes('border-0') || atr.className.includes('border-none'))
+    
+    return {
+      ...provided,
+      backgroundColor: 'transparent',
+      borderWidth: isMinimal ? '0px' : '1px',
+      borderColor: state.isFocused ? '#101610' : 'var(--color-border-gray-00000014, #e5e7eb)',
+      borderRadius: '0.375rem',
+      minHeight: '38px',
+      boxShadow: 'none',
+      outline: 'none',
+      width: '100%',
+      fontSize: '0.875rem',
+      fontWeight: '600',
+      paddingLeft: '0.75rem',
+      '&:hover': {
+        borderColor: state.isFocused ? '#101610' : 'var(--color-border-gray-00000014, #e5e7eb)',
+      },
+    }
+  },
+  menu: (provided) => ({
     ...provided,
-    backgroundColor: 'var(--theme-bg-color-body)',
-    borderWidth: '1px',
-    borderColor: 'var(--theme-border-color-input)', // border-input-border
-    borderRadius: 'var(--radius-md)', // rounded-md
-    color: 'var(--theme-text-color-body)', // text-body
-    boxShadow: state.isFocused ? '0 0 0 2px color-mix(in oklab, var(--theme-input-focus-ring-color-theme) /* #d4d4d8 */ 30%, transparent)' : 'none', // ring-2 ring-input-ring/30
-    width: '100%',
-    fontSize: '13px',
-    '&:hover': {
-      borderColor: 'var(--theme-border-color-input)', // border-input-border
+    zIndex: 99990,
+    border: '1px solid var(--color-border-gray-00000014, #e5e7eb)',
+    boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+    borderRadius: '0.5rem',
+    backgroundColor: 'white',
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? '#101610' : state.isFocused ? '#f3f4f6' : 'white',
+    color: state.isSelected ? 'white' : 'black',
+    fontWeight: '500',
+    cursor: 'pointer',
+    '&:active': {
+      backgroundColor: '#101610',
+      color: 'white',
     },
   }),
   singleValue: (provided) => ({
     ...provided,
-    color: 'var(--theme-text-color-body)', // text-body
+    color: 'black',
+    fontWeight: '600',
   }),
   placeholder: (provided) => ({
     ...provided,
-    color: 'var(--theme-text-color-muted)', // placeholder:text-muted
+    color: '#9ca3af',
+    fontWeight: '400',
   }),
   dropdownIndicator: (provided) => ({
     ...provided,
-    paddingLeft: '3px',
-    paddingRight: '8px',
-    fontSize: '13px',
-    color: 'var(--theme-text-color-muted)', // text-muted
+    paddingLeft: '2px',
+    paddingRight: '6px',
+    color: '#9ca3af',
   }),
   clearIndicator: (provided) => ({
     ...provided,
-    paddingInline: '0px',
-    paddingRight: '3px',
-    fontSize: '13px',
-    color: 'var(--theme-text-color-muted)', // text-muted
+    paddingRight: '2px',
+    color: '#9ca3af',
   }),
+  indicatorSeparator: () => ({ display: 'none' }),
   menuPortal: (base) => ({ ...base, zIndex: 99990 }),
 }

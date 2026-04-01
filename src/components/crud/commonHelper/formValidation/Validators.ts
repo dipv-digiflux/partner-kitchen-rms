@@ -2,19 +2,37 @@ import { FieldValues, Path } from 'react-hook-form'
 import { FileValidationProps, OptionalRequiredConditionProps } from '@/types/form.types'
 
 export const FileValidation = ({ value, fileSize, fileType }: FileValidationProps) => {
-  if (value && typeof FileList !== 'undefined' && value instanceof FileList) {
-    const allowed = fileType && Array.isArray(fileType) ? fileType.map((t) => String(t).toLowerCase()) : []
-    for (let i = 0; i < value.length; i++) {
-      const file = value[i]
-      if (fileSize && file.size > fileSize * 1e6) {
-        return `maximum ${fileSize}MB is allowed`
-      }
-      if (allowed.length && !allowed.includes(file.name.split('.').pop()?.toLowerCase() || '')) {
+  if (!value) return true
+
+  // Convert to array for unified processing
+  let files: (File | Blob)[] = []
+  if (typeof FileList !== 'undefined' && value instanceof FileList) {
+    files = Array.from(value)
+  } else if (Array.isArray(value)) {
+    files = value.filter((item) => item instanceof File || item instanceof Blob)
+  } else if (value instanceof File || value instanceof Blob) {
+    files = [value]
+  }
+
+  if (files.length === 0) return true
+
+  const allowed = fileType && Array.isArray(fileType) ? fileType.map((t) => String(t).toLowerCase().replace('.', '')) : []
+
+  for (const file of files) {
+    // Size check (fileSize is in MB)
+    if (fileSize && file.size > fileSize * 1024 * 1024) {
+      return `maximum ${fileSize}MB is allowed`
+    }
+
+    // Type check (extension check)
+    if (allowed.length && file instanceof File) {
+      const extension = file.name.split('.').pop()?.toLowerCase() || ''
+      if (!allowed.includes(extension)) {
         return `only ${allowed.join(', ')} is allowed`
       }
     }
-    return true
   }
+
   return true
 }
 
