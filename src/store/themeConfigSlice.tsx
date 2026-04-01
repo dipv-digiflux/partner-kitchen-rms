@@ -199,7 +199,7 @@ export const toggleSidebar = () => {
 }
 
 export const setPageTitle = (payload: string) => {
-  document.title = `${payload} | VRISTO - Multipurpose Tailwind Dashboard Template`
+  document.title = `${payload} | Molt Kitchen RMS`
 
   themeConfigStore.setState((state) => ({
     ...state,
