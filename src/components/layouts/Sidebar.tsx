@@ -48,21 +48,48 @@ const Sidebar = () => {
   }
 
   useEffect(() => {
-    const selector = document.querySelector('.sidebar ul a[href="' + window.location.pathname + '"]')
-    if (selector) {
-      selector.classList.add('active')
-      const ul = selector.closest('ul.sub-menu')
-      if (ul) {
-        let ele: NodeListOf<Element> | Element | null = ul.closest('li.menu')?.querySelectorAll('.nav-link') || null
-        if (ele) {
-          ele = ele[0]
-          setTimeout(() => {
-            ;(ele as HTMLElement).click()
+    const activePath = location.pathname
+    let foundMenuId = ''
+    const foundSubLabels: string[] = []
+
+    MENU_DATA.forEach((section) => {
+      section.items.forEach((item) => {
+        if (item.path === activePath) {
+          foundMenuId = item.id
+        }
+        if (item.subItems) {
+          item.subItems.forEach((sub) => {
+            if (sub.path === activePath) {
+              foundMenuId = item.id
+              foundSubLabels.push(sub.label)
+            }
+            if (sub.subItems) {
+              sub.subItems.forEach((sub2) => {
+                if (sub2.path === activePath) {
+                  foundMenuId = item.id
+                  foundSubLabels.push(sub.label)
+                  foundSubLabels.push(sub2.label)
+                }
+              })
+            }
           })
         }
-      }
+      })
+    })
+
+    if (foundMenuId) {
+      setCurrentMenu(foundMenuId)
     }
-  }, [])
+    if (foundSubLabels.length > 0) {
+      setSubOpen((prev) => {
+        const next = { ...prev }
+        foundSubLabels.forEach((label) => {
+          next[label] = true
+        })
+        return next
+      })
+    }
+  }, [location.pathname])
 
   useEffect(() => {
     if (window.innerWidth < 1024 && themeConfig.sidebar) {
