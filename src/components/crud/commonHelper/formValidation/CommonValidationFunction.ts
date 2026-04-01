@@ -76,7 +76,7 @@ export const CommonValidationFunction = (props: CommonValidationProps) => {
         // File validation expects `value` to be `FileList | File | null | undefined`.
         // val can be `unknown[]`.
         // We cast safely.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         const fileAnswer = FileValidation({ value: val as FileList | File | null | undefined, fileSize: props.fileSize, fileType: props.fileType })
         if (fileAnswer !== true) return fileAnswer
 
