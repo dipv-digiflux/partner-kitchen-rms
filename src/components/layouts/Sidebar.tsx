@@ -11,6 +11,7 @@ import moltLogo from '../../assets/svg/molt.svg'
 import { MENU_DATA } from '../../router/menuData'
 import { toggleSidebar } from '../../store/themeConfigSlice'
 import { SubItem } from '../../types/menu.types'
+import { hasUserPermission } from '@/components/crud/commonHelper/PermissionsCheck'
 
 const DESKTOP_BREAKPOINT = 1024
 
@@ -136,7 +137,14 @@ const Sidebar = () => {
                       <span className={isCollapsedForWidth ? 'hidden' : ''}>{t(section.label)}</span>
                     </h2>
                   ) : null}
-                  {section.items.map((item) => (
+                  {section.items
+                    .filter((item) => {
+                      // Dashboard is always visible.
+                      if (item.id === 'dashboard') return true
+                      // CRUD menu items: hide if user lacks 'view' permission.
+                      return hasUserPermission({ apiName: item.id, type: 'view' })
+                    })
+                    .map((item) => (
                     <li className="menu nav-item" key={item.id}>
                       {item.subItems ? (
                         <>

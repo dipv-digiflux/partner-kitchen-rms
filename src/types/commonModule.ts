@@ -3,6 +3,7 @@ export interface Routes {
   login: string
   signup: string
   dashboard: string
+  userManagement: string
   user: string
   permissions: string
   recipe: string

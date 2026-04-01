@@ -46,6 +46,13 @@ export type RecipePayload = {
   description: string
   dishTypeId: string
   cuisineId: string
+  /** PRD: recipe photo (vendor uploads). Backend field name may vary. */
+  photoUrl?: string
+  /** PRD: calories range (kcal). Can be derived from variants; kept for compatibility. */
+  caloriesKcalMin?: number
+  caloriesKcalMax?: number
+  /** PRD: allowed discount percentage per meal. */
+  allowedDiscountPercentage?: number
 
   // Ingredients
   ingredientsFixed: string[]
@@ -74,4 +81,6 @@ export type RecipePayload = {
 
   // Status/Other
   status?: string
+  /** PRD: Save as draft vs finalize. */
+  finalize?: boolean
 }

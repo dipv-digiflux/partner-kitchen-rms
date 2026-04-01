@@ -5,6 +5,7 @@ export const appRoutes: Routes = {
   login: '/login',
   signup: '/signup',
   dashboard: '/dashboard',
+  userManagement: '/user-management',
   user: '/user',
   permissions: '/permissions',
   // Vendor Kitchen Platform

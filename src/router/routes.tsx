@@ -19,6 +19,7 @@ const VariantFormPage = lazy(() => import('../pages/(crud)/variant/VariantFormPa
 const Allergens = lazy(() => import('../pages/(crud)/allergens/allergens.index'))
 const BarcodePlace = lazy(() => import('../pages/(crud)/barcode-place/barcodePlace.index'))
 const VendorDashboard = lazy(() => import('../pages/vendor-dashboard/VendorDashboard'))
+const UserManagement = lazy(() => import('../pages/user-management/UserManagement'))
 const ProductionReportSummary = lazy(() => import('../pages/reports/ProductionReportSummary'))
 const ProductionReportList = lazy(() => import('../pages/reports/ProductionReportList'))
 const RecipeRatings = lazy(() => import('../pages/recipe-ratings/RecipeRatings'))
@@ -42,6 +43,11 @@ const routes = [
   {
     path: appRoutes.user,
     element: <User />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.userManagement,
+    element: <UserManagement />,
     layout: 'default',
   },
   {

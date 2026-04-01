@@ -56,6 +56,7 @@ export const RecipeForm = ({ fetchRecord }: CrudFormProps<RecipePayload>) => {
       ingredientsRemovable: [],
       allergensContains: [],
       allergensFreeFrom: [],
+      finalize: false,
     },
   })
 
@@ -116,12 +117,18 @@ export const RecipeForm = ({ fetchRecord }: CrudFormProps<RecipePayload>) => {
 
   // --- Submission ---
   const { isPending, mutate } = useSubmitHandler<RecipePayload>()
-  const submitHandler = (data: RecipePayload) => mutate({ data: { ...data }, control: formApi.control })
+  const submitHandler = (data: RecipePayload, finalize = false) => mutate({ data: { ...data, finalize }, control: formApi.control })
 
   return (
     <PageFormWrapper title={`ADD / EDIT PRODUCT`}>
       <FormProvider {...formApi}>
-        <form onSubmit={handleSubmit(submitHandler)} className="space-y-6">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            handleSubmit((data) => submitHandler(data, false))(e)
+          }}
+          className="space-y-6"
+        >
           {/* Stats Block at the top */}
           <div className="flex flex-wrap items-center justify-end gap-x-6 mb-2">
             <div className="flex items-center gap-1.5 text-success text-sm font-bold">
@@ -149,6 +156,9 @@ export const RecipeForm = ({ fetchRecord }: CrudFormProps<RecipePayload>) => {
                   <div className="grid grid-cols-1">
                     <FormField name="dishName" label="Dish Name" placeholder="ABC Juice" />
                   </div>
+                  <div className="grid grid-cols-1">
+                    <FormField name="photoUrl" label="Photo URL" placeholder="https://..." />
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
                     <FormField name="categoryId" label="Category" type="select" options={categories || []} placeholder="Select..." />
                     <FormField name="dishTypeId" label="Dish Type" type="select" options={dishTypes || []} placeholder="Select..." />
@@ -159,6 +169,11 @@ export const RecipeForm = ({ fetchRecord }: CrudFormProps<RecipePayload>) => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
                     <FormField name="cuisineId" label="Cuisine" type="select" options={cuisines || []} placeholder="Select..." />
                     <FormField name="complexity" label="Complexity*" type="select" options={COMPLEXITY_OPTIONS} placeholder="Moderate" />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                    <FormField name="caloriesKcalMin" label="Calories Min (Kcal)" type="number" placeholder="e.g. 250" />
+                    <FormField name="caloriesKcalMax" label="Calories Max (Kcal)" type="number" placeholder="e.g. 550" />
+                    <FormField name="allowedDiscountPercentage" label="Allowed Discount (%)" type="number" step="0.01" placeholder="e.g. 10" />
                   </div>
                 </div>
               </div>
@@ -540,8 +555,11 @@ export const RecipeForm = ({ fetchRecord }: CrudFormProps<RecipePayload>) => {
           </div>
 
           <div className="flex justify-end gap-3 mt-8">
-            <button type="submit" disabled={isPending} className="btn btn-primary px-8">
-              Save Product
+            <button type="button" disabled={isPending} className="btn btn-outline px-8" onClick={() => handleSubmit((data) => submitHandler(data, false))()}>
+              Save as Draft
+            </button>
+            <button type="button" disabled={isPending} className="btn btn-primary px-8" onClick={() => handleSubmit((data) => submitHandler(data, true))()}>
+              Save & Finalize
             </button>
           </div>
         </form>

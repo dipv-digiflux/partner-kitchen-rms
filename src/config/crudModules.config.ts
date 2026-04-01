@@ -87,3 +87,10 @@ export const DASHBOARD_MENU_ITEM: MenuItem = {
   icon: IconMenuDashboard,
   path: '/',
 }
+
+export const USER_MANAGEMENT_MENU_ITEM: MenuItem = {
+  id: 'user-management',
+  label: 'Users & Permissions',
+  icon: IconMenuUsers,
+  path: '/user-management',
+}
