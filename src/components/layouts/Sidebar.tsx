@@ -10,7 +10,6 @@ import IconMinus from '../../assets/Icon/IconMinus'
 import moltLogo from '../../assets/svg/molt.svg'
 import { MENU_DATA } from '../../router/menuData'
 import { toggleSidebar } from '../../store/themeConfigSlice'
-import { SubItem } from '../../types/menu.types'
 import { hasUserPermission } from '@/components/crud/commonHelper/PermissionsCheck'
 
 const DESKTOP_BREAKPOINT = 1024
@@ -72,7 +71,7 @@ const Sidebar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
-  const renderSubItems = (items: SubItem[]) => (
+  const renderSubItems = (items: NonNullable<typeof MENU_DATA[number]['items'][number]['subItems']>) => (
     <ul className="sub-menu text-gray-500">
       {items.map((sub, idx) => (
         <li key={idx} className={sub.subItems ? 'menu nav-item' : ''}>

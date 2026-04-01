@@ -7,7 +7,6 @@ import { JsonObject } from '@/types/commonAjax.types'
 import { PropsWithChildren, Suspense, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import App from '../../App'
-import Portals from '../Portals'
 import { toggleSidebar } from '../../store/themeConfigSlice'
 import { unFlattenObject } from '../crud/commonHelper/ObjectModified'
 import Footer from './Footer'
@@ -108,7 +107,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         <div className={`${(!themeConfig.sidebar && 'hidden') || ''} fixed inset-0 bg-[black]/60 z-50 lg:hidden`} onClick={() => toggleSidebar()}></div>
         {/* screen loader */}
         {showLoader ? (
-          <div className="screen_loader fixed inset-0 z-60 grid animate__animated place-content-center bg-[#fafafa] dark:bg-[#060818]">
+          <div className="screen_loader fixed inset-0 z-60 grid animate__animated place-content-center bg-surface-subtle-default dark:bg-[#060818]">
             <svg width="64" height="64" viewBox="0 0 135 135" xmlns="http://www.w3.org/2000/svg" fill="#4361ee">
               <path d="M67.447 58c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zm9.448 9.447c0 5.523 4.477 10 10 10 5.522 0 10-4.477 10-10s-4.478-10-10-10c-5.523 0-10 4.477-10 10zm-9.448 9.448c-5.523 0-10 4.477-10 10 0 5.522 4.477 10 10 10s10-4.478 10-10c0-5.523-4.477-10-10-10zM58 67.447c0-5.523-4.477-10-10-10s-10 4.477-10 10 4.477 10 10 10 10-4.477 10-10z">
                 <animateTransform attributeName="transform" type="rotate" from="0 67 67" to="-360 67 67" dur="2.5s" repeatCount="indefinite" />
@@ -121,7 +120,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         ) : null}
         <div className="fixed bottom-6 ltr:right-6 rtl:left-6 z-50">
           {showTopButton ? (
-            <button type="button" className="btn btn-outline-primary rounded-full p-2 animate-pulse bg-[#fafafa] dark:bg-[#060818] dark:hover:bg-primary" onClick={goToTop}>
+            <button type="button" className="btn btn-outline-primary rounded-full p-2 animate-pulse bg-surface-subtle-default dark:bg-[#060818] dark:hover:bg-primary" onClick={goToTop}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 7l4-4m0 0l4 4m-4-4v18" />
               </svg>
@@ -152,7 +151,6 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
             {/* BEGIN FOOTER */}
             <Footer />
             {/* END FOOTER */}
-            <Portals />
           </div>
         </div>
       </div>

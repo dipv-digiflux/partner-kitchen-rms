@@ -4,7 +4,7 @@ import { CommonCrudApi } from '@/types/commonCrud.types'
 import { createCommonCrud } from './createCommonCrud'
 
 /** CRUD config from central config – see src/config/crudModules.config.ts */
-const crudConfig = getCrudConfigFromModules()
+export const crudConfig = getCrudConfigFromModules()
 
 /**
  * website load time no api create

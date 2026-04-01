@@ -7,7 +7,6 @@ import type { CrudConfigItem } from '@/types/commonCrud.types'
 import type { MenuItem } from '@/types/menu.types'
 import IconMenuCalendar from '@/assets/Icon/Menu/IconMenuCalendar'
 import IconMenuContacts from '@/assets/Icon/Menu/IconMenuContacts'
-import IconMenuDashboard from '@/assets/Icon/Menu/IconMenuDashboard'
 import IconMenuPages from '@/assets/Icon/Menu/IconMenuPages'
 import IconMenuUsers from '@/assets/Icon/Menu/IconMenuUsers'
 import { CRUD_MODULES_DATA, type FormMode } from './crudModules.data'
@@ -58,14 +57,7 @@ export function getCrudConfigFromModules(): Record<string, CrudConfigItem> {
   return config
 }
 
-// this is for sidebar show menu items
 
-export function getCrudMenuItems(): MenuItem[] {
-  return Object.entries(CRUD_MODULES_DATA).map(([id, m]) => {
-    const n = normalize(id, m)
-    return { id, label: n.menu.label, icon: n.menu.icon, path: n.listPath }
-  })
-}
 
 // =============== this is for role and permission
 
@@ -81,16 +73,4 @@ export function getCrudUrls(): Record<string, UrlPermission> {
   return out
 }
 
-export const DASHBOARD_MENU_ITEM: MenuItem = {
-  id: 'dashboard',
-  label: 'Dashboard',
-  icon: IconMenuDashboard,
-  path: '/',
-}
 
-export const USER_MANAGEMENT_MENU_ITEM: MenuItem = {
-  id: 'user-management',
-  label: 'Users & Permissions',
-  icon: IconMenuUsers,
-  path: '/user-management',
-}

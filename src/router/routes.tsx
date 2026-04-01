@@ -1,6 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
 import { appRoutes } from '@/lib/utils/routes'
-import Signup from '@/pages/onBoarding/register/Signup'
 import { Login } from '@/pages/onBoarding/signin/Login'
 import { lazy } from 'react'
 import User from '../pages/(crud)/user/user.index'
@@ -134,11 +133,6 @@ const routes = [
     path: appRoutes.recipeRatings,
     element: <RecipeRatings />,
     layout: 'default',
-  },
-  {
-    path: appRoutes.signup,
-    element: <Signup />,
-    layout: 'blank',
   },
   {
     path: '*',

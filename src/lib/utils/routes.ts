@@ -1,9 +1,6 @@
-import { Routes } from '@/types/commonModule'
-
-export const appRoutes: Routes = {
+export const appRoutes = {
   home: '/',
   login: '/login',
-  signup: '/signup',
   dashboard: '/dashboard',
   userManagement: '/user-management',
   user: '/user',

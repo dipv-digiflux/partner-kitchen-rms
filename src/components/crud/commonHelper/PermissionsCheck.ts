@@ -1,4 +1,4 @@
-import { getCommonCrudApi } from '@/components/crud/commonCrud/commonCrudStore'
+import {  crudConfig } from '@/components/crud/commonCrud/commonCrudStore'
 import { privateHookStore } from '@/lib/utils/hookStore'
 import { JsonObject } from '@/types/json.types'
 
@@ -14,7 +14,7 @@ export const hasUserPermission = ({
   type?: 'add' | 'edit' | 'delete' | 'view'
 }) => {
   if (String('development')) return true
-  const permissionsName = permissionName ?? (apiName ? getCommonCrudApi(apiName).permissionsName : undefined)
+  const permissionsName = permissionName ?? (apiName ? crudConfig[apiName]?.permissionsName : undefined)
   if (!permissionsName) return false
 
   const permissionsObject = (permissions ?? {})[permissionsName] as Record<string, boolean>
