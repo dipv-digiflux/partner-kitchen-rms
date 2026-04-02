@@ -57,8 +57,6 @@ export function getCrudConfigFromModules(): Record<string, CrudConfigItem> {
   return config
 }
 
-
-
 // =============== this is for role and permission
 
 export type UrlPermission = { url: string; permissionName: string }
@@ -72,5 +70,3 @@ export function getCrudUrls(): Record<string, UrlPermission> {
   }
   return out
 }
-
-

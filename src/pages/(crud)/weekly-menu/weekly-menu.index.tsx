@@ -1,7 +1,6 @@
 import { AddRecord, DeleteRecord, EditRecord } from '@/components/crud/commonCrud/CommonElement/CommonAction'
 import { CommonCrudView } from '@/components/crud/commonCrud/CommonElement/CommonCrudView'
 import { CommonFilterSearch } from '@/components/crud/commonCrud/CommonElement/CommonFilter'
-import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/CommonFormElement'
 import { commonAjax } from '@/components/crud/commonCrud/commonAjax'
 import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { hasUserPermission } from '@/components/crud/commonHelper/PermissionsCheck'
@@ -14,7 +13,6 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { Copy } from 'lucide-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { WeeklyMenuForm } from './WeeklyMenuForm'
 
 const columnHelper = createColumnHelper<WeeklyMenuPayload>()
 
@@ -124,8 +122,6 @@ const WeeklyMenuContent = () => {
           </div>
         </div>
       </div>
-
-      <CommonFormElement form={WeeklyMenuForm} />
     </div>
   )
 }

@@ -58,7 +58,7 @@ export const CRUD_MODULES_DATA: Record<string, CrudModuleInput> = {
     apiUrl: '/weekly-menu',
     pageTitle: 'Weekly Menu',
     permissionName: 'weekly_menu',
-    formMode: 'MODAL',
+    formMode: 'PAGE',
     menuLabel: 'Weekly Menu',
     menuIcon: 'calendar',
   },

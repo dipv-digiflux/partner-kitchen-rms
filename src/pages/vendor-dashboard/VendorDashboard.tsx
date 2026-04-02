@@ -205,24 +205,9 @@ const VendorDashboard = () => {
           <h3 className="text-lg font-semibold">Weekly Cycle</h3>
         </div>
         <div className="card-body grid grid-cols-1 gap-3 lg:grid-cols-2">
-          <StatusCard
-            title="Mon–Fri: Menu Update"
-            description='Update recipes and "Save & Finalize" next week’s menu.'
-            statusColor="#FFB905"
-            dotShadowColor="rgba(255,185,5,0.2)"
-          />
-          <StatusCard
-            title="Fri 12:00 noon: Menu Finalization"
-            description="Molt Admin reviews vendor submissions and approves."
-            statusColor="#3B82F6"
-            dotShadowColor="rgba(59,130,246,0.2)"
-          />
-          <StatusCard
-            title="Wed (next week): Menu goes Live"
-            description="Order projections become visible on the dashboard."
-            statusColor="#10B981"
-            dotShadowColor="rgba(16,185,129,0.2)"
-          />
+          <StatusCard title="Mon–Fri: Menu Update" description='Update recipes and "Save & Finalize" next week’s menu.' statusColor="#FFB905" dotShadowColor="rgba(255,185,5,0.2)" />
+          <StatusCard title="Fri 12:00 noon: Menu Finalization" description="Molt Admin reviews vendor submissions and approves." statusColor="#3B82F6" dotShadowColor="rgba(59,130,246,0.2)" />
+          <StatusCard title="Wed (next week): Menu goes Live" description="Order projections become visible on the dashboard." statusColor="#10B981" dotShadowColor="rgba(16,185,129,0.2)" />
           <StatusCard
             title="Wed–Sat 12:00 noon: Order Tracking"
             description="Track live orders and production numbers for delivery cycle."
@@ -230,7 +215,7 @@ const VendorDashboard = () => {
             dotShadowColor="rgba(139,92,246,0.2)"
           />
           <StatusCard
-            title='Sat 12:00 noon: Order Finalization'
+            title="Sat 12:00 noon: Order Finalization"
             description='Production reports generated; print "powered by molt" labels.'
             statusColor="#EF4444"
             dotShadowColor="rgba(239,68,68,0.2)"

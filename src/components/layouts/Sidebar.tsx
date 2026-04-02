@@ -98,7 +98,7 @@ const Sidebar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
-  const renderSubItems = (items: NonNullable<typeof MENU_DATA[number]['items'][number]['subItems']>) => (
+  const renderSubItems = (items: NonNullable<(typeof MENU_DATA)[number]['items'][number]['subItems']>) => (
     <ul className="sub-menu text-gray-500">
       {items.map((sub, idx) => (
         <li key={idx} className={sub.subItems ? 'menu nav-item' : ''}>
@@ -171,52 +171,54 @@ const Sidebar = () => {
                       return hasUserPermission({ apiName: item.id, type: 'view' })
                     })
                     .map((item) => (
-                    <li className="menu nav-item" key={item.id}>
-                      {item.subItems ? (
-                        <>
-                          <button
-                            type="button"
-                            className={`${
-                              currentMenu === item.id ? 'active bg-gray-100 dark:bg-gray-800 text-black dark:text-white-light' : ''
-                            } nav-link group w-full hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md p-2`}
-                            onClick={() => toggleMenu(item.id)}
-                          >
+                      <li className="menu nav-item" key={item.id}>
+                        {item.subItems ? (
+                          <>
+                            <button
+                              type="button"
+                              className={`${
+                                currentMenu === item.id ? 'active bg-gray-100 dark:bg-gray-800 text-black dark:text-white-light' : ''
+                              } nav-link group w-full hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md p-2`}
+                              onClick={() => toggleMenu(item.id)}
+                            >
+                              <div className={`flex items-center ${isCollapsedForWidth ? 'justify-center' : ''}`}>
+                                <item.icon
+                                  className={`shrink-0 ${
+                                    currentMenu === item.id ? 'text-black dark:text-white-light' : 'text-gray-500 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light'
+                                  }`}
+                                />
+                                <span
+                                  className={`ltr:pl-3 rtl:pr-3 ${
+                                    currentMenu === item.id
+                                      ? 'text-black dark:text-white-light font-medium'
+                                      : 'text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light'
+                                  } ${isCollapsedForWidth ? 'hidden' : ''}`}
+                                >
+                                  {t(item.label)}
+                                </span>
+                              </div>
+
+                              <div className={`${currentMenu !== item.id ? 'rtl:rotate-90 -rotate-90' : ''} ${isCollapsedForWidth ? 'hidden' : ''}`}>
+                                <IconCaretDown />
+                              </div>
+                            </button>
+
+                            <AnimateHeight duration={300} height={!isCollapsedForWidth && currentMenu === item.id ? 'auto' : 0}>
+                              {renderSubItems(item.subItems)}
+                            </AnimateHeight>
+                          </>
+                        ) : (
+                          <NavLink to={item.path!} className="nav-link group w-full hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md p-2">
                             <div className={`flex items-center ${isCollapsedForWidth ? 'justify-center' : ''}`}>
-                              <item.icon
-                                className={`shrink-0 ${
-                                  currentMenu === item.id ? 'text-black dark:text-white-light' : 'text-gray-500 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light'
-                                }`}
-                              />
-                              <span
-                                className={`ltr:pl-3 rtl:pr-3 ${
-                                  currentMenu === item.id ? 'text-black dark:text-white-light font-medium' : 'text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light'
-                                } ${isCollapsedForWidth ? 'hidden' : ''}`}
-                              >
+                              <item.icon className={`shrink-0 text-gray-500 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light ${isCollapsedForWidth ? 'mx-auto' : ''}`} />
+                              <span className={`ltr:pl-3 rtl:pr-3 text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light ${isCollapsedForWidth ? 'hidden' : ''}`}>
                                 {t(item.label)}
                               </span>
                             </div>
-
-                            <div className={`${currentMenu !== item.id ? 'rtl:rotate-90 -rotate-90' : ''} ${isCollapsedForWidth ? 'hidden' : ''}`}>
-                              <IconCaretDown />
-                            </div>
-                          </button>
-
-                          <AnimateHeight duration={300} height={!isCollapsedForWidth && currentMenu === item.id ? 'auto' : 0}>
-                            {renderSubItems(item.subItems)}
-                          </AnimateHeight>
-                        </>
-                      ) : (
-                        <NavLink to={item.path!} className="nav-link group w-full hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md p-2">
-                          <div className={`flex items-center ${isCollapsedForWidth ? 'justify-center' : ''}`}>
-                            <item.icon className={`shrink-0 text-gray-500 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light ${isCollapsedForWidth ? 'mx-auto' : ''}`} />
-                            <span className={`ltr:pl-3 rtl:pr-3 text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light ${isCollapsedForWidth ? 'hidden' : ''}`}>
-                              {t(item.label)}
-                            </span>
-                          </div>
-                        </NavLink>
-                      )}
-                    </li>
-                  ))}
+                          </NavLink>
+                        )}
+                      </li>
+                    ))}
                 </Fragment>
               ))}
             </ul>

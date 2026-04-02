@@ -22,8 +22,12 @@ const DropdownContent = React.forwardRef<React.ComponentRef<typeof PopoverPrimit
         ref={ref}
         align={align}
         sideOffset={sideOffset}
+        avoidCollisions
+        collisionPadding={8}
         className={cn(
-          'z-50 min-w-[8rem] rounded-lg border border-[#e0e6ed] dark:border-[#191e3a] bg-white dark:bg-[#1b2e4b] p-3 text-[#0e1726] dark:text-white-dark shadow-lg outline-none',
+          'z-999 min-w-32 rounded-lg border border-[#e0e6ed] dark:border-[#191e3a] bg-white dark:bg-[#1b2e4b] p-3 text-[#0e1726] dark:text-white-dark shadow-lg outline-none',
+          // Prevent clipping on small screens / inside modals
+          'max-h-(--radix-popover-content-available-height) max-w-(--radix-popover-content-available-width) overflow-auto',
           className,
         )}
         {...props}

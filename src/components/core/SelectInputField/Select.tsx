@@ -5,7 +5,7 @@ import { OptionType, SelectProps } from '@/types/components.types'
 
 export const Select = ({ value, onChange, options, onBlur, placeholder, isCreatable, ...atr }: SelectProps & { isCreatable?: boolean }) => {
   const SelectComponent = isCreatable ? CreatableSelect : ReactSelect
-  
+
   const optionsObject = useMemo(() => {
     if (options && Array.isArray(options)) {
       return options.reduce((acc: Record<string | number, OptionType>, { label, value }: OptionType) => {
@@ -28,7 +28,7 @@ export const Select = ({ value, onChange, options, onBlur, placeholder, isCreata
       menuPortalTarget={typeof document !== 'undefined' ? document.body : undefined}
       styles={customStyles}
       placeholder={placeholder}
-      value={Array.isArray(value) ? value.map((item) => optionsObject[item] || { label: item, value: item }) : (optionsObject[value] || (value ? { label: value, value } : null))}
+      value={Array.isArray(value) ? value.map((item) => optionsObject[item] || { label: item, value: item }) : optionsObject[value] || (value ? { label: value, value } : null)}
       onChange={handleOnchange}
       options={options}
       onBlur={onBlur}
@@ -40,9 +40,9 @@ export const Select = ({ value, onChange, options, onBlur, placeholder, isCreata
 const customStyles: StylesConfig<OptionType, boolean, GroupBase<OptionType>> = {
   control: (provided, state) => {
     // Extract base tailwind-like logic from props if provided via className
-    const atr = (state.selectProps as unknown as SelectProps & { isCreatable?: boolean, className?: string })
+    const atr = state.selectProps as unknown as SelectProps & { isCreatable?: boolean; className?: string }
     const isMinimal = typeof atr.className === 'string' && (atr.className.includes('border-0') || atr.className.includes('border-none'))
-    
+
     return {
       ...provided,
       backgroundColor: 'transparent',

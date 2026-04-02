@@ -2,6 +2,8 @@ import { Select } from '@/components/core/SelectInputField/Select'
 import { Input } from '@/components/core/TextInputField/Input'
 import OtpInput from '@/components/core/TextInputField/OtpInput'
 import { FileInput } from '@/components/core/FileInputField/FileInput'
+import { DatePicker } from '@/components/core/DatePickerInputField'
+import { DateRangePickerField } from '@/components/core/DateRangePickerField'
 import { cn } from '@/lib/utils/utills'
 import { FormElementProps, FormFieldProps, InputType } from '@/types/form.types'
 import { ErrorMessage } from '@hookform/error-message'
@@ -32,15 +34,15 @@ export const FormField = ({ name, type = 'text', label, errorName, rules, valida
     atr,
     options,
     required: validateRule?.required,
-    placeholder: typeof label == 'string' || errorName ? `${type == 'select' ? 'Select' : 'Enter'} ${label || errorName}` : undefined,
+    placeholder: typeof label == 'string' || errorName ? `${type == 'select' ? 'Select' : type == 'daterange' ? '' : 'Enter'} ${label || errorName}`.trim() : undefined,
     validateRule,
   }
 
   return (
     <div className={cn('w-full', type === 'checkbox' && 'form-field--has-checkbox')}>
       <Label label={label} inputId={inputId} />
-      <FormElement {...{ ...FormElementProps }} />
-      <ErrorMessage errors={errors} name={name} render={({ message }: { message: string }) => <p className="text-danger fs-12 mt-1 ms-1">{message}</p>} />
+      <FormElement {...FormElementProps} />
+      <ErrorMessage errors={errors} name={name} render={({ message }: { message: string }) => <p className="text-danger fs-12 mt-1 ms-1 capitalize">{message}</p>} />
     </div>
   )
 }
@@ -48,6 +50,7 @@ export const FormField = ({ name, type = 'text', label, errorName, rules, valida
 /************* form element ***************/
 
 const FormElement = ({ type, name, newRules, register, control, inputId, required, placeholder, atr, options, validateRule }: FormElementProps) => {
+  const { trigger } = useFormContext()
   if (!type || !name) return null
 
   if (type == 'otp') {
@@ -99,6 +102,59 @@ const FormElement = ({ type, name, newRules, register, control, inputId, require
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any)}
             ref={ref}
+          />
+        )}
+      />
+    )
+  }
+
+  if (type == 'date') {
+    return (
+      <Controller
+        name={name}
+        rules={newRules}
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <DatePicker
+            value={value as string | Date}
+            onChange={(date) => onChange(date ? date.toISOString() : '')}
+            placeholder={placeholder}
+            className={cn(required && 'required-border rounded-md', atr?.className)}
+          />
+        )}
+      />
+    )
+  }
+
+  if (type == 'daterange') {
+    const rangeRules = {
+      ...newRules,
+      validate: {
+        ...(typeof newRules.validate === 'object' ? newRules.validate : {}),
+        dateRangeRequired: (v: unknown) => {
+          if (!required) return true
+          const from = (v as { from?: string } | undefined)?.from
+          const to = (v as { to?: string } | undefined)?.to
+          return from && to ? true : `${(validateRule?.name || name).replace(/_/g, ' ').trim().toLocaleLowerCase() || name} is required`
+        },
+      },
+    }
+
+    return (
+      <Controller
+        name={name}
+        control={control}
+        rules={rangeRules}
+        render={({ field: { value, onChange } }) => (
+          <DateRangePickerField
+            value={(value as { from?: string; to?: string } | undefined) || { from: '', to: '' }}
+            onChange={(next) => {
+              onChange({ from: next.from || '', to: next.to || '' })
+              trigger(name)
+            }}
+            placeholder={placeholder || 'Pick a date range'}
+            className={cn(required && 'required-border rounded-md', atr?.className)}
+            disabled={atr?.disabled as boolean}
           />
         )}
       />

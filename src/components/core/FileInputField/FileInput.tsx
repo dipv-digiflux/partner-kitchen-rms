@@ -19,7 +19,7 @@ export const FileInput = ({ value, onChange, multiple = false, accept, className
   // Cleanup object URLs to avoid memory leaks
   useEffect(() => {
     return () => {
-      Object.values(previews).forEach(url => {
+      Object.values(previews).forEach((url) => {
         if (url.startsWith('blob:')) URL.revokeObjectURL(url)
       })
     }
@@ -34,7 +34,7 @@ export const FileInput = ({ value, onChange, multiple = false, accept, className
   const processFiles = (newFiles: File[]) => {
     // Generate previews for images
     const newPreviews: Record<string, string> = { ...previews }
-    newFiles.forEach(file => {
+    newFiles.forEach((file) => {
       if (file.type.startsWith('image/')) {
         const url = URL.createObjectURL(file)
         newPreviews[file.name] = url
@@ -43,7 +43,7 @@ export const FileInput = ({ value, onChange, multiple = false, accept, className
     setPreviews(newPreviews)
 
     if (multiple) {
-      const currentValues = Array.isArray(value) ? value : (value ? [value] : [])
+      const currentValues = Array.isArray(value) ? value : value ? [value] : []
       onChange([...currentValues, ...newFiles])
     } else {
       onChange(newFiles[0])
@@ -95,14 +95,14 @@ export const FileInput = ({ value, onChange, multiple = false, accept, className
   const renderPreview = () => {
     if (!value || (Array.isArray(value) && value.length === 0)) return null
     const filesArray = Array.isArray(value) ? value : [value]
-    
+
     return (
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
         {filesArray.map((file, idx) => {
           const fileName = typeof file === 'string' ? file.split('/').pop() : (file as File)?.name
           const previewUrl = getFilePreview(file)
           const isImage = !!previewUrl || (typeof file === 'string' && /\.(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(file))
-          
+
           return (
             <div key={idx} className="group relative flex items-center gap-3 p-2 bg-white border border-gray-200 rounded-lg hover:border-primary/30 hover:shadow-sm transition-all overflow-hidden">
               {isImage ? (
@@ -114,12 +114,10 @@ export const FileInput = ({ value, onChange, multiple = false, accept, className
                   <FileIcon className="text-primary w-4 h-4" />
                 </div>
               )}
-              
+
               <div className="flex-1 min-w-0 pr-8">
                 <p className="text-xs font-bold text-gray-800 truncate mb-0.5">{fileName || 'File'}</p>
-                <p className="text-[10px] text-gray-400 font-medium">
-                  {file instanceof File ? `${(file.size / 1024).toFixed(1)} KB` : 'Cloud Storage'}
-                </p>
+                <p className="text-[10px] text-gray-400 font-medium">{file instanceof File ? `${(file.size / 1024).toFixed(1)} KB` : 'Cloud Storage'}</p>
               </div>
 
               <button
@@ -131,7 +129,7 @@ export const FileInput = ({ value, onChange, multiple = false, accept, className
                 className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 border text-danger border-danger/30 p-1 rounded-md cursor-pointer"
                 title="Remove file"
               >
-                <X size={12} strokeWidth={3}/>
+                <X size={12} strokeWidth={3} />
               </button>
             </div>
           )
@@ -141,13 +139,11 @@ export const FileInput = ({ value, onChange, multiple = false, accept, className
   }
 
   return (
-    <div className={cn("w-full", className)}>
+    <div className={cn('w-full', className)}>
       <div
         className={cn(
-          "w-full border-1 border-dashed rounded-lg flex items-center justify-between p-3 cursor-pointer transition-all duration-200 group",
-          isDragActive 
-            ? "border-primary bg-primary/10 scale-[1.01]" 
-            : "border-primary/30"
+          'w-full border-1 border-dashed rounded-lg flex items-center justify-between p-3 cursor-pointer transition-all duration-200 group',
+          isDragActive ? 'border-primary bg-primary/10 scale-[1.01]' : 'border-primary/30',
         )}
         onClick={() => inputRef.current?.click()}
         onDragEnter={handleDrag}
@@ -161,30 +157,19 @@ export const FileInput = ({ value, onChange, multiple = false, accept, className
           </div>
           <div className="text-left overflow-hidden">
             <h4 className="text-xs font-bold text-gray-700 truncate mb-0.5">{placeholder}</h4>
-            <p className="text-[10px] text-gray-400 font-medium truncate">
-              {multiple 
-                ? 'Drag files or click to browse' 
-                : 'Drag a file or click to browse'}
-            </p>
+            <p className="text-[10px] text-gray-400 font-medium truncate">{multiple ? 'Drag files or click to browse' : 'Drag a file or click to browse'}</p>
           </div>
         </div>
-        
+
         <div className="shrink-0 ml-2">
           <button type="button" className="text-[10px] bg-primary text-white font-bold py-1.5 px-3 rounded-md shadow-sm group-hover:bg-primary-dark transition-colors">
             Browse
           </button>
         </div>
-        
-        <input
-          type="file"
-          ref={inputRef}
-          className="hidden"
-          multiple={multiple}
-          accept={accept}
-          onChange={handleFileChange}
-        />
+
+        <input type="file" ref={inputRef} className="hidden" multiple={multiple} accept={accept} onChange={handleFileChange} />
       </div>
-      
+
       {renderPreview()}
     </div>
   )

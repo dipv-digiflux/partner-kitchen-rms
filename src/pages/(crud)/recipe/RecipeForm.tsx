@@ -77,7 +77,7 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
   const submitHandler = (data: RecipePayload, finalize = false) => mutate({ data: { ...data, finalize }, control: formApi.control })
 
   return (
-    <PageFormWrapper title={`${pagtitle} Recipe`} className='max-w-[1300px] mx-auto'>
+    <PageFormWrapper title={`${pagtitle} Recipe`} className="max-w-[1300px] mx-auto">
       <FormProvider {...formApi}>
         <form
           onSubmit={(e) => {
@@ -104,10 +104,17 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
               <div>
-                <FormField name="internalPhotos" label="Photo Raw" type="file"  validateRule={{ fileType: ['.png', '.jpg', '.jpeg', '.webp'] }} />
+                <FormField name="internalPhotos" label="Photo Raw" type="file" validateRule={{ fileType: ['.png', '.jpg', '.jpeg', '.webp'] }} />
               </div>
               <div>
-                <FormField name="websitePhotos" label="Presentation Photo" type="file" multiple={true} placeholder="Drag and drop your presentation variations here" validateRule={{ fileType: ['.png', '.jpg', '.jpeg', '.webp'] }} />
+                <FormField
+                  name="websitePhotos"
+                  label="Presentation Photo"
+                  type="file"
+                  multiple={true}
+                  placeholder="Drag and drop your presentation variations here"
+                  validateRule={{ fileType: ['.png', '.jpg', '.jpeg', '.webp'] }}
+                />
               </div>
             </div>
           </div>
@@ -143,22 +150,52 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
                         </button>
                       </td>
                       <td className="py-2 px-2 min-w-[100px]">
-                        <FormField name={`variants.${idx}.kcal`} type="number" placeholder="" className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0" />
+                        <FormField
+                          name={`variants.${idx}.kcal`}
+                          type="number"
+                          placeholder=""
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                        />
                       </td>
                       <td className="py-2 px-2 min-w-[100px]">
-                        <FormField name={`variants.${idx}.protein`} type="number" placeholder="" className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0" />
+                        <FormField
+                          name={`variants.${idx}.protein`}
+                          type="number"
+                          placeholder=""
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                        />
                       </td>
                       <td className="py-2 px-2 min-w-[100px]">
-                        <FormField name={`variants.${idx}.carb`} type="number" placeholder="" className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0" />
+                        <FormField
+                          name={`variants.${idx}.carb`}
+                          type="number"
+                          placeholder=""
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                        />
                       </td>
                       <td className="py-2 px-2 min-w-[100px]">
-                        <FormField name={`variants.${idx}.fat`} type="number" placeholder="" className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0" />
+                        <FormField
+                          name={`variants.${idx}.fat`}
+                          type="number"
+                          placeholder=""
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                        />
                       </td>
                       <td className="py-2 px-2 min-w-[100px]">
-                        <FormField name={`variants.${idx}.price`} type="number" step="0.01" placeholder="" className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0" />
+                        <FormField
+                          name={`variants.${idx}.price`}
+                          type="number"
+                          step="0.01"
+                          placeholder=""
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                        />
                       </td>
                       <td className="py-2 px-2 min-w-[120px]">
-                        <FormField name={`variants.${idx}.dietType`} placeholder="" className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0" />
+                        <FormField
+                          name={`variants.${idx}.dietType`}
+                          placeholder=""
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                        />
                       </td>
                       <td className="py-2 px-2 min-w-[120px]">
                         <FormField name={`variants.${idx}.sizeAvailable`} type="select" options={SIZE_OPTIONS} placeholder="Size" className="rounded-none bg-transparent shadow-none!" />

@@ -1,4 +1,4 @@
-import {  crudConfig } from '@/components/crud/commonCrud/commonCrudStore'
+import { crudConfig } from '@/components/crud/commonCrud/commonCrudStore'
 import { privateHookStore } from '@/lib/utils/hookStore'
 import { JsonObject } from '@/types/json.types'
 

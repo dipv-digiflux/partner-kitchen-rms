@@ -28,6 +28,7 @@ export type InputType =
   | 'file'
   | 'month'
   | 'otp'
+  | 'daterange'
 
 export interface OptionalRequiredConditionType {
   name: string

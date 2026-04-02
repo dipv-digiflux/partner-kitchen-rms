@@ -5,7 +5,7 @@ export type WeeklyMenuPayload = {
   week_label: string
   start_date: string
   end_date: string
-  menu_items: string
+  menu_items: string[]
   finalize: boolean
   status?: string
 }

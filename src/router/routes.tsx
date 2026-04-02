@@ -8,6 +8,7 @@ const Permissions = lazy(() => import('../pages/(crud)/permissions/permissions.i
 const Recipe = lazy(() => import('../pages/(crud)/recipe/recipe.index'))
 const RecipeFormPage = lazy(() => import('../pages/(crud)/recipe/RecipeFormPage'))
 const WeeklyMenu = lazy(() => import('../pages/(crud)/weekly-menu/weekly-menu.index'))
+const WeeklyMenuFormPage = lazy(() => import('../pages/(crud)/weekly-menu/WeeklyMenuFormPage'))
 const Category = lazy(() => import('../pages/(crud)/category/category.index'))
 const Ingredient = lazy(() => import('../pages/(crud)/ingredient/ingredient.index'))
 const DishType = lazy(() => import('../pages/(crud)/dishtype/dishtype.index'))
@@ -67,6 +68,11 @@ const routes = [
   {
     path: appRoutes.weeklyMenu,
     element: <WeeklyMenu />,
+    layout: 'default',
+  },
+  {
+    path: appRoutes.weeklyMenuForm,
+    element: <WeeklyMenuFormPage />,
     layout: 'default',
   },
   {
