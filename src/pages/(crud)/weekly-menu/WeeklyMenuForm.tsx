@@ -6,7 +6,6 @@ import type { WeeklyMenuPayload } from '@/types/payload/weekly-menu.payload'
 import type { OptionType } from '@/types/components.types'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useMemo } from 'react'
-import { WeeklyMenuRecipesDndField } from './WeeklyMenuRecipesDndField'
 
 type WeeklyMenuFormValues = Omit<WeeklyMenuPayload, 'start_date' | 'end_date' | 'menu_items'> & {
   date_range: { from?: string; to?: string }
@@ -56,7 +55,7 @@ export const WeeklyMenuForm = ({ fetchRecord, moduleMode }: CrudFormProps<Weekly
       menu_items: Array.isArray(data.menu_items) ? data.menu_items : [],
       finalize,
     }
-    console.log({payload})
+    console.log({ payload })
     // @ts-expect-error control type differs from payload; runtime is fine for RHF
     mutate({ data: payload, control: formApi.control })
   }
@@ -72,13 +71,11 @@ export const WeeklyMenuForm = ({ fetchRecord, moduleMode }: CrudFormProps<Weekly
           className="space-y-6"
         >
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <FormField name="categoryId" label="Category" type="select" options={([{label: 'Select category', value: '1'}] as OptionType[]) } validateRule={{ required: true, name: 'Category' }} placeholder={'Select category'} />
             <FormField name="week_label" label="Week Label" validateRule={{ required: true, name: 'Week Label' }} placeholder="e.g. Week 12, Mar 2025" />
+            <FormField name="date_range" type="daterange" label="Date Range" validateRule={{ required: true }} />
           </div>
 
-          <FormField name="date_range" type="daterange" label="Date Range" validateRule={{ required: true }} />
-
-          <WeeklyMenuRecipesDndField name="menu_items" label="Recipes" options={(recipeOptionsForUi as OptionType[])} canSelect={true} placeholder={'Search recipes...'} />
+          <FormField name="menu_items" label="Recipes" type="duallistdnd" options={(recipeOptionsForUi as OptionType[]) || []} validateRule={{ required: true, name: 'Recipes' }} />
 
           <div className="flex justify-end gap-3 mt-8">
             <button type="button" onClick={() => handleSubmit((data) => submitHandler(data, false))()} disabled={isPending} className="btn btn-sm px-3 btn-outline">

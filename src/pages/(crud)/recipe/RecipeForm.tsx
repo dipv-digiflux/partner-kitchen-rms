@@ -106,16 +106,6 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
               <div>
                 <FormField name="internalPhotos" label="Photo Raw" type="file" validateRule={{ fileType: ['.png', '.jpg', '.jpeg', '.webp'] }} />
               </div>
-              <div>
-                <FormField
-                  name="websitePhotos"
-                  label="Presentation Photo"
-                  type="file"
-                  multiple={true}
-                  placeholder="Drag and drop your presentation variations here"
-                  validateRule={{ fileType: ['.png', '.jpg', '.jpeg', '.webp'] }}
-                />
-              </div>
             </div>
           </div>
 
