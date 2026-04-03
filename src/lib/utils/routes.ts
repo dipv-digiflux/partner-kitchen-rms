@@ -2,9 +2,7 @@ export const appRoutes = {
   home: '/',
   login: '/login',
   dashboard: '/dashboard',
-  userManagement: '/user-management',
   user: '/user',
-  permissions: '/permissions',
   // Vendor Kitchen Platform
   recipe: '/recipe',
   recipeForm: '/recipe/add',

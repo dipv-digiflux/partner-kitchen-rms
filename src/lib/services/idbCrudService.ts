@@ -15,7 +15,6 @@ type SupportedCollections =
   | 'dishTypes'
   | 'ingredients'
   | 'packagingMaterials'
-  | 'permissions'
   | 'users'
   | 'variants'
 
@@ -29,7 +28,6 @@ const URL_TO_COLLECTION: Record<string, SupportedCollections> = {
   '/dishtype': 'dishTypes',
   '/ingredient': 'ingredients',
   '/packaging-material': 'packagingMaterials',
-  '/permissions': 'permissions',
   '/user': 'users',
   '/variant': 'variants',
 }

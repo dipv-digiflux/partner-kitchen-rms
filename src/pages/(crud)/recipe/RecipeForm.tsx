@@ -80,10 +80,7 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
     <PageFormWrapper title={`${pagtitle} Recipe`} className="max-w-[1300px] mx-auto">
       <FormProvider {...formApi}>
         <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            handleSubmit((data) => submitHandler(data, false))(e)
-          }}
+          onSubmit={handleSubmit((data) => submitHandler(data, false))}
           className="space-y-6"
         >
           <div className="space-y-3">

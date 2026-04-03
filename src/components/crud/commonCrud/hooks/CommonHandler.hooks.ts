@@ -72,10 +72,11 @@ const useFilterSubmitHandler = ({ apiName, mutationKey = [] }: { apiName: string
       SearchParamsObject.page = 1
       SearchParamsObject.filters = filterData as JsonObject
 
-      setSearchPrams(SearchParamsObject)
-
       // invalid query for new data fetch
-      queryClient.invalidateQueries({ queryKey: Api.crudApi.queryKeys['dataHandlerKey'] })
+      queryClient.cancelQueries({ queryKey: Api.crudApi.queryKeys['dataHandlerKey'] })
+
+      setSearchPrams(SearchParamsObject)
+      
     },
   })
 }
@@ -99,10 +100,10 @@ const useDataHandler = ({ apiName, queryKey: userQueryKey = [], data = {} }: { a
 
   return useQuery({
     queryKey,
-    queryFn: () => {
+    queryFn: ({signal}) => {
       const finalData = { action, page, limit, ...filters, ...data }
       if (sortBy) Object.assign(finalData, { sortBy, sortOrder: sortOrder || 'asc' })
-      return Api.AjaxApi({ data: finalData })
+      return Api.AjaxApi({ data: finalData, signal })
     },
     placeholderData: keepPreviousData,
   })

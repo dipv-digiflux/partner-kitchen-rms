@@ -107,16 +107,43 @@ export const CommonFilterSearch = ({ name = 'search', placeholder = 'Search..' }
   })
 
   const { mutate } = useFilterSubmitHandler()
-  const isFetching = useIsFetching({ queryKey: API.crudApi.queryKeys.dataHandlerKey })
+  const debounceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastSubmittedRef = useRef<string>('')
+  const skipFirstWatchEventRef = useRef(true)
 
   const onSubmit = (data: JsonObject) => {
+    lastSubmittedRef.current = JSON.stringify(data)
     mutate(data)
   }
+
+  useEffect(() => {
+    const subscription = formApi.watch((values) => {
+      if (skipFirstWatchEventRef.current) {
+        skipFirstWatchEventRef.current = false
+        return
+      }
+
+      const data = values as unknown as JsonObject
+      const nextKey = JSON.stringify(data)
+      if (nextKey === lastSubmittedRef.current) return
+
+      if (debounceTimeoutRef.current) clearTimeout(debounceTimeoutRef.current)
+      debounceTimeoutRef.current = setTimeout(() => {
+        lastSubmittedRef.current = nextKey
+        mutate(data)
+      }, 400)
+    })
+
+    return () => {
+      subscription.unsubscribe()
+      if (debounceTimeoutRef.current) clearTimeout(debounceTimeoutRef.current)
+    }
+  }, [formApi, mutate])
 
   return (
     <FormProvider {...formApi}>
       <form onSubmit={formApi.handleSubmit(onSubmit)}>
-        <FormField name={name} placeholder={placeholder} disabled={isFetching > 0} className="max-w-[250px]" />
+        <FormField name={name} placeholder={placeholder} className="max-w-[250px]" />
       </form>
     </FormProvider>
   )

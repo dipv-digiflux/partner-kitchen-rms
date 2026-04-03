@@ -19,11 +19,15 @@ export const commonAjax = async <TData = unknown, TResponse = unknown>({
   url,
   type = 'GET',
   data = {} as TData,
+  signal,
   config = {},
   callback,
   rejectCallback,
 }: CommonAjaxProps<TData, TResponse>): Promise<TResponse> => {
   try {
+    if (signal?.aborted) {
+      throw new DOMException('Aborted', 'AbortError')
+    }
     const method = type.toLowerCase() as 'get' | 'delete' | 'post' | 'put' | 'patch'
     // request method type
     // const requestContentType = data instanceof FormData ? "multipart/form-data" : "application/json";
@@ -31,7 +35,7 @@ export const commonAjax = async <TData = unknown, TResponse = unknown>({
     // request headers
     // const requestHeaders = { ...(config.headers ?? {}), 'Content-Type': requestContentType }
     const requestHeaders = { ...(config.headers ?? {}) }
-    const finalConfig: AxiosRequestConfig = { ...config, headers: requestHeaders }
+    const finalConfig: AxiosRequestConfig = { ...config, headers: requestHeaders, ...(signal ? { signal } : {}) }
 
     let axiosResponse: TResponse
 
@@ -72,6 +76,6 @@ export const commonAjax = async <TData = unknown, TResponse = unknown>({
     // error toast show is pending
 
     if (rejectCallback) rejectCallback(errorData)
-    throw new Error(String(error))
+    throw error
   }
 }

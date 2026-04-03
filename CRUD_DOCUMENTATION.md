@@ -204,15 +204,7 @@ const userData = {
 - **Form Options (Select Inputs):**
   - **Role:** `GET /role?action=get_options` -> `[{ label: name, value: _id }]`
 
-### 2. Permissions Module
-
-- **API URL:** `/permissions`
-- **Form Fields:**
-  - `type` (Select/Text, Required)
-  - `name` (Text, Required, Pattern: `module.action`)
-  - `description` (Textarea, Required)
-
-### 3. Recipe Master
+### 2. Recipe Master
 
 - **API URL:** `/recipe`
 - **Form Fields:**
@@ -243,7 +235,7 @@ const userData = {
   - **Allergens:** `GET /allergens?action=get_options`
   - **Packaging Material:** `GET /packaging-material?action=get_options`
 
-### 4. Weekly Menu
+### 3. Weekly Menu
 
 - **API URL:** `/weekly-menu`
 - **Form Fields:**
@@ -257,7 +249,7 @@ const userData = {
   - **Category:** `GET /category?action=get_options`
   - **Recipe:** `GET /recipe?action=get_options` (Filtered by selected category optionally)
 
-### 5. Category
+### 4. Category
 
 - **API URL:** `/category`
 - **Form Fields:**
@@ -266,7 +258,7 @@ const userData = {
   - `IsVegetarian` (Checkbox)
   - `IsLive` (Checkbox)
 
-### 6. Ingredient
+### 5. Ingredient
 
 - **API URL:** `/ingredient`
 - **Form Fields:**
@@ -274,21 +266,21 @@ const userData = {
   - `isAllergy` (Checkbox)
   - `isLive` (Checkbox)
 
-### 7. Dish Type
+### 6. Dish Type
 
 - **API URL:** `/dishtype`
 - **Form Fields:**
   - `name` (Text, Required)
   - `isLive` (Checkbox)
 
-### 8. Cuisine
+### 7. Cuisine
 
 - **API URL:** `/cuisine`
 - **Form Fields:**
   - `name` (Text, Required)
   - `isLive` (Checkbox)
 
-### 9. Packaging Material
+### 8. Packaging Material
 
 - **API URL:** `/packaging-material`
 - **Form Fields:**
@@ -296,7 +288,7 @@ const userData = {
   - `cost` (Number)
   - `isLive` (Checkbox)
 
-### 10. Variant
+### 9. Variant
 
 - **API URL:** `/variant`
 - **Form Fields:**
@@ -306,14 +298,14 @@ const userData = {
 - **Form Options:**
   - **Ingredient:** `GET /ingredient?action=get_options`
 
-### 11. Allergens
+### 10. Allergens
 
 - **API URL:** `/allergens`
 - **Form Fields:**
   - `name` (Text, Required)
   - `isLive` (Checkbox)
 
-### 12. Barcode Place
+### 11. Barcode Place
 
 - **API URL:** `/barcode-place`
 - **Form Fields:**

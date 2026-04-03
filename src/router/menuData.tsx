@@ -1,5 +1,4 @@
 import IconMenuCalendar from '@/assets/Icon/Menu/IconMenuCalendar'
-import IconMenuContacts from '@/assets/Icon/Menu/IconMenuContacts'
 import IconMenuDashboard from '@/assets/Icon/Menu/IconMenuDashboard'
 import IconMenuPages from '@/assets/Icon/Menu/IconMenuPages'
 import IconMenuUsers from '@/assets/Icon/Menu/IconMenuUsers'
@@ -32,22 +31,10 @@ export const MENU_DATA: {
         path: '/',
       },
       {
-        id: 'user-management',
+        id: 'user',
         label: 'Users & Permissions',
         icon: IconMenuUsers as FC<IconProps>,
-        path: '/user-management',
-      },
-      {
-        id: 'user',
-        label: 'Users',
-        icon: IconMenuUsers as FC<IconProps>,
         path: '/user',
-      },
-      {
-        id: 'permissions',
-        label: 'Permissions',
-        icon: IconMenuContacts as FC<IconProps>,
-        path: '/permissions',
       },
       {
         id: 'recipe',

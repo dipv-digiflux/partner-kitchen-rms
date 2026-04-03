@@ -38,14 +38,6 @@ export const CRUD_MODULES_DATA: Record<string, CrudModuleInput> = {
     menuLabel: 'Users',
     menuIcon: 'users',
   },
-  permissions: {
-    apiUrl: '/permissions',
-    pageTitle: 'Permission',
-    permissionName: 'permission',
-    formMode: 'MODAL',
-    menuLabel: 'Permissions',
-    menuIcon: 'contacts',
-  },
   recipe: {
     apiUrl: '/recipe',
     pageTitle: 'Recipe',

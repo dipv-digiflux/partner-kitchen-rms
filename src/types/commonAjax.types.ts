@@ -7,6 +7,8 @@ export interface CommonAjaxProps<TData = JsonObject, TResponse = void> {
   url?: string
   type?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | string
   data?: TData | FormData
+  /** Passed to axios so React Query `cancelQueries` can abort in-flight HTTP requests. */
+  signal?: AbortSignal
   config?: AxiosRequestConfig
   callback?: (res: TResponse) => void
   rejectCallback?: (error: JsonObject | Error) => void

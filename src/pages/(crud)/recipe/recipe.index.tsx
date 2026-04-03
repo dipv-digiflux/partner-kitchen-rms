@@ -1,13 +1,11 @@
 import { AddRecord, DeleteRecord, EditRecord } from '@/components/crud/commonCrud/CommonElement/CommonAction'
 import { CommonCrudView } from '@/components/crud/commonCrud/CommonElement/CommonCrudView'
 import { CommonFilterSearch } from '@/components/crud/commonCrud/CommonElement/CommonFilter'
-import { CommonFormElement } from '@/components/crud/commonCrud/CommonElement/CommonFormElement'
 import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
 import type { RecipePayload } from '@/types/payload/recipe.payload'
 import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
-import { RecipeForm } from './RecipeForm'
 
 const columnHelper = createColumnHelper<RecipePayload>()
 
@@ -87,7 +85,6 @@ const RecipeContent = () => {
         </div>
       </div>
 
-      <CommonFormElement form={RecipeForm} />
     </div>
   )
 }

@@ -18,7 +18,6 @@ export class AppIdb extends Dexie {
   dishTypes!: Table<Record<string, unknown>, string>
   ingredients!: Table<Record<string, unknown>, string>
   packagingMaterials!: Table<Record<string, unknown>, string>
-  permissions!: Table<Record<string, unknown>, string>
   users!: Table<Record<string, unknown>, string>
   variants!: Table<Record<string, unknown>, string>
 
@@ -37,6 +36,19 @@ export class AppIdb extends Dexie {
       ingredients: '&_id',
       packagingMaterials: '&_id',
       permissions: '&_id',
+      users: '&_id',
+      variants: '&_id',
+    })
+    this.version(2).stores({
+      recipes: '&_id',
+      weeklyMenus: '&_id',
+      categories: '&_id',
+      allergens: '&_id',
+      barcodePlaces: '&_id',
+      cuisines: '&_id',
+      dishTypes: '&_id',
+      ingredients: '&_id',
+      packagingMaterials: '&_id',
       users: '&_id',
       variants: '&_id',
     })
