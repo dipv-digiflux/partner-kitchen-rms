@@ -39,13 +39,7 @@ function RecipeCard({
           </div>
 
           {onRemove ? (
-            <button
-              type="button"
-              className="text-gray-400 hover:text-gray-700 cursor-pointer"
-              aria-label="Remove"
-              onMouseDown={(e) => e.stopPropagation()}
-              onClick={onRemove}
-            >
+            <button type="button" className="text-gray-400 hover:text-gray-700 cursor-pointer" aria-label="Remove" onMouseDown={(e) => e.stopPropagation()} onClick={onRemove}>
               <X size={18} />
             </button>
           ) : null}
@@ -55,24 +49,12 @@ function RecipeCard({
   )
 }
 
-export function DualListDnd({
-  value,
-  options,
-  onChange,
-  className,
-}: {
-  value: string[]
-  options: OptionType[]
-  onChange: (next: string[]) => void
-  className?: string
-}) {
+export function DualListDnd({ value, options, onChange, className }: { value: string[]; options: OptionType[]; onChange: (next: string[]) => void; className?: string }) {
   const selectedIds = React.useMemo(() => (Array.isArray(value) ? value.map(String).filter(Boolean) : []), [value])
   const selectedSet = React.useMemo(() => new Set(selectedIds), [selectedIds])
 
   const availableItems = React.useMemo(() => {
-    return (options || [])
-      .map((o) => ({ id: String(o.value), label: String(o.label) }))
-      .filter((o) => !selectedSet.has(o.id))
+    return (options || []).map((o) => ({ id: String(o.value), label: String(o.label) })).filter((o) => !selectedSet.has(o.id))
   }, [options, selectedSet])
 
   const selectedItems = React.useMemo(() => {
@@ -133,15 +115,7 @@ export function DualListDnd({
                     {filteredAvailable.length ? (
                       filteredAvailable.map((i, index) => (
                         <Draggable key={i.id} draggableId={i.id} index={index}>
-                          {(p, snapshot) => (
-                            <RecipeCard
-                              label={i.label}
-                              innerRef={p.innerRef}
-                              draggableProps={p.draggableProps}
-                              dragHandleProps={p.dragHandleProps}
-                              isDragging={snapshot.isDragging}
-                            />
-                          )}
+                          {(p, snapshot) => <RecipeCard label={i.label} innerRef={p.innerRef} draggableProps={p.draggableProps} dragHandleProps={p.dragHandleProps} isDragging={snapshot.isDragging} />}
                         </Draggable>
                       ))
                     ) : (
@@ -162,10 +136,7 @@ export function DualListDnd({
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className={cn(
-                      'space-y-2 rounded-md border border-dashed p-2 min-h-[380px]',
-                      snapshot.isDraggingOver ? 'border-black bg-black/5' : 'border-gray-200 bg-white',
-                    )}
+                    className={cn('space-y-2 rounded-md border border-dashed p-2 min-h-[380px]', snapshot.isDraggingOver ? 'border-black bg-black/5' : 'border-gray-200 bg-white')}
                   >
                     {selectedItems.length ? (
                       selectedItems.map((i, index) => (
@@ -196,4 +167,3 @@ export function DualListDnd({
     </div>
   )
 }
-

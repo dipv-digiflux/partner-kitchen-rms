@@ -1,15 +1,10 @@
 import { useThemeConfig, useThemeConfigStore } from '@/lib/hooks/useThemeConfig'
 import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import IconLaptop from '../../assets/Icon/IconLaptop'
-import IconLockDots from '../../assets/Icon/IconLockDots'
 import IconLogout from '../../assets/Icon/IconLogout'
-import IconMail from '../../assets/Icon/IconMail'
 import IconMenu from '../../assets/Icon/IconMenu'
-import IconMoon from '../../assets/Icon/IconMoon'
-import IconSun from '../../assets/Icon/IconSun'
 import IconUser from '../../assets/Icon/IconUser'
-import { toggleSidebar, toggleTheme } from '../../store/themeConfigSlice'
+import { toggleSidebar } from '../../store/themeConfigSlice'
 import Dropdown from '../core/SelectInputField/Dropdown'
 
 const Header = () => {
@@ -55,7 +50,8 @@ const Header = () => {
           </div>
 
           <div className="sm:flex-1 ltr:sm:ml-0 ltr:ml-auto sm:rtl:mr-0 rtl:mr-auto flex items-center space-x-1.5 lg:space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
-            <div className="ms-auto">
+            <div className="ms-auto"></div>
+            {/* <div className="ms-auto">
               {themeConfig.theme === 'light' ? (
                 <button
                   className={`${
@@ -94,7 +90,7 @@ const Header = () => {
                   <IconLaptop />
                 </button>
               )}
-            </div>
+            </div> */}
             <div className="dropdown shrink-0 flex">
               <Dropdown
                 offset={[0, 8]}
@@ -118,21 +114,9 @@ const Header = () => {
                     </div>
                   </li>
                   <li>
-                    <Link to="/users/profile" className="dark:hover:text-white">
+                    <Link to="/user" className="dark:hover:text-white">
                       <IconUser className="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 shrink-0" />
                       Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/apps/mailbox" className="dark:hover:text-white">
-                      <IconMail className="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 shrink-0" />
-                      Inbox
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/auth/boxed-lockscreen" className="dark:hover:text-white">
-                      <IconLockDots className="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 shrink-0" />
-                      Lock Screen
                     </Link>
                   </li>
                   <li className="border-t border-white-light dark:border-white-light/10">

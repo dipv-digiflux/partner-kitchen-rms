@@ -113,19 +113,19 @@ export const createCommonCrud = <TRecord = JsonObject>({ apiName, apiUrl, pageTi
       showForm: (state: CommonCrudStateGeneric<TRecord>) => {
         state.commonCrud = { ...state.commonCrud, formVisibility: true, moduleMode: 'ADD' }
         if (API.formMode === 'PAGE') {
-          privateHookStore?.navigate?.(API.routes?.Form || '')
+          privateHookStore?.navigate?.(API.routes?.Form || '', { viewTransition: true })
         }
       },
       hideForm: (state: CommonCrudStateGeneric<TRecord>) => {
         state.commonCrud = { ...state.commonCrud, formVisibility: false, moduleMode: undefined }
         if (API.formMode === 'PAGE') {
-          privateHookStore?.navigate?.(API.routes?.pageRoute || '')
+          privateHookStore?.navigate?.(API.routes?.pageRoute || '', { viewTransition: true })
         }
       },
       editRecord: (state: CommonCrudStateGeneric<TRecord>, payload: unknown) => {
         state.commonCrud = { ...state.commonCrud, moduleMode: 'EDIT', selectedRecord: payload as TRecord, formVisibility: true }
         if (API.formMode === 'PAGE') {
-          privateHookStore?.navigate?.(`${API.routes?.Form || ''}?id=${(payload as JsonObject)?.id}`)
+          privateHookStore?.navigate?.(`${API.routes?.Form || ''}?id=${(payload as JsonObject)?.id}`, { viewTransition: true })
         }
       },
       deleteRecord: (state: CommonCrudStateGeneric<TRecord>, payload: unknown) => {
@@ -134,7 +134,7 @@ export const createCommonCrud = <TRecord = JsonObject>({ apiName, apiUrl, pageTi
       resetCrud: (state: CommonCrudStateGeneric<TRecord>) => {
         state.commonCrud = {}
         if (API.formMode === 'PAGE') {
-          privateHookStore?.navigate?.(API.routes?.pageRoute || '')
+          privateHookStore?.navigate?.(API.routes?.pageRoute || '', { viewTransition: true })
         }
       },
       toggleFilter: (state: CommonCrudStateGeneric<TRecord>) => {

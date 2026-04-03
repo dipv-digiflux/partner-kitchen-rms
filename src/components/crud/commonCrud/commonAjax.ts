@@ -1,7 +1,6 @@
 import { axiosApi } from '@/lib/services/api'
-import { CommonAjaxProps, CreateCommonAjaxConfig, JsonObject } from '@/types/commonAjax.types'
+import { CommonAjaxProps, CreateCommonAjaxConfig } from '@/types/commonAjax.types'
 import { AxiosRequestConfig, isAxiosError } from 'axios'
-import { handleIdbRequest, isIdbUrl } from '@/lib/services/idbCrudService'
 
 export const createCommonAjax = ({ url, config }: CreateCommonAjaxConfig = { url: '' }) => {
   return <TResponse = unknown, TData = unknown>({ config: userConfig = {}, ...arg }: CommonAjaxProps<TData, TResponse>): Promise<TResponse> => {
@@ -44,25 +43,15 @@ export const commonAjax = async <TData = unknown, TResponse = unknown>({
       throw new Error('URL must be a string')
     }
 
-    // TODO: IDB data handling
-    // For selected modules, handle through IndexedDB via Dexie instead of real HTTP.
-    if (isIdbUrl(url)) {
-      axiosResponse = (await handleIdbRequest<TResponse, JsonObject>({
-        url,
-        method,
-        data: data as JsonObject,
-      })) as TResponse
+    if (method === 'get' || method === 'delete') {
+      finalConfig.params = data
+      const response = await axiosApi[method]<TResponse>(url, finalConfig)
+      // The interceptor returns res.data, so response is TResponse directly
+      axiosResponse = response as unknown as TResponse
     } else {
-      if (method === 'get' || method === 'delete') {
-        finalConfig.params = data
-        const response = await axiosApi[method]<TResponse>(url, finalConfig)
-        // The interceptor returns res.data, so response is TResponse directly
-        axiosResponse = response as unknown as TResponse
-      } else {
-        const response = await axiosApi[method]<TResponse>(url, data, finalConfig)
-        // The interceptor returns res.data, so response is TResponse directly
-        axiosResponse = response as unknown as TResponse
-      }
+      const response = await axiosApi[method]<TResponse>(url, data, finalConfig)
+      // The interceptor returns res.data, so response is TResponse directly
+      axiosResponse = response as unknown as TResponse
     }
 
     if (callback) callback(axiosResponse)

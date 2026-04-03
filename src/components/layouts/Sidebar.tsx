@@ -119,7 +119,7 @@ const Sidebar = () => {
               </AnimateHeight>
             </>
           ) : (
-            <NavLink to={sub.path} target={sub.target} className="nav-link">
+            <NavLink to={sub.path} target={sub.target} className="nav-link" viewTransition>
               {t(sub.label)}
             </NavLink>
           )}
@@ -140,7 +140,7 @@ const Sidebar = () => {
       >
         <div className="bg-white dark:bg-black h-full flex flex-col">
           <div className="flex justify-between items-center px-4 py-3">
-            <NavLink to="/" className={`main-logo flex items-center shrink-0 ${isCollapsedForWidth ? 'justify-center w-full' : ''}`}>
+            <NavLink to="/" className={`main-logo flex items-center shrink-0 ${isCollapsedForWidth ? 'justify-center w-full' : ''}`} viewTransition>
               <img className={`${isCollapsedForWidth ? 'w-8' : 'w-24'} h-auto object-contain transition-all duration-300`} src={moltLogo} alt="logo" />
             </NavLink>
 
@@ -208,7 +208,7 @@ const Sidebar = () => {
                             </AnimateHeight>
                           </>
                         ) : (
-                          <NavLink to={item.path!} className="nav-link group w-full hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md p-2">
+                          <NavLink to={item.path!} className="nav-link group w-full hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md p-2" viewTransition>
                             <div className={`flex items-center ${isCollapsedForWidth ? 'justify-center' : ''}`}>
                               <item.icon className={`shrink-0 text-gray-500 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light ${isCollapsedForWidth ? 'mx-auto' : ''}`} />
                               <span className={`ltr:pl-3 rtl:pr-3 text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white-light ${isCollapsedForWidth ? 'hidden' : ''}`}>
@@ -223,7 +223,7 @@ const Sidebar = () => {
               ))}
             </ul>
           </PerfectScrollbar>
-          <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+          {/* <div className="border-t border-gray-200 dark:border-gray-700 p-4">
             <div className={`flex items-center gap-3 ${isCollapsedForWidth ? 'justify-center' : ''}`}>
               <img className="w-10 h-10 rounded-full object-cover" src="/assets/images/user-profile.jpeg" alt="profile" />
               <div className={`flex-1 overflow-hidden ${isCollapsedForWidth ? 'hidden' : ''}`}>
@@ -234,7 +234,7 @@ const Sidebar = () => {
                 <IconCaretsDown className="rotate-90" />
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </nav>
     </div>

@@ -17,11 +17,6 @@ const CATEGORY_OPTIONS: OptionType[] = [
   { label: 'Snack', value: 'Snack' },
 ]
 
-const SIZE_OPTIONS: OptionType[] = [
-  { label: 'Small', value: 'Small' },
-  { label: 'Large', value: 'Large' },
-]
-
 export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayload>) => {
   const pagtitle = moduleMode === 'EDIT' ? 'Edit' : 'Add'
   const API = useModuleApi()
@@ -79,10 +74,7 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
   return (
     <PageFormWrapper title={`${pagtitle} Recipe`} className="max-w-[1300px] mx-auto">
       <FormProvider {...formApi}>
-        <form
-          onSubmit={handleSubmit((data) => submitHandler(data, false))}
-          className="space-y-6"
-        >
+        <form onSubmit={handleSubmit((data) => submitHandler(data, false))} className="space-y-6">
           <div className="space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
               <FormField name="dishName" label="Recipe Name" />
@@ -110,7 +102,7 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
           <div className="bg-white rounded-md border border-gray-200 p-6 mt-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
               <h3 className="text-lg font-bold text-gray-800">Variants & Portioning</h3>
-              <button type="button" onClick={() => variantsArray.append({})} className="text-sm font-semibold text-success hover:underline">
+              <button type="button" onClick={() => variantsArray.append({})} className="text-sm font-semibold text-success hover:underline cursor-pointer">
                 + Add New Row
               </button>
             </div>
@@ -118,75 +110,101 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
               <table className="w-full text-left text-sm border-collapse">
                 <thead>
                   <tr className="border-b border-gray-200">
-                    <th className="font-bold py-3 px-2 whitespace-nowrap w-12 text-center">#</th>
-                    <th className="font-bold py-3 px-2 whitespace-nowrap">Kcal</th>
-                    <th className="font-bold py-3 px-2 whitespace-nowrap">Pro g</th>
-                    <th className="font-bold py-3 px-2 whitespace-nowrap">Carb g</th>
-                    <th className="font-bold py-3 px-2 whitespace-nowrap">Fat g</th>
-                    <th className="font-bold py-3 px-2 whitespace-nowrap">Calculated Price</th>
-                    <th className="font-bold py-3 px-2 whitespace-nowrap">Calculated Diet Type</th>
-                    <th className="font-bold py-3 px-2 whitespace-nowrap">Calculated Size</th>
+                    <th className="font-bold py-3 px-2 whitespace-nowrap w-12 text-center">Options</th>
+                    <th className="font-bold py-3 px-2 whitespace-nowrap text-center">Variant (available)</th>
+                    <th className="font-bold py-3 px-2 whitespace-nowrap text-center">Kcal</th>
+                    <th className="font-bold py-3 px-2 whitespace-nowrap text-center">Pro g</th>
+                    <th className="font-bold py-3 px-2 whitespace-nowrap text-center">Carb g</th>
+                    <th className="font-bold py-3 px-2 whitespace-nowrap text-center">Fat g</th>
+                    <th className="font-bold py-3 px-2 whitespace-nowrap text-center">Price</th>
+                    <th className="font-bold py-3 px-2 whitespace-nowrap text-center">Diet Type</th>
+                    {Array.from({ length: 10 }).map((_, componentIdx) => (
+                      <span key={`component-head-${componentIdx}`} className="contents">
+                        <th className="font-bold py-3 px-2 whitespace-nowrap text-center">Component {componentIdx + 1}</th>
+                        <th className="font-bold py-3 px-2 whitespace-nowrap text-center">Comp {componentIdx + 1} g</th>
+                      </span>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {variantsArray.fields.map((field, idx) => (
+                  {variantsArray.fields.map((field, rowIdx) => (
                     <tr key={field.id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50/50">
                       <td className="py-2 px-2 text-center">
-                        <button type="button" onClick={() => variantsArray.remove(idx)} className="text-danger hover:text-red-700" disabled={variantsArray.fields.length === 1}>
+                        <button type="button" onClick={() => variantsArray.remove(rowIdx)} className="text-danger hover:text-red-700 cursor-pointer" disabled={variantsArray.fields.length === 1}>
                           <Trash2 size={16} />
                         </button>
                       </td>
+                      <td className="py-2 px-2 min-w-[120px]">
+                        <FormField name={`variants.${rowIdx}.Variant`} type="select" options={[]} placeholder="Select.." className="rounded-none bg-transparent shadow-none!" />
+                      </td>
                       <td className="py-2 px-2 min-w-[100px]">
                         <FormField
-                          name={`variants.${idx}.kcal`}
+                          name={`variants.${rowIdx}.kcal`}
                           type="number"
                           placeholder=""
-                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
                         />
                       </td>
                       <td className="py-2 px-2 min-w-[100px]">
                         <FormField
-                          name={`variants.${idx}.protein`}
+                          name={`variants.${rowIdx}.protein`}
                           type="number"
                           placeholder=""
-                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
                         />
                       </td>
                       <td className="py-2 px-2 min-w-[100px]">
                         <FormField
-                          name={`variants.${idx}.carb`}
+                          name={`variants.${rowIdx}.carb`}
                           type="number"
                           placeholder=""
-                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
                         />
                       </td>
                       <td className="py-2 px-2 min-w-[100px]">
                         <FormField
-                          name={`variants.${idx}.fat`}
+                          name={`variants.${rowIdx}.fat`}
                           type="number"
                           placeholder=""
-                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
                         />
                       </td>
                       <td className="py-2 px-2 min-w-[100px]">
                         <FormField
-                          name={`variants.${idx}.price`}
+                          name={`variants.${rowIdx}.price`}
                           type="number"
                           step="0.01"
                           placeholder=""
-                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
                         />
                       </td>
                       <td className="py-2 px-2 min-w-[120px]">
                         <FormField
-                          name={`variants.${idx}.dietType`}
+                          name={`variants.${rowIdx}.dietType`}
                           placeholder=""
-                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0"
+                          className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
                         />
                       </td>
-                      <td className="py-2 px-2 min-w-[120px]">
-                        <FormField name={`variants.${idx}.sizeAvailable`} type="select" options={SIZE_OPTIONS} placeholder="Size" className="rounded-none bg-transparent shadow-none!" />
-                      </td>
+                      {Array.from({ length: 10 }).map((_, componentIdx) => (
+                        <span key={`component-${rowIdx}-${componentIdx}`} className="contents">
+                          <td className="py-2 px-2 min-w-[100px]">
+                            <FormField
+                              name={`variants.${rowIdx}.component.${componentIdx}.name`}
+                              type="text"
+                              placeholder=""
+                              className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
+                            />
+                          </td>
+                          <td className="py-2 px-2 min-w-[100px]">
+                            <FormField
+                              name={`variants.${rowIdx}.component.${componentIdx}.g`}
+                              type="number"
+                              placeholder=""
+                              className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
+                            />
+                          </td>
+                        </span>
+                      ))}
                     </tr>
                   ))}
                 </tbody>

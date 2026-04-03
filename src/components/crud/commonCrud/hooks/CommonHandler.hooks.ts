@@ -76,7 +76,6 @@ const useFilterSubmitHandler = ({ apiName, mutationKey = [] }: { apiName: string
       queryClient.cancelQueries({ queryKey: Api.crudApi.queryKeys['dataHandlerKey'] })
 
       setSearchPrams(SearchParamsObject)
-      
     },
   })
 }
@@ -100,7 +99,7 @@ const useDataHandler = ({ apiName, queryKey: userQueryKey = [], data = {} }: { a
 
   return useQuery({
     queryKey,
-    queryFn: ({signal}) => {
+    queryFn: ({ signal }) => {
       const finalData = { action, page, limit, ...filters, ...data }
       if (sortBy) Object.assign(finalData, { sortBy, sortOrder: sortOrder || 'asc' })
       return Api.AjaxApi({ data: finalData, signal })
