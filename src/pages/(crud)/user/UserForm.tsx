@@ -1,12 +1,8 @@
 import { Modal } from '@/components/core/PopupModal/Modal'
-import { commonAjax } from '@/components/crud/commonCrud/commonAjax'
 import { FormField } from '@/components/crud/commonHelper/formValidation/FormField'
 import { useModuleApi } from '@/lib/hooks/useModuleApi'
-import type { JsonObject } from '@/types/commonAjax.types'
-import type { OptionType } from '@/types/components.types'
 import type { CrudFormProps } from '@/types/modulePages.types'
 import type { UserPayload } from '@/types/payload/user.payload'
-import { useQuery } from '@tanstack/react-query'
 import { FormProvider, useForm } from 'react-hook-form'
 
 export const UserForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle }: CrudFormProps<UserPayload>) => {
@@ -19,17 +15,6 @@ export const UserForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle }: 
   })
 
   const { handleSubmit, watch } = formApi
-
-  const { data: rolesOptions, isFetching } = useQuery({
-    queryKey: ['rolesOptions'],
-    queryFn: async () => {
-      const response = (await commonAjax({
-        url: '/role?action=get_options',
-        type: 'GET',
-      })) as JsonObject & { data: { name: string; _id: string }[] }
-      return response?.data?.map(({ name: label, _id: value }) => ({ label, value })) || []
-    },
-  })
 
   const { isPending, mutate } = useSubmitHandler<UserPayload>()
 
@@ -80,9 +65,9 @@ export const UserForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle }: 
             </div>
           )}
 
-          <FormField name={'status'} label={'Status'} type="checkbox" />
+          {/* <FormField name={'status'} label={'Status'} type="checkbox" /> */}
 
-          <FormField
+          {/* <FormField
             name={'role'}
             label={'Role'}
             type="select"
@@ -91,7 +76,7 @@ export const UserForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle }: 
             validateRule={{ required: true, name: 'Role' }}
             menuPlacement="top"
             placeholder={isFetching ? 'Loading Roles...' : 'Select role for this user'}
-          />
+          /> */}
 
           {!isViewRecord && (
             <div className="mt-6 flex justify-end">

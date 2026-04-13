@@ -29,7 +29,6 @@ export type InputType =
   | 'month'
   | 'otp'
   | 'daterange'
-  | 'duallistdnd'
 
 export interface OptionalRequiredConditionType {
   name: string

@@ -191,7 +191,7 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
                             <FormField
                               name={`variants.${rowIdx}.component.${componentIdx}.name`}
                               type="text"
-                              placeholder=""
+                              placeholder={`Comp ${componentIdx + 1}`}
                               className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
                             />
                           </td>
@@ -199,7 +199,7 @@ export const RecipeForm = ({ fetchRecord, moduleMode }: CrudFormProps<RecipePayl
                             <FormField
                               name={`variants.${rowIdx}.component.${componentIdx}.g`}
                               type="number"
-                              placeholder=""
+                              placeholder={`Comp ${componentIdx + 1} g`}
                               className="border-b-2 border-l-0 border-r-0 border-t-0 rounded-none bg-transparent px-1 shadow-none! focus:ring-0 text-center"
                             />
                           </td>

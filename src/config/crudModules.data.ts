@@ -31,12 +31,18 @@ export interface CrudModuleInput {
 /** All CRUD modules. Key = apiName (use kebab-case e.g. 'weekly-menu'). */
 export const CRUD_MODULES_DATA: Record<string, CrudModuleInput> = {
   user: {
-    apiUrl: '/user',
+    apiUrl: '/',
     pageTitle: 'User',
     permissionName: 'user',
     formMode: 'MODAL',
     menuLabel: 'Users',
     menuIcon: 'users',
+    customUrls:{
+      list: '/list',
+      getOne: '/:id',
+      update: '/:id',
+      delete: '/:id',
+    }
   },
   recipe: {
     apiUrl: '/recipe',

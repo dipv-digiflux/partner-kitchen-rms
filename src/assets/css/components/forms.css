@@ -75,45 +75,25 @@
 
   /* checkbox & radio */
   .form-radio,
-  .form-checkbox {
+  .form-checkbox,
+  .form-checkbox-md {
     @apply h-5 w-5 cursor-pointer rounded border-2 border-white-light bg-transparent text-primary !shadow-none !outline-none !ring-0 !ring-offset-0 checked:bg-[length:90%_90%] disabled:cursor-not-allowed disabled:bg-[#eee] ltr:mr-1.5 rtl:ml-1.5;
   }
   :is(.dark .form-radio),
-  :is(.dark .form-checkbox) {
+  :is(.dark .form-checkbox),
+  :is(.dark .form-checkbox-md) {
     @apply border-[#253b5c] disabled:bg-[#1b2e4b];
   }
   :is(.dark .form-radio):checked,
-  :is(.dark .form-checkbox):checked {
+  :is(.dark .form-checkbox):checked,
+  :is(.dark .form-checkbox-md):checked {
     @apply border-transparent;
   }
 
-  .form-checkbox.outline-primary:checked {
+  .form-checkbox.outline-primary:checked,
+  .form-checkbox-md.outline-primary:checked {
     @apply border-primary bg-transparent;
     background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%234361ee' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
-  }
-  .form-checkbox.outline-secondary:checked {
-    @apply border-secondary bg-transparent;
-    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23805dca' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
-  }
-  .form-checkbox.outline-success:checked {
-    @apply border-success bg-transparent;
-    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%2300ab55' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
-  }
-  .form-checkbox.outline-danger:checked {
-    @apply border-danger bg-transparent;
-    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23e7515a' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
-  }
-  .form-checkbox.outline-warning:checked {
-    @apply border-warning bg-transparent;
-    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23e2a03f' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
-  }
-  .form-checkbox.outline-info:checked {
-    @apply border-info bg-transparent;
-    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%232196f3' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
-  }
-  .form-checkbox.outline-dark:checked {
-    @apply border-dark bg-transparent;
-    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%233b3f5c' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
   }
 
   .form-radio {

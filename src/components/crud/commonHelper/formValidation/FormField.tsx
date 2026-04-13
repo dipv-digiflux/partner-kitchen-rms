@@ -4,8 +4,6 @@ import OtpInput from '@/components/core/TextInputField/OtpInput'
 import { FileInput } from '@/components/core/FileInputField/FileInput'
 import { DatePicker } from '@/components/core/DatePickerInputField'
 import { DateRangePickerField } from '@/components/core/DateRangePickerField'
-import { DualListDnd } from '@/components/core/DualListDnd'
-import type { OptionType } from '@/types/components.types'
 import { cn } from '@/lib/utils/utills'
 import { FormElementProps, FormFieldProps, InputType } from '@/types/form.types'
 import { ErrorMessage } from '@hookform/error-message'
@@ -158,19 +156,6 @@ const FormElement = ({ type, name, newRules, register, control, inputId, require
             className={cn(required && 'required-border rounded-md', atr?.className)}
             disabled={atr?.disabled as boolean}
           />
-        )}
-      />
-    )
-  }
-
-  if (type == 'duallistdnd') {
-    return (
-      <Controller
-        name={name}
-        rules={newRules}
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <DualListDnd value={(Array.isArray(value) ? (value as string[]) : []) ?? []} options={(options as OptionType[]) || []} onChange={(next) => onChange(next)} />
         )}
       />
     )

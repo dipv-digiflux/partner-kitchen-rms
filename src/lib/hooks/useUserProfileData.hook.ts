@@ -1,12 +1,12 @@
 import { commonAjax } from '@/components/crud/commonCrud/commonAjax'
-import { JsonObject } from '@/types/json.types'
+import type { UserProfileDetails, UserProfileDetailsResponse } from '@/types/userProfile.types'
 import { useQuery } from '@tanstack/react-query'
 
 export const useUserProfileData = () => {
-  return useQuery({
+  return useQuery<UserProfileDetails>({
     queryKey: ['user-profile-details'],
     queryFn: async () => {
-      const jsonData = (await commonAjax({ url: '/user/profile-details', type: 'GET' })) as JsonObject & { data: { permissions: string[] } }
+      const jsonData = (await commonAjax({ url: '/user/profile-details', type: 'GET' })) as UserProfileDetailsResponse
       return {
         permissions: jsonData.data.permissions,
         data: jsonData,

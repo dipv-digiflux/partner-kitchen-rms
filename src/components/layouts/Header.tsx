@@ -1,6 +1,7 @@
 import { useThemeConfig, useThemeConfigStore } from '@/lib/hooks/useThemeConfig'
+import { removeAuthData } from '@/lib/auth/auth'
 import { useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import IconLogout from '../../assets/Icon/IconLogout'
 import IconMenu from '../../assets/Icon/IconMenu'
 import IconUser from '../../assets/Icon/IconUser'
@@ -9,6 +10,7 @@ import Dropdown from '../core/SelectInputField/Dropdown'
 
 const Header = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   useEffect(() => {
     const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]')
     if (selector) {
@@ -98,7 +100,7 @@ const Header = () => {
                 btnClassName="relative group block"
                 button={<img className="w-9 h-9 rounded-full object-cover saturate-50 group-hover:saturate-100" src="/assets/images/user-profile.jpeg" alt="userProfile" />}
               >
-                <ul className="text-dark dark:text-white-dark !py-0 w-[230px] font-semibold dark:text-white-light/90">
+                <ul className="text-dark py-0! w-[230px] font-semibold dark:text-white-light/90">
                   <li>
                     <div className="flex items-center px-4 py-4">
                       <img className="rounded-md w-10 h-10 object-cover" src="/assets/images/user-profile.jpeg" alt="userProfile" />
@@ -120,7 +122,15 @@ const Header = () => {
                     </Link>
                   </li>
                   <li className="border-t border-white-light dark:border-white-light/10">
-                    <Link to="/login" className="text-danger !py-3">
+                    <Link
+                      to="/login"
+                      className="text-danger py-3!"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        removeAuthData()
+                        navigate('/login', { replace: true })
+                      }}
+                    >
                       <IconLogout className="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 rotate-90 shrink-0" />
                       Sign Out
                     </Link>

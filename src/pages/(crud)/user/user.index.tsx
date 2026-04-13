@@ -47,17 +47,6 @@ const UserContent = () => {
         ),
         size: 200,
       }),
-      columnHelper.accessor('role', {
-        header: 'Role',
-        cell: (info) => {
-          const roles = info.getValue() as { name: string }[] | undefined
-          return <span>{roles?.map((r) => r.name).join(', ')}</span>
-        },
-      }),
-      columnHelper.accessor('status', {
-        header: 'Status',
-        cell: (info) => <span>{info.getValue() ? 'Active' : 'In-Active'}</span>,
-      }),
       columnHelper.display({
         id: 'actions',
         header: 'Action',
