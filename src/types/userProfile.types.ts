@@ -6,4 +6,3 @@ export type UserProfileDetails = {
   permissions: string[]
   data: UserProfileDetailsResponse
 }
-

@@ -26,10 +26,7 @@ export const UserForm = ({ isUpdateRecord, isViewRecord, fetchRecord, toggle }: 
     <Modal open={true} onClose={toggle} className="modal-md" title={`${isViewRecord ? 'View' : isUpdateRecord ? 'Update' : 'Add'} ${API.pageTitle}`}>
       <FormProvider {...formApi}>
         <form onSubmit={handleSubmit(submitHandler)} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormField name="first_name" label={'First Name'} validateRule={{ required: true, name: 'First Name' }} />
-            <FormField name="last_name" label={'Last Name'} validateRule={{ required: true, name: 'Last Name' }} />
-          </div>
+          <FormField name="name" label={'Name'} validateRule={{ required: true }} />
 
           <FormField name={'email'} label={'Email'} validateRule={{ required: true, validType: 'email', name: 'Email' }} />
 

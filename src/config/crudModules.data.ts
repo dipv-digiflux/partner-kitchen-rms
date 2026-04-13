@@ -37,15 +37,15 @@ export const CRUD_MODULES_DATA: Record<string, CrudModuleInput> = {
     formMode: 'MODAL',
     menuLabel: 'Users',
     menuIcon: 'users',
-    customUrls:{
+    customUrls: {
       list: '/list',
       getOne: '/:id',
       update: '/:id',
       delete: '/:id',
-    }
+    },
   },
   recipe: {
-    apiUrl: '/recipe',
+    apiUrl: '/recipes',
     pageTitle: 'Recipe',
     permissionName: 'recipe',
     formMode: 'PAGE',

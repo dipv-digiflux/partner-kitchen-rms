@@ -14,4 +14,3 @@ export const removeAuthData = () => {
   Cookies.remove('refreshToken')
   localStorage.removeItem('user-permissions')
 }
-

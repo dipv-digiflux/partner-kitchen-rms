@@ -196,12 +196,7 @@ function RecipeScheduleModal({
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-7" role="group" aria-describedby={daysError ? 'modal-days-error' : undefined}>
             {WEEK_DAYS.map((d) => (
               <label key={d.key} className={sx.dayChip}>
-                <input
-                  type="checkbox"
-                  className="form-checkbox outline-primary shrink-0 h-4 w-4"
-                  checked={draft.days.includes(d.key)}
-                  onChange={() => onToggleDay(d.key)}
-                />
+                <input type="checkbox" className="form-checkbox outline-primary shrink-0 h-4 w-4" checked={draft.days.includes(d.key)} onChange={() => onToggleDay(d.key)} />
                 <span>{d.label}</span>
               </label>
             ))}
@@ -218,12 +213,7 @@ function RecipeScheduleModal({
           <div className={cn('space-x-2 space-y-2 p-4', sx.panel)}>
             {PROFILE_ROWS.map(({ key, label: lbl }) => (
               <label key={key} className={cn('inline-flex mb-0 cursor-pointer items-center text-sm text-[#0e1726] dark:text-[#e2e8f0]')}>
-                <input
-                  type="checkbox"
-                  className="form-checkbox outline-primary shrink-0 h-4 w-4"
-                  checked={!!draft[key]}
-                  onChange={(e) => onProfile(key, e.target.checked)}
-                />
+                <input type="checkbox" className="form-checkbox outline-primary shrink-0 h-4 w-4" checked={!!draft[key]} onChange={(e) => onProfile(key, e.target.checked)} />
                 <span>{lbl}</span>
               </label>
             ))}
@@ -360,7 +350,7 @@ export function WeeklyMenuRecipeDualList<TFieldValues extends FieldValues>({
       const item = filteredAvailable[rubric.source.index]
       return (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="pointer-events-none">
-          {item ? (renderers?.renderDragPreview ? renderers.renderDragPreview({ label: item.label }) : <DragPreviewCard label={item.label} />) : null}
+          {item ? renderers?.renderDragPreview ? renderers.renderDragPreview({ label: item.label }) : <DragPreviewCard label={item.label} /> : null}
         </div>
       )
     },
@@ -373,7 +363,7 @@ export function WeeklyMenuRecipeDualList<TFieldValues extends FieldValues>({
       const lbl = entry ? (labelById.get(entry.recipeId) ?? entry.recipeId) : ''
       return (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="pointer-events-none">
-          {entry ? (renderers?.renderDragPreview ? renderers.renderDragPreview({ label: lbl }) : <DragPreviewCard label={lbl} />) : null}
+          {entry ? renderers?.renderDragPreview ? renderers.renderDragPreview({ label: lbl }) : <DragPreviewCard label={lbl} /> : null}
         </div>
       )
     },

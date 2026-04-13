@@ -9,16 +9,15 @@ export type UserRole = string | UserRoleObject
 
 export type UserPayload = {
   _id: string
-  first_name: string
-  last_name: string
+  name?: string
   email: string
   status: boolean
   /** In the form, role is an array of selected option values (string[]).
    *  In the API response it may come back as UserRoleObject[]. */
   role: UserRole[]
-  full_name: string
   country_code: string
   mobile: string
+  createdAt?: string
   password: string
   confirmPassword: string
 }

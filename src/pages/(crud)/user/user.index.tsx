@@ -6,6 +6,7 @@ import { ModuleBreadCrumb } from '@/components/ModuleBreadCrumb'
 import { withModuleProvider } from '@/lib/hoc/withModuleProvider'
 import type { UserPayload } from '@/types/payload/user.payload'
 import { createColumnHelper } from '@tanstack/react-table'
+import { format } from 'date-fns'
 import { useMemo } from 'react'
 import { UserForm } from './UserForm'
 
@@ -29,22 +30,22 @@ const UserContent = () => {
         },
         size: 80,
       }),
-      columnHelper.accessor('full_name', {
+      columnHelper.accessor((row) => row.name, {
+        id: 'name',
         header: 'Name',
-        cell: (info) => <span>{info.getValue()}</span>,
       }),
       columnHelper.accessor('email', {
         header: 'Email',
         size: 300,
       }),
-      columnHelper.display({
-        id: 'mobile',
-        header: 'Number',
-        cell: ({ row }) => (
-          <span>
-            {row.original.country_code as string} {row.original.mobile as string}
-          </span>
-        ),
+      columnHelper.accessor((row) => row.createdAt ?? null, {
+        id: 'createdAt',
+        header: 'Created At',
+        cell: (info) => {
+          const value = info.getValue()
+          if (typeof value !== 'string' || !value) return <span />
+          return <span>{format(new Date(value), 'dd/MM/yyyy')}</span>
+        },
         size: 200,
       }),
       columnHelper.display({
