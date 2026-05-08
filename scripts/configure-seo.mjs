@@ -1,6 +1,7 @@
 /* global process, console */
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { seoBuildConfig } from "./seo.config.mjs";
 
 const deploymentEnv = (
   process.env.APP_ENV ||
@@ -19,7 +20,28 @@ const robotsMeta = isProd
 const robotsTxt = isProd ? "User-agent: *\nAllow: /\n" : "User-agent: *\nDisallow: /\n";
 
 mkdirSync(publicDir, { recursive: true });
-writeFileSync(localEnvFile, `VITE_ROBOTS_META="${robotsMeta}"\n`, "utf8");
+const existingEnv = (() => {
+  try {
+    return readFileSync(localEnvFile, "utf8");
+  } catch {
+    return "";
+  }
+})();
+const preservedLines = existingEnv
+  .split("\n")
+  .filter(Boolean)
+  .filter(
+    (line) =>
+      !line.startsWith("VITE_ROBOTS_META=") &&
+      !line.startsWith("VITE_DEFAULT_TITLE=") &&
+      !line.startsWith("VITE_DEFAULT_DESCRIPTION="),
+  );
+const seoEnvLines = [
+  `VITE_ROBOTS_META="${robotsMeta}"`,
+  `VITE_DEFAULT_TITLE="${seoBuildConfig.defaultTitle}"`,
+  `VITE_DEFAULT_DESCRIPTION="${seoBuildConfig.defaultDescription}"`,
+];
+writeFileSync(localEnvFile, `${[...preservedLines, ...seoEnvLines].join("\n")}\n`, "utf8");
 writeFileSync(resolve(publicDir, "robots.txt"), robotsTxt, "utf8");
 
 const headersPath = resolve(publicDir, "_headers");

@@ -11,10 +11,16 @@ const finalRoutes = routes.map((route) => {
 import BlankLayout from '@/components/layouts/BlankLayout'
 import DefaultLayout from '@/components/layouts/DefaultLayout'
 import { HookExportProvider } from '@/lib/providers/HookExportProvider'
+import { SeoRouteManager } from '@/components/layouts/SeoRouteManager'
 
 const router = createBrowserRouter([
   {
-    element: <HookExportProvider />,
+    element: (
+      <>
+        <SeoRouteManager />
+        <HookExportProvider />
+      </>
+    ),
     children: finalRoutes,
   },
 ])
